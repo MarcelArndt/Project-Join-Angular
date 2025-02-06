@@ -1,0 +1,17 @@
+.content-container-main-wrapper {
+    width: calc(100% - 250px);
+    position: fixed;
+    top: 100px;
+    left: 250px;
+    overflow-y: scroll;
+    height: calc(100vh - 100px);
+    box-sizing: border-box;
+    padding: 96px 64px;
+}
+
+.content-container-content-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}

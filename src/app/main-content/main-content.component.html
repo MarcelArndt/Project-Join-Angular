@@ -1,6 +1,7 @@
-<div class="main-wrapper" (click)="handleClick($event)">
+<div class="main-wrapper" (click)="headerNaviService.closeNavi($event)">
     <div class="content-wrapper">
         <app-navigation></app-navigation>
         <app-headline></app-headline>
+        <app-content-container></app-content-container>
     </div>
 </div>

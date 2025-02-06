@@ -1,6 +1,6 @@
 .nav-container {
     --width-from-profil-pic: 56px;
-    --width: 180px;
+    --width: 186px;
     box-sizing: border-box;
     position: absolute;
     top: calc(var(--width-from-profil-pic) + 8px);
@@ -19,7 +19,6 @@ ul {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
 
     li {
         margin: 12px 0px;

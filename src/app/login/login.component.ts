@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormLogInComponent } from './form-log-in/form-log-in.component';
 import { FormSignUpComponent } from './form-sign-up/form-sign-up.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, FormLogInComponent, FormSignUpComponent],
+  imports: [CommonModule, FormLogInComponent, FormSignUpComponent, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss', 'animation.scss']
 })
