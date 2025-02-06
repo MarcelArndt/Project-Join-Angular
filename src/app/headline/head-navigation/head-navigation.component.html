@@ -1,0 +1,8 @@
+<div class="nav-container" (click)="preventClick($event)"
+    [ngClass]="{'animation-fade-out' :currentClass == 'fade-out', 'animation-fade-in' :currentClass == 'fade-in', 'display-init' : isfirstTime}">
+    <ul>
+        <li>Legal Notice</li>
+        <li>Privacy Policy</li>
+        <li>Log-out</li>
+    </ul>
+</div>

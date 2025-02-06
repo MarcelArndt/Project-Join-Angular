@@ -1,1 +1,15 @@
-<p>headline works!</p>
+<header (click)="navi.closeNavi($event)">
+    <p>Kanban Project Management Tool</p>
+    <div class="container-wrapper">
+        <div class="button-help">
+            <icon>help</icon>
+        </div>
+        <div class="profil-container" (click)="preventClick($event)">
+            <div class="profil" (click)="navi.toggleNavi()">
+                <span class="initial">MA</span>
+            </div>
+            <app-head-navigation #navi></app-head-navigation>
+        </div>
+
+    </div>
+</header>

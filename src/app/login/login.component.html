@@ -11,15 +11,12 @@
                 <li>Legal Notice</li>
             </ul>
         </nav>
-
-
         <div class="whitebox">
             <form-log-in class="fullsize"
                 [ngClass]="{'animation-fade-in-left' : !isSignUp && !isInit, 'animation-fade-out-left' : isSignUp && !isInit, 'initIn' : isInit}"></form-log-in>
             <form-sign-up class="fullsize" (switchEvent)="toggleContent()"
                 [ngClass]="{'animation-fade-in-right' : isSignUp && !isInit, 'animation-fade-out-right' : !isSignUp && !isInit, 'initOut' : isInit}"></form-sign-up>
         </div>
-
         <div class="none" [ngClass]="{'white-space' : secondClassForLogo == 'animation'}"></div>
         <div class="logo"><img src="./img/logo-black.svg" [ngClass]="secondClassForLogo"></div>
     </div>

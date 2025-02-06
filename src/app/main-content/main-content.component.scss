@@ -1,0 +1,16 @@
+.main-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.content-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 3440px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    background-color: var(--background);
+}
