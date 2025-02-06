@@ -24,7 +24,6 @@ body {
 
 }
 
-
 ul {
     margin-inline-start: 0px;
     margin-inline-end: 0px;
@@ -43,18 +42,15 @@ h1 {
     color: var(--black);
     margin-block-start: 0em;
     margin-block-end: 0em;
-    margin-top: 48px;
-    margin-bottom: 12px;
     font-weight: 700;
 }
 
 hr {
-    width: 35%;
+    width: 300px;
     background-color: var(--cyan);
     border: 0px;
     height: 2px;
 }
-
 
 .black-button {
     display: flex;

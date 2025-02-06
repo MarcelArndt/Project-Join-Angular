@@ -1,0 +1,28 @@
+form {
+    position: relative;
+    overflow: hidden;
+}
+
+.button-backwards {
+    position: absolute;
+    top: 36px;
+    left: 46px;
+    font-size: 42px;
+    background-color: var(--white);
+    border: 2px solid var(--grey);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    aspect-ratio: 1 /1;
+    color: var(--grey);
+
+    &:hover {
+        cursor: pointer;
+        color: var(--cyan);
+        border-color: var(--cyan);
+    }
+}
+
+.hiddeButton {
+    display: none;
+}

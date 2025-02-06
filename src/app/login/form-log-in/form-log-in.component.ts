@@ -6,10 +6,10 @@ import { FormsModule, NgModel } from '@angular/forms';
   selector: 'form-log-in',
   imports: [IconComponent, FormsModule],
   templateUrl: './form-log-in.component.html',
-  styleUrls: ['./form-log-in.component.scss', './checkbox.scss']
+  styleUrls: ['./form-log-in.component.scss', './../checkbox.scss', './../form.scss']
 })
 export class FormLogInComponent {
-  isFieldPassword: boolean = true;
+  isFieldPassword: boolean = false;
   isCheckBox: boolean = false
 
   changeFieldType() {
