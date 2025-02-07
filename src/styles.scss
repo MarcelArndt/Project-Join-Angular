@@ -11,7 +11,9 @@
     --hover-black: #091931;
     --white: #FFFFFF;
     --grey: #A8A8A8;
+    --hover-grey: #e9ebf0;
     --red: #FF3D00;
+    --error: #de1919;
     --yellow: #FFA800;
     --green: #7AE229;
     --shadow: #cfd8e3d7;
@@ -99,4 +101,13 @@ hr {
         color: var(--cyan);
         cursor: pointer;
     }
+}
+
+.fullsize {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }

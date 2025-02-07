@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   selector: 'form-log-in',
   imports: [IconComponent, FormsModule],
   templateUrl: './form-log-in.component.html',
-  styleUrls: ['./form-log-in.component.scss', './../checkbox.scss', './../form.scss']
+  styleUrls: ['./form-log-in.component.scss', './../../../checkbox.scss', './../../../form.scss']
 })
 export class FormLogInComponent {
   constructor(public router: Router) { }

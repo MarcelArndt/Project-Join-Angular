@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   selector: 'form-sign-up',
   imports: [IconComponent, FormsModule, CommonModule],
   templateUrl: './form-sign-up.component.html',
-  styleUrls: ['./form-sign-up.component.scss', './../checkbox.scss', './../form.scss']
+  styleUrls: ['./form-sign-up.component.scss', './../../../checkbox.scss', './../../../form.scss']
 })
 export class FormSignUpComponent {
   @Output() switchEvent = new EventEmitter<void>();

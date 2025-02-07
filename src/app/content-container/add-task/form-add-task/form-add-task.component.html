@@ -1,0 +1,48 @@
+<form>
+
+    <div class="form-container-size">
+
+        <label for="title" class="important">Title</label>
+        <div class="input-frame input-frame-add-task">
+            <input id='title' required name="task-title" type="text" placeholder="Enter a Title" minlength="3">
+        </div>
+
+        <label for="description">Description</label>
+        <div class="text-frame">
+            <textarea id="description" name="task-description" placeholder="Enter a Description"
+                minlength="3"></textarea>
+        </div>
+
+
+        <label for="assignTo">Assined to</label>
+        <div class="select-input" (click)="toggleAssignedToWindow()">
+            <span *ngIf="!assignToObj.open">Select an Option</span>
+            <input (click)="preventClick($event)" *ngIf="assignToObj.open" id='assignTo' placeholder="Search Contacts">
+            <div class="suffix-icon">
+                <icon>{{assignToObj.open? 'arrow_drop_down' : 'arrow_drop_up'}}</icon>
+            </div>
+            <div (click)="preventClick($event)" class="select-container"
+                [ngClass]="{'animate-fade-in-container' : assignToObj.open && !firstTimeVisit, 'animate-fade-out-container' : !assignToObj.open && !firstTimeVisit,}">
+
+                <div *ngFor="let key of allKeys; index as i;" class="data-field" (click)="toggleAssignTo(key)">
+                    <div class="profil-picture" [style.background-color]="allUser[key].color">AD</div>
+                    <span>{{allUser[key].firstname}} {{allUser[key].secondname}}</span>
+                    <icon>{{isAssinedTo(key)? 'check_box' : 'check_box_outline_blank'}}</icon>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="vertical-hr-container">
+        <hr>
+    </div>
+    <div class="form-container-size">
+        <label for="title">Title</label>
+        <div class="input-frame input-frame-add-task">
+            <input id='title' required name="task-title" type="text" placeholder="Enter a Title" minlength="3">
+        </div>
+    </div>
+
+
+</form>
