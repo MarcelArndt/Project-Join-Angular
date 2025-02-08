@@ -10,3 +10,13 @@ export interface Contact {
 export interface AllUsers {
     [key: string]: Contact;
 }
+
+
+export interface Category {
+    name: string;
+    color: string;
+}
+
+export interface AllCategory {
+    [key: string]: Category;
+}

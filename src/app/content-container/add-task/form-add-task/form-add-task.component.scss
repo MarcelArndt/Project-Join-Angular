@@ -67,11 +67,12 @@ form {
 }
 
 .priority-container {
-    margin-top: 24px;
+    margin: 24px 0px;
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
+
 
     .hover-shadow {
         &:hover {

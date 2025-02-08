@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { IconComponent } from '../../../icon/icon.component';
 import { CommonModule } from '@angular/common';
 import { AddTaskService } from '../../../service/add-task.service';
+import { Category } from '../../../interface/interface';
 
 @Component({
   selector: 'app-form-add-task',
@@ -15,7 +16,7 @@ export class FormAddTaskComponent {
   dateToday?: string;
 
   ngOnInit() {
-    this.service.allKeys = Object.keys(this.service.allUser);
+    this.service.allKeyOfCategoryAndAssignedTo();
     this.dateToday = this.getCurrentDate();
   }
 
@@ -46,6 +47,11 @@ export class FormAddTaskComponent {
     this.service.search = '';
   }
 
+  toggleCategoryWindow() {
+    this.service.firstTimeVisit = false;
+    this.service.categoryObj.open = !this.service.categoryObj.open
+  }
+
   searchForName(personKey: string): boolean {
     let firstname = this.service.allUser[personKey].firstname.toLowerCase();
     let secondname = this.service.allUser[personKey].secondname.toLowerCase();
@@ -67,6 +73,13 @@ export class FormAddTaskComponent {
       position = this.service.assignToObj.selectetUser.indexOf(id)
       this.service.assignToObj.selectetUser.splice(position, 1);
     }
+  }
+
+  setCategory(obj: Category) {
+    this.service.newTask.category = obj;
+    this.service.categoryObj.currentName = obj.name;
+    this.service.categoryObj.open = false;
+    this.service.search = '';
   }
 
   isAssinedTo(id: string = 'id001') {

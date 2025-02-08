@@ -17,7 +17,8 @@
         <!--////////////////////  Assigned to Start //////////////////// -->
 
         <label for="assignTo" class="important">Assigned to</label>
-        <div class="select-input" (click)="toggleAssignedToWindow() ;preventClick($event)">
+        <div class="select-input assignedTo-input"
+            (click)="toggleAssignedToWindow(); service.closeCategory($event) ;preventClick($event)">
             <span *ngIf="!service.assignToObj.open">Select an Option</span>
             <input *ngIf="service.assignToObj.open" (click)="preventClick($event)" name="search"
                 [(ngModel)]="service.search" id='assignTo' placeholder="Search Contacts">
@@ -70,6 +71,8 @@
                 [min]="dateToday" />
         </div>
 
+        <!--////////////////////  Priority Start //////////////////// -->
+
         <label for="priority">Priority</label>
         <div class="priority-container">
 
@@ -100,6 +103,31 @@
             </div>
 
         </div>
+
+        <!--////////////////////  Priority Ende  //////////////////// -->
+        <!--////////////////////  Category Start  //////////////////// -->
+
+        <label for="assignTo" class="important">Category</label>
+        <div class="select-input category-input clickable"
+            (click)="toggleCategoryWindow(); service.closeAssignedTo($event); preventClick($event)">
+            <span>{{service.categoryObj.currentName}}</span>
+            <div class="suffix-icon">
+                <icon>{{service.categoryObj.open? 'arrow_drop_down' : 'arrow_drop_up'}}</icon>
+            </div>
+
+            <div (click)="preventClick($event)" class="select-container"
+                [ngClass]="{'animate-fade-in-container' : service.categoryObj.open && !service.firstTimeVisit, 'animate-fade-out-container' : !service.categoryObj.open && !service.firstTimeVisit,}">
+                <ng-content *ngFor="let key of service.allCategoryKeys; index as i;">
+                    <ul class="data-field-catogory">
+                        <li *ngIf="service.allCategory[key].name != 'No Category'"
+                            (click)="setCategory(service.allCategory[key])" class="selectable">
+                            {{service.allCategory[key].name}}</li>
+                    </ul>
+                </ng-content>
+            </div>
+        </div>
+
+        <!--////////////////////  Category End  //////////////////// -->
 
 
     </div>

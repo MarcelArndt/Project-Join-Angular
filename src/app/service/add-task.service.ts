@@ -1,5 +1,7 @@
 import { Injectable, HostListener } from '@angular/core';
 import { AllUsers } from '../interface/interface';
+import { AllCategory } from '../interface/interface';
+import { Category } from '../interface/interface';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,8 @@ export class AddTaskService {
   constructor() { }
   @HostListener('document:click', ['$event'])
 
-  assignedToMenu = document.querySelector('.select-input');
+  assignedToMenu = document.querySelector('.assignedTo-input');
+  categoryMenu = document.querySelector('.category-input');
 
   firstTimeVisit: boolean = true;
   allUser: AllUsers = {
@@ -24,7 +27,21 @@ export class AddTaskService {
     id009: { firstname: 'Peter', secondname: 'Parker', inital: 'PP', color: '#8e44ad', email: 'peter.parker@example.com', phone: '+49 175 5566778' },
   };
 
+  allCategory: AllCategory = {
+    technicalTask: { name: 'Technical Task', color: '#1DD5BA' },
+    userStory: { name: 'User Story', color: '#3F65F0' },
+    bug: { name: 'Bug', color: '#CB1942' },
+    feature: { name: 'Feature', color: '#FFC803' },
+    refactor: { name: 'Refactor', color: '#FE8F10' },
+    testing: { name: 'Testing', color: '#2DCD52' },
+    documentation: { name: 'Documentation', color: '#7E0DEF' },
+    nocategory: { name: 'No Category', color: '#4F4F4F' },
+    analysisResearch: { name: 'Analysis/Research', color: '#53698E' },
+    design: { name: 'Design', color: '#FF61AB' }
+  }
+
   allKeys?: string[];
+  allCategoryKeys?: string[];
   search: string = '';
 
   assignToObj = {
@@ -33,12 +50,25 @@ export class AddTaskService {
     allUser: this.allUser,
   }
 
+  categoryObj = {
+    open: false,
+    allCategory: this.allCategory,
+    currentName: 'Select Task Category',
+    currentKey: ''
+  }
+
   newTask = {
     name: '',
     description: '',
     assignedTo: [],
     date: '',
     priority: '',
+    category: {},
+  }
+
+  checkforClosingWindow(event: Event) {
+    this.closeAssignedTo(event);
+    this.closeCategory(event);
   }
 
   closeAssignedTo(event: Event) {
@@ -46,6 +76,18 @@ export class AddTaskService {
       this.assignToObj.open = false;
       this.search = '';
     }
+  }
+
+  closeCategory(event: Event) {
+    if (!this.firstTimeVisit && !this.categoryMenu?.contains(event.target as Node)) {
+      this.categoryObj.open = false;
+      this.search = '';
+    }
+  }
+
+  allKeyOfCategoryAndAssignedTo() {
+    this.allKeys = Object.keys(this.allUser);
+    this.allCategoryKeys = Object.keys(this.allCategory);
   }
 
 }

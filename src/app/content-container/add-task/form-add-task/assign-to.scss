@@ -14,6 +14,7 @@
 
     icon {
         font-size: 26px;
+
     }
 
     span {
@@ -51,6 +52,18 @@
         border-radius: 14px;
         border: 1px solid var(--grey);
         padding: 0px;
+        box-shadow: 0px 3px 8px var(--shadow);
+    }
+
+    .suffix-icon {
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            cursor: pointer;
+        }
+
     }
 }
 
@@ -132,6 +145,26 @@
     &:hover icon {
         color: var(--cyan);
     }
+}
+
+.selectable {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 16px;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+
+    &:hover {
+        cursor: pointer;
+        background-color: var(--hover-grey);
+        border-color: var(--grey);
+    }
+
+}
+
+.clickable {
+    user-select: none;
+    cursor: pointer;
 }
 
 
