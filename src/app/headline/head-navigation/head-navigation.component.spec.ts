@@ -10,7 +10,7 @@ describe('HeadNavigationComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HeadNavigationComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(HeadNavigationComponent);
     component = fixture.componentInstance;

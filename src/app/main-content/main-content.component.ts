@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { HeadlineComponent } from '../headline/headline.component';
-import { HeaderNavigationService } from '../headline/head-navigation/header-navigation.service';
+import { HeaderNavigationService } from '../service/header-navigation.service';
 import { ContentContainerComponent } from '../content-container/content-container.component';
+import { AddTaskService } from '../service/add-task.service';
 
 @Component({
   selector: 'app-main-content',
@@ -11,5 +12,5 @@ import { ContentContainerComponent } from '../content-container/content-containe
   styleUrl: './main-content.component.scss'
 })
 export class MainContentComponent {
-  constructor(public headerNaviService: HeaderNavigationService) { }
+  constructor(public headerNaviService: HeaderNavigationService, public addTaskServcice: AddTaskService) { }
 }

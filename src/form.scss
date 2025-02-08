@@ -42,10 +42,6 @@ input {
     background-color: var(--white);
     padding: 16px 0px 16px 0px;
 
-    icon {
-        font-size: 26px;
-    }
-
     &:hover,
     &:focus-within,
     &:active {
@@ -70,6 +66,10 @@ input {
     &:hover,
     &:focus-within,
     &:active {
+        .data-picker-icon {
+            color: var(--cyan);
+        }
+
         border-color: var(--cyan);
     }
 }
@@ -81,6 +81,12 @@ input {
     &:focus-within,
     &:active {
         border-color: var(--error);
+    }
+
+    p {
+        color: var(--error);
+        font-size: 18px;
+        font-weight: 500;
     }
 }
 

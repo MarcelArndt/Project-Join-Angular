@@ -1,6 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderNavigationService } from './header-navigation.service';
+import { HeaderNavigationService } from '../../service/header-navigation.service';
 import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-head-navigation',

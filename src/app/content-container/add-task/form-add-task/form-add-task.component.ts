@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IconComponent } from '../../../icon/icon.component';
 import { CommonModule } from '@angular/common';
-import { AllUsers } from '../../../interface/interface';
+import { AddTaskService } from '../../../service/add-task.service';
 
 @Component({
   selector: 'app-form-add-task',
@@ -11,54 +11,80 @@ import { AllUsers } from '../../../interface/interface';
   styleUrls: ['./form-add-task.component.scss', './../../../../form.scss', './../../../../checkbox.scss', './assign-to.scss']
 })
 export class FormAddTaskComponent {
-  firstTimeVisit: boolean = true;
-  allUser: AllUsers = {
-    id001: { firstname: 'Max', secondname: 'Mustermann', inital: 'MM', color: '#ff5733', email: 'max.mustermann@example.com', phone: '+49 170 1234567' },
-    id002: { firstname: 'Erika', secondname: 'Muster', inital: 'EM', color: '#33ff57', email: 'erika.muster@example.com', phone: '+49 151 9876543' },
-    id003: { firstname: 'John', secondname: 'Doe', inital: 'JD', color: '#5733ff', email: 'john.doe@example.com', phone: '+49 160 4567890' },
-    id004: { firstname: 'Jane', secondname: 'Doe', inital: 'JD', color: '#f1c40f', email: 'jane.doe@example.com', phone: '+49 152 3456789' },
-    id005: { firstname: 'Lara', secondname: 'Croft', inital: 'LC', color: '#e74c3c', email: 'lara.croft@example.com', phone: '+49 163 1122334' },
-    id006: { firstname: 'Bruce', secondname: 'Wayne', inital: 'BW', color: '#34495e', email: 'bruce.wayne@example.com', phone: '+49 159 2233445' },
-    id007: { firstname: 'Tony', secondname: 'Stark', inital: 'TS', color: '#d35400', email: 'tony.stark@example.com', phone: '+49 157 3344556' },
-    id008: { firstname: 'Clark', secondname: 'Kent', inital: 'CK', color: '#2980b9', email: 'clark.kent@example.com', phone: '+49 176 4455667' },
-    id009: { firstname: 'Peter', secondname: 'Parker', inital: 'PP', color: '#8e44ad', email: 'peter.parker@example.com', phone: '+49 175 5566778' },
-  };
-
-  allKeys?: string[];
-
-  assignToObj = {
-    open: false,
-    selectetUser: [] as string[],
-    allUser: this.allUser,
-  }
+  constructor(public service: AddTaskService) { }
+  dateToday?: string;
 
   ngOnInit() {
-    this.allKeys = Object.keys(this.allUser);
+    this.service.allKeys = Object.keys(this.service.allUser);
+    this.dateToday = this.getCurrentDate();
+  }
+
+  getCurrentDate() {
+    const today = new Date();
+    const day = this.getTimeValueOf_asString(today.getDate());
+    const month = this.getTimeValueOf_asString(today.getMonth() + 1);
+    const year = today.getFullYear();
+    const date = `${year}-${month}-${day}`
+    return date
+  }
+
+  getTimeValueOf_asString(value: number) {
+    const string = value.toString();
+    const newValue = string.length < 2 ? `0${string}` : string;
+    return newValue;
+  }
+
+  ngOnDestroy() {
+    this.service.firstTimeVisit = true;
+    this.service.assignToObj.open = false
+    this.service.search = '';
   }
 
   toggleAssignedToWindow() {
-    this.firstTimeVisit = false;
-    this.assignToObj.open = !this.assignToObj.open
+    this.service.firstTimeVisit = false;
+    this.service.assignToObj.open = !this.service.assignToObj.open
+    this.service.search = '';
+  }
+
+  searchForName(personKey: string): boolean {
+    let firstname = this.service.allUser[personKey].firstname.toLowerCase();
+    let secondname = this.service.allUser[personKey].secondname.toLowerCase();
+    let inital = this.service.allUser[personKey].inital.toLowerCase();
+    let search = this.service.search.toLowerCase();
+    if (search.length < 3) return true;
+    if (firstname.includes(search)) return true;
+    if (secondname.includes(search)) return true;
+    if (inital.includes(search)) return true;
+    return false;
   }
 
   toggleAssignTo(id: string = 'id001') {
     let isAssinedTo = this.isAssinedTo(id);
     let position = 0
     if (!isAssinedTo) {
-      this.assignToObj.selectetUser.push(id);
+      this.service.assignToObj.selectetUser.push(id);
     } else if (isAssinedTo) {
-      position = this.assignToObj.selectetUser.indexOf(id)
-      this.assignToObj.selectetUser.splice(position, 1);
+      position = this.service.assignToObj.selectetUser.indexOf(id)
+      this.service.assignToObj.selectetUser.splice(position, 1);
     }
   }
 
   isAssinedTo(id: string = 'id001') {
-    return this.assignToObj.selectetUser.includes(id);
+    return this.service.assignToObj.selectetUser.includes(id);
   }
-
 
   preventClick(event: Event) {
     event.stopPropagation();
+  }
+
+  setPriority(value: string = '') {
+    if (this.service.newTask.priority === value) {
+      this.service.newTask.priority = ''
+      return
+    } else if (this.service.newTask.priority != value) {
+      this.service.newTask.priority = value;
+      return
+    }
   }
 
 }

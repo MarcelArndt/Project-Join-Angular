@@ -1,7 +1,7 @@
 import { Component, ViewChild, viewChild } from '@angular/core';
 import { IconComponent } from '../icon/icon.component';
 import { HeadNavigationComponent } from './head-navigation/head-navigation.component';
-import { HeaderNavigationService } from './head-navigation/header-navigation.service';
+import { HeaderNavigationService } from '../service/header-navigation.service';
 import { RouterModule } from '@angular/router';
 
 @Component({
