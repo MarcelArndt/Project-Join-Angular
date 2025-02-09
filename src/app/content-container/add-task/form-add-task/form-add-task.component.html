@@ -1,5 +1,4 @@
 <form>
-
     <div class="form-container-size">
 
         <label for="title" class="important">Title</label>
@@ -14,48 +13,9 @@
                 placeholder="Enter a Description" minlength="3"></textarea>
         </div>
 
-        <!--////////////////////  Assigned to Start //////////////////// -->
+        <app-assigned-to-input></app-assigned-to-input>
 
-        <label for="assignTo" class="important">Assigned to</label>
-        <div class="select-input assignedTo-input"
-            (click)="toggleAssignedToWindow(); service.closeCategory($event) ;preventClick($event)">
-            <span *ngIf="!service.assignToObj.open">Select an Option</span>
-            <input *ngIf="service.assignToObj.open" (click)="preventClick($event)" name="search"
-                [(ngModel)]="service.search" id='assignTo' placeholder="Search Contacts">
-            <div class="suffix-icon">
-                <icon>{{service.assignToObj.open? 'arrow_drop_down' : 'arrow_drop_up'}}</icon>
-            </div>
-
-            <div (click)="preventClick($event)" class="select-container"
-                [ngClass]="{'animate-fade-in-container' : service.assignToObj.open && !service.firstTimeVisit, 'animate-fade-out-container' : !service.assignToObj.open && !service.firstTimeVisit,}">
-                <ng-content *ngFor="let key of service.allKeys; index as i;">
-                    <div *ngIf="searchForName(key)" class="data-field" (click)="toggleAssignTo(key)">
-                        <div class="profil-picture" [style.background-color]="service.allUser[key].color">AD</div>
-                        <span>{{service.allUser[key].firstname}} {{service.allUser[key].secondname}}</span>
-                        <icon>{{isAssinedTo(key)? 'check_box' : 'check_box_outline_blank'}}</icon>
-                    </div>
-                </ng-content>
-            </div>
-        </div>
-
-        <div class="assined-to-render-container">
-            <ng-content *ngFor="let key of service.assignToObj.selectetUser; index as i;">
-                <div *ngIf="i <= 4" class="profil-picture-big" [style.background-color]="service.allUser[key].color">
-                    {{service.allUser[key].inital}}
-                </div>
-                <div *ngIf="i >= 4 && i + 1 == service.assignToObj.selectetUser.length" class="amount-of-number">+{{i -
-                    4}}
-                </div>
-
-            </ng-content>
-            <span class="error">
-                <p *ngIf="service.assignToObj.selectetUser.length == 0">No User is assigned to your Task.</p>
-            </span>
-
-        </div>
     </div>
-    <!--////////////////////  Assigned to Ende  //////////////////// -->
-
     <div class="vertical-hr-container">
         <hr>
     </div>
@@ -71,65 +31,9 @@
                 [min]="dateToday" />
         </div>
 
-        <!--////////////////////  Priority Start //////////////////// -->
+        <app-priority-input></app-priority-input>
 
-        <label for="priority">Priority</label>
-        <div class="priority-container">
-
-            <div class="priority-button" [ngClass]="{'hover-shadow': service.newTask.priority != 'urgent'}"
-                (click)="setPriority('urgent')"
-                [style.background]="service.newTask.priority == 'urgent'?  '#ff3d00' : ''"
-                [style.color]="service.newTask.priority == 'urgent'?  'white' : 'black'">
-                <span>Urgent</span>
-                <icon class="icon-roate-270deg" [style.color]="service.newTask.priority != 'urgent'?  '#ff3d00' : ''">
-                    double_arrow</icon>
-            </div>
-
-            <div class="priority-button" [ngClass]="{'hover-shadow': service.newTask.priority != 'medium'}"
-                (click)="setPriority('medium')"
-                [style.background]="service.newTask.priority == 'medium'?  '#FFA800' : ''"
-                [style.color]="service.newTask.priority == 'medium'?  'white' : 'black'">
-                <span>Medium</span>
-                <icon [style.color]="service.newTask.priority != 'medium'?  '#FFA800' : ''">
-                    drag_handle</icon>
-            </div>
-
-            <div class="priority-button" [ngClass]="{'hover-shadow': service.newTask.priority != 'low'}"
-                (click)="setPriority('low')" [style.background]="service.newTask.priority == 'low'?  '#7AE229' : ''"
-                [style.color]="service.newTask.priority == 'low'?  'white' : 'black'">
-                <span>Low</span>
-                <icon class="icon-roate-90deg" [style.color]="service.newTask.priority != 'low'?  '#7AE229' : ''">
-                    double_arrow</icon>
-            </div>
-
-        </div>
-
-        <!--////////////////////  Priority Ende  //////////////////// -->
-        <!--////////////////////  Category Start  //////////////////// -->
-
-        <label for="assignTo" class="important">Category</label>
-        <div class="select-input category-input clickable"
-            (click)="toggleCategoryWindow(); service.closeAssignedTo($event); preventClick($event)">
-            <span>{{service.categoryObj.currentName}}</span>
-            <div class="suffix-icon">
-                <icon>{{service.categoryObj.open? 'arrow_drop_down' : 'arrow_drop_up'}}</icon>
-            </div>
-
-            <div (click)="preventClick($event)" class="select-container"
-                [ngClass]="{'animate-fade-in-container' : service.categoryObj.open && !service.firstTimeVisit, 'animate-fade-out-container' : !service.categoryObj.open && !service.firstTimeVisit,}">
-                <ng-content *ngFor="let key of service.allCategoryKeys; index as i;">
-                    <ul class="data-field-catogory">
-                        <li *ngIf="service.allCategory[key].name != 'No Category'"
-                            (click)="setCategory(service.allCategory[key])" class="selectable">
-                            {{service.allCategory[key].name}}</li>
-                    </ul>
-                </ng-content>
-            </div>
-        </div>
-
-        <!--////////////////////  Category End  //////////////////// -->
-
+        <app-category-input></app-category-input>
 
     </div>
-
 </form>

@@ -1,0 +1,50 @@
+.priority-container {
+    margin: 24px 0px;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+
+    .hover-shadow {
+        &:hover {
+            box-shadow: 0px 3px 3px var(--shadow);
+        }
+    }
+
+    .priority-button {
+        width: 30%;
+        height: 55px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 12px;
+        background-color: var(--white);
+        border: 1px solid var(--shadow);
+        font-size: 21px;
+        user-select: none;
+
+        span {
+            margin-right: 8px;
+        }
+
+        &:hover {
+            cursor: pointer;
+
+        }
+
+        icon {
+            font-size: 28px;
+        }
+    }
+
+    .icon-roate-270deg {
+        rotate: (270deg);
+        margin-top: 3px;
+    }
+
+    .icon-roate-90deg {
+        rotate: (90deg);
+        margin-bottom: 3px;
+    }
+}

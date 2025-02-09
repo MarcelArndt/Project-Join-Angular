@@ -48,13 +48,15 @@ export class AddTaskService {
     open: false,
     selectetUser: [] as string[],
     allUser: this.allUser,
+    firstTimeVisit: true,
   }
 
   categoryObj = {
     open: false,
     allCategory: this.allCategory,
     currentName: 'Select Task Category',
-    currentKey: ''
+    currentKey: '',
+    firstTimeVisit: true,
   }
 
   newTask = {
@@ -72,14 +74,14 @@ export class AddTaskService {
   }
 
   closeAssignedTo(event: Event) {
-    if (!this.firstTimeVisit && !this.assignedToMenu?.contains(event.target as Node)) {
+    if (!this.assignToObj.firstTimeVisit && this.assignToObj.open && !this.assignedToMenu?.contains(event.target as Node)) {
       this.assignToObj.open = false;
       this.search = '';
     }
   }
 
   closeCategory(event: Event) {
-    if (!this.firstTimeVisit && !this.categoryMenu?.contains(event.target as Node)) {
+    if (!this.categoryObj.firstTimeVisit && this.categoryObj.open && !this.categoryMenu?.contains(event.target as Node)) {
       this.categoryObj.open = false;
       this.search = '';
     }
@@ -89,5 +91,10 @@ export class AddTaskService {
     this.allKeys = Object.keys(this.allUser);
     this.allCategoryKeys = Object.keys(this.allCategory);
   }
+
+  preventClick(event: Event) {
+    event.stopPropagation();
+  }
+
 
 }

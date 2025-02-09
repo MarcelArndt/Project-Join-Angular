@@ -4,12 +4,15 @@ import { IconComponent } from '../../../icon/icon.component';
 import { CommonModule } from '@angular/common';
 import { AddTaskService } from '../../../service/add-task.service';
 import { Category } from '../../../interface/interface';
+import { AssignedToInputComponent } from './assigned-to-input/assigned-to-input.component';
+import { CategoryInputComponent } from './category-input/category-input.component';
+import { PriorityInputComponent } from './priority-input/priority-input.component';
 
 @Component({
   selector: 'app-form-add-task',
-  imports: [FormsModule, IconComponent, CommonModule],
+  imports: [FormsModule, IconComponent, CommonModule, AssignedToInputComponent, CategoryInputComponent, PriorityInputComponent],
   templateUrl: './form-add-task.component.html',
-  styleUrls: ['./form-add-task.component.scss', './../../../../form.scss', './../../../../checkbox.scss', './assign-to.scss']
+  styleUrls: ['./form-add-task.component.scss', './../../../../form.scss', './../../../../checkbox.scss', './drop-down-menu.scss']
 })
 export class FormAddTaskComponent {
   constructor(public service: AddTaskService) { }
@@ -36,68 +39,11 @@ export class FormAddTaskComponent {
   }
 
   ngOnDestroy() {
-    this.service.firstTimeVisit = true;
+    this.service.assignToObj.firstTimeVisit = true;
+    this.service.categoryObj.firstTimeVisit = true;
     this.service.assignToObj.open = false
+    this.service.categoryObj.open = false
     this.service.search = '';
-  }
-
-  toggleAssignedToWindow() {
-    this.service.firstTimeVisit = false;
-    this.service.assignToObj.open = !this.service.assignToObj.open
-    this.service.search = '';
-  }
-
-  toggleCategoryWindow() {
-    this.service.firstTimeVisit = false;
-    this.service.categoryObj.open = !this.service.categoryObj.open
-  }
-
-  searchForName(personKey: string): boolean {
-    let firstname = this.service.allUser[personKey].firstname.toLowerCase();
-    let secondname = this.service.allUser[personKey].secondname.toLowerCase();
-    let inital = this.service.allUser[personKey].inital.toLowerCase();
-    let search = this.service.search.toLowerCase();
-    if (search.length < 3) return true;
-    if (firstname.includes(search)) return true;
-    if (secondname.includes(search)) return true;
-    if (inital.includes(search)) return true;
-    return false;
-  }
-
-  toggleAssignTo(id: string = 'id001') {
-    let isAssinedTo = this.isAssinedTo(id);
-    let position = 0
-    if (!isAssinedTo) {
-      this.service.assignToObj.selectetUser.push(id);
-    } else if (isAssinedTo) {
-      position = this.service.assignToObj.selectetUser.indexOf(id)
-      this.service.assignToObj.selectetUser.splice(position, 1);
-    }
-  }
-
-  setCategory(obj: Category) {
-    this.service.newTask.category = obj;
-    this.service.categoryObj.currentName = obj.name;
-    this.service.categoryObj.open = false;
-    this.service.search = '';
-  }
-
-  isAssinedTo(id: string = 'id001') {
-    return this.service.assignToObj.selectetUser.includes(id);
-  }
-
-  preventClick(event: Event) {
-    event.stopPropagation();
-  }
-
-  setPriority(value: string = '') {
-    if (this.service.newTask.priority === value) {
-      this.service.newTask.priority = ''
-      return
-    } else if (this.service.newTask.priority != value) {
-      this.service.newTask.priority = value;
-      return
-    }
   }
 
 }
