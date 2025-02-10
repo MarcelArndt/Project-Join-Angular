@@ -7,10 +7,11 @@ import { Category } from '../../../interface/interface';
 import { AssignedToInputComponent } from './assigned-to-input/assigned-to-input.component';
 import { CategoryInputComponent } from './category-input/category-input.component';
 import { PriorityInputComponent } from './priority-input/priority-input.component';
+import { SubtaskInputComponent } from './subtask-input/subtask-input.component';
 
 @Component({
   selector: 'app-form-add-task',
-  imports: [FormsModule, IconComponent, CommonModule, AssignedToInputComponent, CategoryInputComponent, PriorityInputComponent],
+  imports: [FormsModule, IconComponent, CommonModule, AssignedToInputComponent, CategoryInputComponent, PriorityInputComponent, SubtaskInputComponent],
   templateUrl: './form-add-task.component.html',
   styleUrls: ['./form-add-task.component.scss', './../../../../form.scss', './../../../../checkbox.scss', './drop-down-menu.scss']
 })

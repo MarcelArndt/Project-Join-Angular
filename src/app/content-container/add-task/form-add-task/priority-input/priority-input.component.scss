@@ -14,7 +14,7 @@
 
     .priority-button {
         width: 30%;
-        height: 55px;
+        height: 65px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -47,4 +47,11 @@
         rotate: (90deg);
         margin-bottom: 3px;
     }
+}
+
+label {
+    width: max-content;
+    font-size: 21px;
+    display: flex;
+    justify-content: start;
 }

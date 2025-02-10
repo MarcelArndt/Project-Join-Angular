@@ -5,7 +5,7 @@
 
     <ng-content *ngIf="service.assignToObj.open">
         <icon class="search-iocn">search</icon>
-        <input (click)="service.preventClick($event)" (input)="searchFotResults()" name="search"
+        <input #serachbar (click)="service.preventClick($event)" (input)="searchFotResults()" name="search"
             [(ngModel)]="service.search" id='assignTo' placeholder="Search Contacts">
     </ng-content>
     <hr>

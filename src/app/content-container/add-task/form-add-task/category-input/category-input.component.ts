@@ -26,4 +26,5 @@ export class CategoryInputComponent {
     this.service.search = '';
   }
 
+
 }

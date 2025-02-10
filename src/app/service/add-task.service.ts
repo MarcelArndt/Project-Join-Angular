@@ -2,6 +2,7 @@ import { Injectable, HostListener } from '@angular/core';
 import { AllUsers } from '../interface/interface';
 import { AllCategory } from '../interface/interface';
 import { Category } from '../interface/interface';
+import { AllSubTask } from '../interface/interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class AddTaskService {
 
   assignedToMenu = document.querySelector('.assignedTo-input');
   categoryMenu = document.querySelector('.category-input');
+  addSubTaskMenu = document.querySelector('.subtask-input');
 
   firstTimeVisit: boolean = true;
   allUser: AllUsers = {
@@ -42,6 +44,7 @@ export class AddTaskService {
 
   allKeys?: string[];
   allCategoryKeys?: string[];
+  allSubTaskKey?: string[];
   search: string = '';
 
   assignToObj = {
@@ -49,6 +52,13 @@ export class AddTaskService {
     selectetUser: [] as string[],
     allUser: this.allUser,
     firstTimeVisit: true,
+  }
+
+  addSubTaskObj = {
+    open: false,
+    firstTimeVisit: true,
+    currentTask: '',
+    allSubTasks: {} as AllSubTask,
   }
 
   categoryObj = {
@@ -60,13 +70,16 @@ export class AddTaskService {
   }
 
   newTask = {
+    id: '',
     name: '',
     description: '',
     assignedTo: [],
     date: '',
     priority: '',
     category: {},
+    subTask: {},
   }
+
 
   checkforClosingWindow(event: Event) {
     this.closeAssignedTo(event);
@@ -77,6 +90,13 @@ export class AddTaskService {
     if (!this.assignToObj.firstTimeVisit && this.assignToObj.open && !this.assignedToMenu?.contains(event.target as Node)) {
       this.assignToObj.open = false;
       this.search = '';
+    }
+  }
+
+  closeAddSubTask(event: Event) {
+    if (!this.assignToObj.firstTimeVisit && this.assignToObj.open && !this.assignedToMenu?.contains(event.target as Node)) {
+      this.assignToObj.open = false;
+      this.addSubTaskObj.currentTask = '';
     }
   }
 

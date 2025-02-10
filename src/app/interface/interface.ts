@@ -11,6 +11,11 @@ export interface AllUsers {
     [key: string]: Contact;
 }
 
+export interface Person {
+    firstname: string;
+    secondname: string;
+    inital: string;
+}
 
 export interface Category {
     name: string;
@@ -19,4 +24,14 @@ export interface Category {
 
 export interface AllCategory {
     [key: string]: Category;
+}
+
+export interface SubTask {
+    text: string;
+    inOnEdit: boolean;
+}
+
+
+export interface AllSubTask {
+    [key: string]: SubTask;
 }

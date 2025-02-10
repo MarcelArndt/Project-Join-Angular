@@ -1,14 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IconComponent } from '../../../../icon/icon.component';
 import { AddTaskService } from '../../../../service/add-task.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-interface Person {
-  firstname: string;
-  secondname: string;
-  inital: string;
-}
+import { Person } from '../../../../interface/interface';
 
 @Component({
   selector: 'app-assigned-to-input',
@@ -18,6 +13,7 @@ interface Person {
 })
 export class AssignedToInputComponent {
   constructor(public service: AddTaskService) { }
+  @ViewChild('serachbar') serachbar!: ElementRef<HTMLInputElement>;
   searchResults: string[] = [];
   searchHasResults: boolean = false;
 
@@ -27,10 +23,12 @@ export class AssignedToInputComponent {
   }
 
   toggleAssignedToWindow() {
-    this.service.firstTimeVisit = false;
     this.service.assignToObj.firstTimeVisit = false;
     this.service.assignToObj.open = !this.service.assignToObj.open;
     this.service.search = '';
+    if (this.service.assignToObj.open) {
+      setTimeout(() => { this.serachbar.nativeElement.focus() }, 250)
+    }
   }
 
   toggleAssignTo(id: string = '') {
@@ -89,8 +87,6 @@ export class AssignedToInputComponent {
     }
     return false;
   }
-
-
 
 }
 
