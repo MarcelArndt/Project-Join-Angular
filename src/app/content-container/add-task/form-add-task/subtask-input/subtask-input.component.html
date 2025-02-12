@@ -33,8 +33,6 @@
                         [(ngModel)]="service.addSubTaskObj.allSubTasks[key].text">
                 </div>
 
-
-
                 <div class="icon-flex icon-hover" *ngIf="!service.addSubTaskObj.allSubTasks[key].inOnEdit">
                     <icon (click)="openEditById(key)">edit</icon>
                     <hr>

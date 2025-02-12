@@ -1,5 +1,6 @@
 <label for="assignTo" class="important">Assigned to</label>
 <div class="select-input assignedTo-input"
+    [ngClass]="{'error-border': !service.assignToObj.firstTimeVisit && service.assignToObj.selectetUser.length <= 0 || OnHoverIsValid}"
     (click)="searchFotResults(); toggleAssignedToWindow(); service.closeCategory($event) ;service.preventClick($event)">
     <span *ngIf="!service.assignToObj.open">Select Contacts</span>
 
@@ -36,7 +37,7 @@
         <div *ngIf="i <= 4" class="profil-picture-big" [style.background-color]="service.allUser[key].color">
             {{service.allUser[key].inital}}
         </div>
-        <div *ngIf="i >= 4 && i + 1 == service.assignToObj.selectetUser.length" class="amount-of-number">+{{i -
+        <div *ngIf="i >= 5 && i + 1 == service.assignToObj.selectetUser.length" class="amount-of-number">+{{i -
             4}}
         </div>
 

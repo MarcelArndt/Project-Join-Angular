@@ -1,41 +1,60 @@
-<form>
-    <div class="form-container-size">
-
-        <label for="title" class="important">Title</label>
-        <div class="input-frame input-frame-add-task">
-            <input id='title' required name="task-title" [(ngModel)]='service.newTask.name' type="text"
-                placeholder="Enter a Title" minlength="3">
-        </div>
-
-        <label for="description">Description</label>
-        <div class="text-frame">
-            <textarea id="description" name="task-description" [(ngModel)]='service.newTask.description'
-                placeholder="Enter a Description" minlength="3"></textarea>
-        </div>
-
-        <app-assigned-to-input></app-assigned-to-input>
-
+<form #addTaskForm="ngForm">
+    {{checkForValidationinForm(addTaskForm, false)}}
+    <div class="error-container">
+        <p>{{this.errorText}}</p>
     </div>
-    <div class="vertical-hr-container">
-        <hr>
-    </div>
+    <div class="form-main-container">
 
-    <div class="form-container-size">
+        <div class="form-container-size">
 
-        <label for="title" class="important">Due date</label>
-        <div class="input-frame input-frame-add-task">
-            <div class="suffix-icon data-picker-icon">
-                <icon>calendar_month</icon>
+            <label for="title" class="important">Title</label>
+            <div class="input-frame input-frame-add-task" [ngClass]="{'error-border': formHasError[0]}">
+                <input id='nameInput' required name="taskTitle" [(ngModel)]='service.newTask.name' type="text"
+                    placeholder="Enter a Title" minlength="3" #taskTitleInput="ngModel">
             </div>
-            <input class='data-picker-input' [(ngModel)]='service.newTask.date' type="date" id="start" name="task-date"
-                [min]="dateToday" />
+
+            <label for="description">Description</label>
+            <div class="text-frame">
+                <textarea id="description" name="task-description" [(ngModel)]='service.newTask.description'
+                    placeholder="Enter a Description" minlength="3"></textarea>
+            </div>
+
+            <app-assigned-to-input [OnHoverIsValid]="formHasError[3]"></app-assigned-to-input>
+
+        </div>
+        <div class="vertical-hr-container">
+            <hr>
         </div>
 
-        <app-priority-input></app-priority-input>
+        <div class="form-container-size">
 
-        <app-category-input></app-category-input>
+            <label for="title" class="important">Due date</label>
+            <div class="input-frame input-frame-add-task" id="dueDateInput"
+                [ngClass]="{'error-border' : !formHasError[1]}">
+                <div class="suffix-icon data-picker-icon">
+                    <icon>calendar_month</icon>
+                </div>
+                <input class='data-picker-input' [(ngModel)]='service.newTask.date' required type="date" id="start"
+                    name="dueDate" [min]="dateToday" #dueDateTaskInput="ngModel" />
+            </div>
 
-        <app-subtask-input></app-subtask-input>
+            <app-priority-input></app-priority-input>
 
+            <app-category-input [OnHoverIsValid]="formHasError[2]"></app-category-input>
+
+            <app-subtask-input></app-subtask-input>
+
+        </div>
+    </div>
+    <div [style.margin-top]="buttonMarginTop" class="form-button-container">
+        <button class="white-button min-witdh-button" (click)="resetForm(addTaskForm)">Clear</button>
+
+        <div (mouseenter)="checkForValidationinForm(addTaskForm, true)"
+            (mouseleave)="checkForValidationinForm(addTaskForm, false)">
+            <button class="black-button min-witdh-button"
+                [disabled]="!addTaskForm.valid && checkForValidation(addTaskForm)"
+                (click)="checkForValidation(addTaskForm)">Add
+                Task</button>
+        </div>
     </div>
 </form>

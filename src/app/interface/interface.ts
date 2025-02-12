@@ -35,3 +35,18 @@ export interface SubTask {
 export interface AllSubTask {
     [key: string]: SubTask;
 }
+
+export interface Task {
+    [key: string]: TaskPayload
+}
+
+export interface TaskPayload {
+    name: string;
+    description: string;
+    assignedTo: string[];
+    date: string;
+    priority: string;
+    category: Category;
+    subTask: SubTask;
+}
+

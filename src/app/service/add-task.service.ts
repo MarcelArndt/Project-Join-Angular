@@ -1,15 +1,17 @@
 import { Injectable, HostListener } from '@angular/core';
-import { AllUsers } from '../interface/interface';
+import { AllUsers, SubTask, TaskPayload } from '../interface/interface';
 import { AllCategory } from '../interface/interface';
 import { Category } from '../interface/interface';
 import { AllSubTask } from '../interface/interface';
+import { Task } from '../interface/interface';
+import { MainFeaturesService } from './main-features.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddTaskService {
 
-  constructor() { }
+  constructor(private main: MainFeaturesService) { }
   @HostListener('document:click', ['$event'])
 
   assignedToMenu = document.querySelector('.assignedTo-input');
@@ -69,17 +71,20 @@ export class AddTaskService {
     firstTimeVisit: true,
   }
 
-  newTask = {
-    id: '',
+  newTask: TaskPayload = {
     name: '',
     description: '',
     assignedTo: [],
     date: '',
     priority: '',
-    category: {},
-    subTask: {},
+    category: { name: 'No Category', color: '#4F4F4F' } as Category,
+    subTask: {} as SubTask,
   }
 
+
+  getNewId() {
+    return this.main.getNewId()
+  }
 
   checkforClosingWindow(event: Event) {
     this.closeAssignedTo(event);

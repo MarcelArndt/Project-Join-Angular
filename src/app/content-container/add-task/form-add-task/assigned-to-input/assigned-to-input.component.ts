@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 import { IconComponent } from '../../../../icon/icon.component';
 import { AddTaskService } from '../../../../service/add-task.service';
 import { CommonModule } from '@angular/common';
@@ -13,6 +13,7 @@ import { Person } from '../../../../interface/interface';
 })
 export class AssignedToInputComponent {
   constructor(public service: AddTaskService) { }
+  @Input() OnHoverIsValid: boolean = false;
   @ViewChild('serachbar') serachbar!: ElementRef<HTMLInputElement>;
   searchResults: string[] = [];
   searchHasResults: boolean = false;

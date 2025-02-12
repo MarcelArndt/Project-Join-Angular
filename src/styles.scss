@@ -17,6 +17,7 @@
     --yellow: #FFA800;
     --green: #7AE229;
     --shadow: #cfd8e3d7;
+    --disable-button: #9aa7b6d7;
 }
 
 body {
@@ -110,4 +111,13 @@ hr {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.black-button:disabled {
+    background-color: var(--disable-button) !important;
+    cursor: not-allowed !important;
+
+    &:hover {
+        box-shadow: none !important;
+    }
 }

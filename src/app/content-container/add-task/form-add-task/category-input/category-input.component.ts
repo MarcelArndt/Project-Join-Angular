@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IconComponent } from '../../../../icon/icon.component';
 import { AddTaskService } from '../../../../service/add-task.service';
 import { CommonModule } from '@angular/common';
@@ -13,11 +13,12 @@ import { Category } from '../../../../interface/interface';
 export class CategoryInputComponent {
   constructor(public service: AddTaskService) { }
 
+  @Input() OnHoverIsValid: boolean = false;
+
   toggleCategoryWindow() {
     this.service.categoryObj.firstTimeVisit = false;
     this.service.categoryObj.open = !this.service.categoryObj.open
   }
-
 
   setCategory(obj: Category) {
     this.service.newTask.category = obj;
@@ -25,6 +26,5 @@ export class CategoryInputComponent {
     this.service.categoryObj.open = false;
     this.service.search = '';
   }
-
 
 }
