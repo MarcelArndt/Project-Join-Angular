@@ -3,15 +3,15 @@ import { AllUsers, SubTask, TaskPayload } from '../interface/interface';
 import { AllCategory } from '../interface/interface';
 import { Category } from '../interface/interface';
 import { AllSubTask } from '../interface/interface';
-import { Task } from '../interface/interface';
 import { MainFeaturesService } from './main-features.service';
+import { DatabaseService } from './database.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddTaskService {
 
-  constructor(private main: MainFeaturesService) { }
+  constructor(private main: MainFeaturesService, public database: DatabaseService) { }
   @HostListener('document:click', ['$event'])
 
   assignedToMenu = document.querySelector('.assignedTo-input');
@@ -78,7 +78,13 @@ export class AddTaskService {
     date: '',
     priority: '',
     category: { name: 'No Category', color: '#4F4F4F' } as Category,
-    subTask: {} as SubTask,
+    subTasks: {} as AllSubTask,
+  }
+
+  pushTaskToDatabase() {
+    const id = this.main.getNewId();
+    const task = JSON.parse(JSON.stringify(this.newTask));
+    this.database.Tasks[id] = task;
   }
 
 

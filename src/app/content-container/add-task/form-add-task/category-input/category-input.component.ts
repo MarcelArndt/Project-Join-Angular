@@ -23,6 +23,7 @@ export class CategoryInputComponent {
   setCategory(obj: Category) {
     this.service.newTask.category = obj;
     this.service.categoryObj.currentName = obj.name;
+    this.service.newTask.category = obj;
     this.service.categoryObj.open = false;
     this.service.search = '';
   }

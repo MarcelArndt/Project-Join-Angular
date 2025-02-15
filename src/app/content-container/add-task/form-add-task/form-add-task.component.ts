@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { IconComponent } from '../../../icon/icon.component';
 import { CommonModule } from '@angular/common';
@@ -9,6 +9,7 @@ import { PriorityInputComponent } from './priority-input/priority-input.componen
 import { SubtaskInputComponent } from './subtask-input/subtask-input.component';
 import { MainFeaturesService } from '../../../service/main-features.service';
 import { AllSubTask } from '../../../interface/interface';
+import { DatabaseService } from '../../../service/database.service';
 
 @Component({
   selector: 'app-form-add-task',
@@ -17,11 +18,12 @@ import { AllSubTask } from '../../../interface/interface';
   styleUrls: ['./form-add-task.component.scss', './../../../../form.scss', './../../../../checkbox.scss', './drop-down-menu.scss']
 })
 export class FormAddTaskComponent {
-  constructor(public service: AddTaskService, private main: MainFeaturesService) { }
+  constructor(public service: AddTaskService, private main: MainFeaturesService, public database: DatabaseService) { }
   dateToday?: string;
   errorText: string = '';
   checkCategory: boolean = false;
   checkAssignedTo: boolean = false;
+
   formHasError: boolean[] = [false, false, false, false]
   formErrorText: string[] = [
     "Your task does not have a valid name with three or more characters.",
@@ -49,7 +51,6 @@ export class FormAddTaskComponent {
     let margin = 0;
     for (let i = 0; i < allSubtasks.length; i++) {
       margin += 62;
-      margin += 1;
     }
     return `${margin}px`
   }
@@ -79,6 +80,15 @@ export class FormAddTaskComponent {
     return false;
   }
 
+
+  creatNewTask(form: NgForm) {
+    this.service.newTask.assignedTo = this.service.assignToObj.selectetUser;
+    this.service.newTask.subTasks = this.service.addSubTaskObj.allSubTasks;
+    this.service.pushTaskToDatabase();
+    this.resetForm(form);
+    console.log(this.database.Tasks);
+  }
+
   checkForValidationinForm(newTaskForm: NgForm, isMouseOnButton: boolean = false): void {
 
     this.formHasError = [false, false, false, false];
@@ -94,14 +104,18 @@ export class FormAddTaskComponent {
       this.formHasError[2] = true;
     }
 
-    if ((!this.service.newTask.date && newTaskForm.form.get('dueDate')?.touched)
-      || (!this.service.newTask.date && isMouseOnButton)) {
-      this.formHasError[1] = true;
+    if (this.service.newTask.date) {
+      if ((!this.service.newTask.date && newTaskForm.form.get('dueDate')?.touched)
+        || (!this.service.newTask.date && isMouseOnButton)) {
+        this.formHasError[1] = true;
+      }
     }
 
-    if ((this.service.newTask.name.length < 3 && newTaskForm.form.get('taskTitle')?.touched)
-      || (this.service.newTask.name.length < 3 && isMouseOnButton)) {
-      this.formHasError[0] = true;
+    if (this.service.newTask.name) {
+      if ((this.service.newTask.name.length < 3 && newTaskForm.form.get('taskTitle')?.touched)
+        || (this.service.newTask.name.length < 3 && isMouseOnButton)) {
+        this.formHasError[0] = true;
+      }
     }
 
     for (let i = 0; i < this.formHasError.length; i++) {

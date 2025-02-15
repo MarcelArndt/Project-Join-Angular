@@ -53,7 +53,7 @@
         <div (mouseenter)="checkForValidationinForm(addTaskForm, true)"
             (mouseleave)="checkForValidationinForm(addTaskForm, false)">
             <button class="black-button min-witdh-button" [disabled]="!checkForValidationForButton(addTaskForm)"
-                (click)="checkForValidationForButton(addTaskForm)">Add
+                (click)="creatNewTask(addTaskForm)">Add
                 Task</button>
         </div>
     </div>

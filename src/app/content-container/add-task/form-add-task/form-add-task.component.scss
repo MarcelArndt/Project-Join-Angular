@@ -55,7 +55,7 @@ form {
 .form-container-size {
     width: 46%;
     box-sizing: border-box;
-    padding: 24px;
+
 }
 
 .vertical-hr-container {
@@ -95,7 +95,6 @@ form {
     color: var(--error);
     font-size: 21px;
     box-sizing: border-box;
-    padding-left: 24px;
     font-weight: 500;
 }
 
@@ -118,6 +117,16 @@ form {
 
     .form-button-container {
         max-width: 75%;
+        margin-right: 0px;
+    }
+
+    .error-container {
+        width: 75%;
+    }
+
+    h1 {
+        display: flex !important;
+        width: 75% !important;
     }
 }
 
@@ -126,6 +135,10 @@ form {
         max-width: 100%;
         justify-content: center;
         align-items: center;
+    }
+
+    .min-witdh-button {
+        margin: 0px 16px 0px 16px;
     }
 
     .form-container-size {

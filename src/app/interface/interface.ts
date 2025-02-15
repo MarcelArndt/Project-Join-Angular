@@ -29,6 +29,7 @@ export interface AllCategory {
 export interface SubTask {
     text: string;
     inOnEdit: boolean;
+    isDone: boolean;
 }
 
 
@@ -47,6 +48,6 @@ export interface TaskPayload {
     date: string;
     priority: string;
     category: Category;
-    subTask: SubTask;
+    subTasks: AllSubTask;
 }
 

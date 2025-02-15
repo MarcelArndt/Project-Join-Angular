@@ -35,7 +35,7 @@ export class SubtaskInputComponent {
     if (!this.service.addSubTaskObj.allSubTasks) {
       this.service.addSubTaskObj.allSubTasks = {} as AllSubTask;
     }
-    this.service.addSubTaskObj.allSubTasks[id] = { text: this.service.addSubTaskObj.currentTask, inOnEdit: false };
+    this.service.addSubTaskObj.allSubTasks[id] = { text: this.service.addSubTaskObj.currentTask, inOnEdit: false, isDone: false };
     this.service.allSubTaskKey = Object.keys(this.service.addSubTaskObj.allSubTasks);
     this.toggleAddSubTaskWindow();
   }
