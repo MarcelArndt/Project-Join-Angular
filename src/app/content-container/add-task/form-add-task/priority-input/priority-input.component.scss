@@ -55,3 +55,22 @@ label {
     display: flex;
     justify-content: start;
 }
+
+@media (max-width: 1060px) {
+    .priority-button {
+        flex-direction: column-reverse;
+        padding-bottom: 24px;
+        padding-top: 10px;
+
+        span {
+            margin: 0 0 0 0 !important;
+        }
+
+        icon {
+            font-size: 32px !important;
+        }
+
+
+    }
+
+}

@@ -102,3 +102,33 @@ form {
 .error-border {
     border-color: var(--error) !important;
 }
+
+@media (max-width: 1440px) {
+    .form-main-container {
+        flex-direction: column;
+    }
+
+    .form-container-size {
+        width: 75%;
+    }
+
+    .vertical-hr-container {
+        display: none;
+    }
+
+    .form-button-container {
+        max-width: 75%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .form-button-container {
+        max-width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .form-container-size {
+        width: 100%;
+    }
+}

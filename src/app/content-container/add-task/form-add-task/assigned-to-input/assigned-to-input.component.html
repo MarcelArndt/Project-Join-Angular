@@ -32,7 +32,7 @@
     </div>
 </div>
 
-<div class="assined-to-render-container">
+<div class="assined-to-render-container min-height-for-container">
     <ng-content *ngFor="let key of service.assignToObj.selectetUser; index as i;">
         <div *ngIf="i <= 4" class="profil-picture-big" [style.background-color]="service.allUser[key].color">
             {{service.allUser[key].inital}}
@@ -42,8 +42,8 @@
         </div>
 
     </ng-content>
-    <span class="error">
-        <p *ngIf="service.assignToObj.selectetUser.length == 0">No User is assigned to your Task.</p>
+    <span *ngIf="service.assignToObj.selectetUser.length == 0" class="error">
+        <p>No User is assigned to your Task.</p>
     </span>
 
 </div>

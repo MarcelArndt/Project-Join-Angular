@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { IconComponent } from '../../../icon/icon.component';
 import { CommonModule } from '@angular/common';
@@ -24,7 +24,7 @@ export class FormAddTaskComponent {
   checkAssignedTo: boolean = false;
   formHasError: boolean[] = [false, false, false, false]
   formErrorText: string[] = [
-    "Your task doesn't have a name.",
+    "Your task does not have a valid name with three or more characters.",
     "No due Date is set.",
     'No Category selected.',
     'No person is assigned to your task.'
@@ -56,6 +56,7 @@ export class FormAddTaskComponent {
 
   resetForm(form: NgForm) {
     form.reset();
+    this.service.newTask.name = '';
     this.service.newTask.priority = '';
     this.service.search = '';
     this.service.newTask.assignedTo = [];
@@ -64,27 +65,22 @@ export class FormAddTaskComponent {
     this.service.categoryObj.currentName = 'Select Task Category';
     this.service.addSubTaskObj.allSubTasks = {} as AllSubTask;
     this.service.allSubTaskKey = [];
+    this.service.categoryObj.firstTimeVisit = true;
+    this.service.assignToObj.firstTimeVisit = true;
+    this.service.addSubTaskObj.firstTimeVisit = true;
   }
 
-  checkForValidation(form: NgForm) {
+  checkForValidationForButton(form: NgForm) {
     this.checkCategory = this.service.newTask.category.name == 'No Category' ? false : true;
     this.checkAssignedTo = this.service.assignToObj.selectetUser.length <= 0 ? false : true;
     if (form.valid && this.checkCategory && this.checkAssignedTo) {
-      return false;
+      return true;
     }
-    return true;
-  }
-
-  setError(newTaskForm: NgForm) {
-    if (this.service.newTask.name.length < 3 && newTaskForm.form.get('taskTitle')?.touched) this.errorText = "Your task doesn't have a name."
-    if (!this.service.newTask.date && newTaskForm.form.get('dueDate')?.touched) this.errorText = "No due Date is set."
-    if (this.service.categoryObj.currentName == 'Select Task Category' && !this.service.categoryObj.firstTimeVisit) this.errorText = 'No Category selected.'
-    if (!this.service.assignToObj.firstTimeVisit && this.service.assignToObj.selectetUser.length <= 0) this.errorText = 'No person is assigned to your task.'
-    this.errorText = '';
+    return false;
   }
 
   checkForValidationinForm(newTaskForm: NgForm, isMouseOnButton: boolean = false): void {
-    // Zurücksetzen aller Fehler
+
     this.formHasError = [false, false, false, false];
     this.errorText = '';
 
@@ -108,11 +104,10 @@ export class FormAddTaskComponent {
       this.formHasError[0] = true;
     }
 
-    // Setzt die Fehlermeldung, falls Fehler vorliegen
     for (let i = 0; i < this.formHasError.length; i++) {
       if (this.formHasError[i]) {
         this.errorText = this.formErrorText[i];
-        break; // Erste Fehlernachricht setzen und Schleife beenden
+        break;
       }
     }
   }

@@ -64,6 +64,7 @@
 }
 
 .static-box {
+    z-index: 9 !important;
     max-height: max-content;
     box-sizing: border-box;
 
