@@ -76,6 +76,6 @@ export class FormAddTaskComponent {
     this.service.newTask.subTasks = this.service.addSubTaskObj.allSubTasks;
     this.service.pushTaskToDatabase();
     this.resetForm(form);
-    console.log(this.database.Tasks);
+    console.log(this.database.tasks);
   }
 }

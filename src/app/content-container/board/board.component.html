@@ -1,1 +1,43 @@
-<p>board works!</p>
+<h1>Board</h1>
+
+<section class="board">
+
+    <aside class="to-do-column">
+        <nav><span>To Do</span>
+            <icon>add_box</icon>
+        </nav>
+        <div class="container">
+            <ng-container>
+                <app-board-task-cards *ngFor="let taskId of allTaskKeys; index as i;" [taskId]="taskId"
+                    [orderNumber]="i" [id]="i"></app-board-task-cards>
+            </ng-container>
+
+        </div>
+    </aside>
+
+    <aside class="in-progress-column">
+        <nav><span>In Progress</span>
+            <icon>add_box</icon>
+        </nav>
+        <div class="container">
+
+        </div>
+    </aside>
+
+    <aside class="await-feedback-column">
+        <nav><span>Await Feedback</span>
+            <icon>add_box</icon>
+        </nav>
+        <div class="container">
+
+        </div>
+    </aside>
+
+    <aside class="is-done-column">
+        <span>Done</span>
+        <div class="container">
+
+        </div>
+    </aside>
+
+</section>

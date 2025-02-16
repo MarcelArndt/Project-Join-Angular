@@ -75,9 +75,9 @@ export class AssignedToInputComponent {
 
   PreparePersonForSearch(personKey: string = '') {
     let obj = { firstname: '', secondname: '', inital: '' };
-    obj.firstname = this.service.allUser[personKey].firstname.toLowerCase();
-    obj.secondname = this.service.allUser[personKey].secondname.toLowerCase();
-    obj.inital = this.service.allUser[personKey].inital.toLowerCase();
+    obj.firstname = this.service.allUser![personKey].firstname.toLowerCase();
+    obj.secondname = this.service.allUser![personKey].secondname.toLowerCase();
+    obj.inital = this.service.allUser![personKey].inital.toLowerCase();
     return obj;
   }
 

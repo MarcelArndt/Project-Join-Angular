@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AllSubTask } from '../interface/interface';
+import { Tasks } from '../interface/interface';
 import { AllUsers } from '../interface/interface';
+import { AllCategory } from '../interface/interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -8,7 +9,68 @@ export class DatabaseService {
 
   constructor() { }
 
-  Tasks: AllSubTask = {}
-  Contacts: AllUsers = {}
+  task = {
+    assignedTo: [
+      "id001",
+      "id002",
+      "id003",
+      "id004",
+      "id005",
+      "id008",
+      "id007"
+    ],
+    category: {
+      color: "#2DCD52",
+      name: "Testing"
+    },
+    date: "2025-02-18",
+    description: "This is the description of a task. this description has to be long as possible to test some styling things on it.",
+    name: "This is a Title of a Task. The Title is extra long to check some Issus.",
+    priority: "medium",
+    progress: 0,
+    subTasks: {
+      "8OSUI17397016624398QYDV": {
+        inOnEdit: false,
+        isDone: false,
+        text: "remove one Subtask if possible"
+      },
+      "9K5P41739701621869QD7R3": {
+        inOnEdit: false,
+        isDone: true,
+        text: "check for more Subtasks"
+      },
+      "69DFJ1739701608748M20V3": {
+        inOnEdit: false,
+        isDone: false,
+        text: "add a new Subtask to your Task"
+      }
+    }
+  };
+
+  tasks: Tasks = { "ZR0C91739701668516SP5TX": this.task, }
+  contacts: AllUsers = {
+    id001: { firstname: 'Max', secondname: 'Mustermann', inital: 'MM', color: '#ff5733', email: 'max.mustermann@example.com', phone: '+49 170 1234567' },
+    id002: { firstname: 'Erika', secondname: 'Muster', inital: 'EM', color: '#33ff57', email: 'erika.muster@example.com', phone: '+49 151 9876543' },
+    id003: { firstname: 'John', secondname: 'Doe', inital: 'JD', color: '#5733ff', email: 'john.doe@example.com', phone: '+49 160 4567890' },
+    id004: { firstname: 'Jane', secondname: 'Doe', inital: 'JD', color: '#f1c40f', email: 'jane.doe@example.com', phone: '+49 152 3456789' },
+    id005: { firstname: 'Lara', secondname: 'Croft', inital: 'LC', color: '#e74c3c', email: 'lara.croft@example.com', phone: '+49 163 1122334' },
+    id006: { firstname: 'Bruce', secondname: 'Wayne', inital: 'BW', color: '#34495e', email: 'bruce.wayne@example.com', phone: '+49 159 2233445' },
+    id007: { firstname: 'Tony', secondname: 'Stark', inital: 'TS', color: '#d35400', email: 'tony.stark@example.com', phone: '+49 157 3344556' },
+    id008: { firstname: 'Clark', secondname: 'Kent', inital: 'CK', color: '#2980b9', email: 'clark.kent@example.com', phone: '+49 176 4455667' },
+    id009: { firstname: 'Peter', secondname: 'Parker', inital: 'PP', color: '#8e44ad', email: 'peter.parker@example.com', phone: '+49 175 5566778' },
+  };
+
+  categories: AllCategory = {
+    technicalTask: { name: 'Technical Task', color: '#1DD5BA' },
+    userStory: { name: 'User Story', color: '#3F65F0' },
+    bug: { name: 'Bug', color: '#CB1942' },
+    feature: { name: 'Feature', color: '#FFC803' },
+    refactor: { name: 'Refactor', color: '#FE8F10' },
+    testing: { name: 'Testing', color: '#2DCD52' },
+    documentation: { name: 'Documentation', color: '#7E0DEF' },
+    nocategory: { name: 'No Category', color: '#4F4F4F' },
+    analysisResearch: { name: 'Analysis/Research', color: '#53698E' },
+    design: { name: 'Design', color: '#FF61AB' }
+  }
 
 }

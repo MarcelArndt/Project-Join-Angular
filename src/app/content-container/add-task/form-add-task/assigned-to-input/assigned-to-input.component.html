@@ -21,8 +21,8 @@
 
         <ng-content *ngFor="let key of searchResults; index as i;">
             <div class="data-field" (click)="toggleAssignTo(key)">
-                <div class="profil-picture" [style.background-color]="service.allUser[key].color">AD</div>
-                <span>{{service.allUser[key].firstname}} {{service.allUser[key].secondname}}</span>
+                <div class="profil-picture" [style.background-color]="service.allUser![key].color">AD</div>
+                <span>{{service.allUser![key].firstname}} {{service.allUser![key].secondname}}</span>
                 <icon>{{isAssinedTo(key)? 'check_box' : 'check_box_outline_blank'}}</icon>
             </div>
         </ng-content>
@@ -34,8 +34,8 @@
 
 <div class="assined-to-render-container min-height-for-container">
     <ng-content *ngFor="let key of service.assignToObj.selectetUser; index as i;">
-        <div *ngIf="i <= 4" class="profil-picture-big" [style.background-color]="service.allUser[key].color">
-            {{service.allUser[key].inital}}
+        <div *ngIf="i <= 4" class="profil-picture-big" [style.background-color]="service.allUser![key].color">
+            {{service.allUser![key].inital}}
         </div>
         <div *ngIf="i >= 5 && i + 1 == service.assignToObj.selectetUser.length" class="amount-of-number">+{{i -
             4}}
