@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 import { IconComponent } from '../../../../icon/icon.component';
 import { AddTaskService } from '../../../../service/add-task.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Person } from '../../../../interface/interface';
 
 @Component({
@@ -17,6 +17,7 @@ export class AssignedToInputComponent {
   @ViewChild('serachbar') serachbar!: ElementRef<HTMLInputElement>;
   searchResults: string[] = [];
   searchHasResults: boolean = false;
+  @Input() form?: NgForm;
 
   ngOnInit() {
     this.service.allKeyOfCategoryAndAssignedTo();
@@ -27,6 +28,7 @@ export class AssignedToInputComponent {
     this.service.assignToObj.firstTimeVisit = false;
     this.service.assignToObj.open = !this.service.assignToObj.open;
     this.service.search = '';
+    this.service.checkForValidationinForm(this.form!, false);
     if (this.service.assignToObj.open) {
       setTimeout(() => { this.serachbar.nativeElement.focus() }, 250)
     }
@@ -41,6 +43,7 @@ export class AssignedToInputComponent {
       position = this.service.assignToObj.selectetUser.indexOf(id)
       this.service.assignToObj.selectetUser.splice(position, 1);
     }
+    this.service.checkForValidationinForm(this.form!, false);
   }
 
   isAssinedTo(id: string = '') {

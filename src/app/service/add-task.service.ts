@@ -5,6 +5,7 @@ import { Category } from '../interface/interface';
 import { AllSubTask } from '../interface/interface';
 import { MainFeaturesService } from './main-features.service';
 import { DatabaseService } from './database.service';
+import { NgForm } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,15 @@ export class AddTaskService {
   assignedToMenu = document.querySelector('.assignedTo-input');
   categoryMenu = document.querySelector('.category-input');
   addSubTaskMenu = document.querySelector('.subtask-input');
+
+  errorText: string = '';
+  formHasError: boolean[] = [false, false, false, false]
+  formErrorText: string[] = [
+    "Your task does not have a valid name with three or more characters.",
+    "No due Date is set.",
+    'No Category selected.',
+    'No person is assigned to your task.'
+  ]
 
   firstTimeVisit: boolean = true;
   allUser: AllUsers = {
@@ -127,5 +137,51 @@ export class AddTaskService {
     event.stopPropagation();
   }
 
+  checkForValidationinForm(newTaskForm: NgForm, isMouseOnButton: boolean = false): void {
+    this.formHasError = [false, false, false, false];
+    this.errorText = '';
+    this.formHasError[3] = this.checkAssignToValidation(isMouseOnButton);
+    this.formHasError[2] = this.checkCategoryValidation(isMouseOnButton);
+    this.formHasError[1] = this.checkDueDateValidation(newTaskForm, isMouseOnButton);
+    this.formHasError[0] = this.checkTaskNameValidation(newTaskForm, isMouseOnButton);
+    for (let i = 0; i < this.formHasError.length; i++) {
+      if (this.formHasError[i]) {
+        this.errorText = this.formErrorText[i];
+        break;
+      }
+    }
+  }
+
+  checkCategoryValidation(isMouseOnButton: boolean = false): boolean {
+    if ((this.categoryObj.currentName == 'Select Task Category' && !this.categoryObj.firstTimeVisit)
+      || (this.categoryObj.currentName == 'Select Task Category' && isMouseOnButton)) {
+      return true;
+    }
+    return false;
+  }
+
+  checkAssignToValidation(isMouseOnButton: boolean = false): boolean {
+    if ((!this.assignToObj.firstTimeVisit && this.assignToObj.selectetUser.length <= 0)
+      || (this.assignToObj.selectetUser.length <= 0 && isMouseOnButton)) {
+      return true;
+    }
+    return false;
+  }
+
+  checkDueDateValidation(newTaskForm: NgForm, isMouseOnButton: boolean = false): boolean {
+    if ((!this.newTask.date && newTaskForm.form.get('dueDate')?.touched)
+      || (!this.newTask.date && isMouseOnButton)) {
+      return true;
+    }
+    return false;
+  }
+
+  checkTaskNameValidation(newTaskForm: NgForm, isMouseOnButton: boolean = false): boolean {
+    if ((!newTaskForm.form.get('taskTitle')?.valid && newTaskForm.form.get('taskTitle')?.touched)
+      || (!newTaskForm.form.get('taskTitle')?.valid && isMouseOnButton)) {
+      return true
+    }
+    return false;
+  }
 
 }

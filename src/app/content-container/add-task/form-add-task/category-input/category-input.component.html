@@ -14,7 +14,7 @@
         <ng-content *ngFor="let key of service.allCategoryKeys; index as i;">
             <ul class="data-field-catogory">
                 <li *ngIf="service.allCategory[key].name != 'No Category'"
-                    (click)="setCategory(service.allCategory[key])" class="selectable">
+                    (click)="setCategory(service.allCategory[key] )" class="selectable">
                     {{service.allCategory[key].name}}</li>
             </ul>
         </ng-content>

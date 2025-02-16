@@ -20,17 +20,8 @@ import { DatabaseService } from '../../../service/database.service';
 export class FormAddTaskComponent {
   constructor(public service: AddTaskService, private main: MainFeaturesService, public database: DatabaseService) { }
   dateToday?: string;
-  errorText: string = '';
   checkCategory: boolean = false;
   checkAssignedTo: boolean = false;
-
-  formHasError: boolean[] = [false, false, false, false]
-  formErrorText: string[] = [
-    "Your task does not have a valid name with three or more characters.",
-    "No due Date is set.",
-    'No Category selected.',
-    'No person is assigned to your task.'
-  ]
 
   ngOnInit() {
     this.service.allKeyOfCategoryAndAssignedTo();
@@ -80,7 +71,6 @@ export class FormAddTaskComponent {
     return false;
   }
 
-
   creatNewTask(form: NgForm) {
     this.service.newTask.assignedTo = this.service.assignToObj.selectetUser;
     this.service.newTask.subTasks = this.service.addSubTaskObj.allSubTasks;
@@ -88,42 +78,4 @@ export class FormAddTaskComponent {
     this.resetForm(form);
     console.log(this.database.Tasks);
   }
-
-  checkForValidationinForm(newTaskForm: NgForm, isMouseOnButton: boolean = false): void {
-
-    this.formHasError = [false, false, false, false];
-    this.errorText = '';
-
-    if ((!this.service.assignToObj.firstTimeVisit && this.service.assignToObj.selectetUser.length <= 0)
-      || (this.service.assignToObj.selectetUser.length <= 0 && isMouseOnButton)) {
-      this.formHasError[3] = true;
-    }
-
-    if ((this.service.categoryObj.currentName == 'Select Task Category' && !this.service.categoryObj.firstTimeVisit)
-      || (this.service.categoryObj.currentName == 'Select Task Category' && isMouseOnButton)) {
-      this.formHasError[2] = true;
-    }
-
-    if (this.service.newTask.date) {
-      if ((!this.service.newTask.date && newTaskForm.form.get('dueDate')?.touched)
-        || (!this.service.newTask.date && isMouseOnButton)) {
-        this.formHasError[1] = true;
-      }
-    }
-
-    if (this.service.newTask.name) {
-      if ((this.service.newTask.name.length < 3 && newTaskForm.form.get('taskTitle')?.touched)
-        || (this.service.newTask.name.length < 3 && isMouseOnButton)) {
-        this.formHasError[0] = true;
-      }
-    }
-
-    for (let i = 0; i < this.formHasError.length; i++) {
-      if (this.formHasError[i]) {
-        this.errorText = this.formErrorText[i];
-        break;
-      }
-    }
-  }
-
 }
