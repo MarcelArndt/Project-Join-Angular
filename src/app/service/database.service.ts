@@ -8,8 +8,9 @@ import { AllCategory } from '../interface/interface';
 export class DatabaseService {
 
   constructor() { }
-
-  task = {
+  tasksKeys?: string[];
+  contactsKeys?: string[];
+  dummyTask = {
     assignedTo: [
       "id001",
       "id002",
@@ -47,7 +48,7 @@ export class DatabaseService {
     }
   };
 
-  tasks: Tasks = { "ZR0C91739701668516SP5TX": this.task, }
+  tasks: Tasks = { "ZR0C91739701668516SP5TX": this.dummyTask, }
   contacts: AllUsers = {
     id001: { firstname: 'Max', secondname: 'Mustermann', inital: 'MM', color: '#ff5733', email: 'max.mustermann@example.com', phone: '+49 170 1234567' },
     id002: { firstname: 'Erika', secondname: 'Muster', inital: 'EM', color: '#33ff57', email: 'erika.muster@example.com', phone: '+49 151 9876543' },
@@ -59,6 +60,21 @@ export class DatabaseService {
     id008: { firstname: 'Clark', secondname: 'Kent', inital: 'CK', color: '#2980b9', email: 'clark.kent@example.com', phone: '+49 176 4455667' },
     id009: { firstname: 'Peter', secondname: 'Parker', inital: 'PP', color: '#8e44ad', email: 'peter.parker@example.com', phone: '+49 175 5566778' },
   };
+
+  getTasksKeys(): string[] {
+    this.tasksKeys = Object.keys(this.tasks);
+    return this.tasksKeys;
+  }
+
+  getContactsKeys(): string[] {
+    this.contactsKeys = Object.keys(this.contacts);
+    return this.contactsKeys;
+  }
+
+  setProgressToTask(taskId: string, setProgressNumber: number = 0) {
+    if (!taskId) return;
+    this.tasks[taskId].progress = setProgressNumber;
+  }
 
   categories: AllCategory = {
     technicalTask: { name: 'Technical Task', color: '#1DD5BA' },

@@ -60,6 +60,7 @@ export class FormAddTaskComponent {
     this.service.categoryObj.firstTimeVisit = true;
     this.service.assignToObj.firstTimeVisit = true;
     this.service.addSubTaskObj.firstTimeVisit = true;
+    this.service.checkForValidationinForm(form, false);
   }
 
   checkForValidationForButton(form: NgForm) {

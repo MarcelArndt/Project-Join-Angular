@@ -4,6 +4,7 @@ import { AddTaskService } from '../../../../service/add-task.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Category } from '../../../../interface/interface';
+import { DatabaseService } from '../../../../service/database.service';
 @Component({
   selector: 'app-category-input',
   imports: [FormsModule, CommonModule, IconComponent],
@@ -11,7 +12,7 @@ import { Category } from '../../../../interface/interface';
   styleUrls: ['./category-input.component.scss', './../drop-down-menu.scss']
 })
 export class CategoryInputComponent {
-  constructor(public service: AddTaskService) { }
+  constructor(public service: AddTaskService, public database: DatabaseService) { }
 
   @Input() OnHoverIsValid: boolean = false;
   @Input() form?: NgForm;

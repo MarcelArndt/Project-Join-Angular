@@ -7,10 +7,14 @@
             <icon>add_box</icon>
         </nav>
         <div class="container">
-            <ng-container>
-                <app-board-task-cards *ngFor="let taskId of allTaskKeys; index as i;" [taskId]="taskId"
-                    [orderNumber]="i" [id]="i"></app-board-task-cards>
+            <ng-container *ngFor="let taskId of database.getTasksKeys(); index as i;">
+                <app-board-task-cards *ngIf="database.tasks[taskId].progress == 0" [taskId]="taskId"
+                    [oderNumberInColoumn]="i"></app-board-task-cards>
+
             </ng-container>
+            <app-drop-zone
+                *ngIf="service.isOnDrag && service.currentDragElement && database.tasks[service.currentDragElement.id].progress != 0"
+                class="setFullSize" [dropId]="0"></app-drop-zone>
 
         </div>
     </aside>
@@ -20,7 +24,14 @@
             <icon>add_box</icon>
         </nav>
         <div class="container">
+            <ng-container *ngFor="let taskId of database.getTasksKeys(); index as i;">
+                <app-board-task-cards *ngIf="database.tasks[taskId].progress == 1" [taskId]="taskId"
+                    [oderNumberInColoumn]="i"></app-board-task-cards>
 
+            </ng-container>
+            <app-drop-zone
+                *ngIf="service.isOnDrag && service.currentDragElement && database.tasks[service.currentDragElement.id].progress != 1"
+                class="setFullSize" [dropId]="1"></app-drop-zone>
         </div>
     </aside>
 
@@ -29,14 +40,28 @@
             <icon>add_box</icon>
         </nav>
         <div class="container">
+            <ng-container *ngFor="let taskId of database.getTasksKeys(); index as i;">
+                <app-board-task-cards *ngIf="database.tasks[taskId].progress == 2" [taskId]="taskId"
+                    [oderNumberInColoumn]="i"></app-board-task-cards>
 
+            </ng-container>
+            <app-drop-zone class="setFullSize"
+                *ngIf="service.isOnDrag && service.currentDragElement && database.tasks[service.currentDragElement!.id].progress != 2"
+                [dropId]="2"></app-drop-zone>
         </div>
     </aside>
 
     <aside class="is-done-column">
         <span>Done</span>
         <div class="container">
+            <ng-container *ngFor="let taskId of database.getTasksKeys(); index as i;">
+                <app-board-task-cards *ngIf="database.tasks[taskId].progress == 3" [taskId]="taskId"
+                    [oderNumberInColoumn]="i"></app-board-task-cards>
 
+            </ng-container>
+            <app-drop-zone class="setFullSize"
+                *ngIf="service.isOnDrag && service.currentDragElement && database.tasks[service.currentDragElement.id].progress != 3"
+                [dropId]="3"></app-drop-zone>
         </div>
     </aside>
 

@@ -22,6 +22,8 @@
     display: flex;
     flex-wrap: nowrap;
     box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .category {
@@ -182,4 +184,36 @@
     box-sizing: border-box;
     margin-left: var(--edge-distance);
     margin-right: var(--edge-distance);
+}
+
+.card-menu-nav {
+    position: relative;
+    height: 72px;
+}
+
+.card-menu {
+    list-style: none;
+    display: flex;
+
+    margin-right: var(--edge-distance);
+    margin-top: 8px;
+
+    .list-icon {
+        padding: 8px;
+        transform: scale(1.0);
+        transition: transform 0.125s ease-in-out;
+        color: var(--hover-grey);
+        user-select: none;
+
+        &:hover {
+            color: var(--grey);
+            cursor: pointer;
+            transform: scale(1.3);
+            transition: transform 0.125s ease-in-out;
+        }
+    }
+
+    icon {
+        font-size: 24px;
+    }
 }
