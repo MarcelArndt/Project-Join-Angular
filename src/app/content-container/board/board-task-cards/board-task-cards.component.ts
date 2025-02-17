@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, viewChild, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { DatabaseService } from '../../../service/database.service';
 import { TaskPayload } from '../../../interface/interface';
 import { CommonModule } from '@angular/common';
@@ -39,10 +39,6 @@ export class BoardTaskCardsComponent {
     this.lengthOfTaskBar = Math.floor(100 / this.allSubTaskKeys!.length * this.AmountOfSubtaskAreDone).toString() + '%'
   }
 
-  deleteTask() {
-    delete this.database.tasks[this.taskId];
-    console.log(this.database.tasks);
-  }
 
   preventClick(event: Event) {
     event.stopPropagation();

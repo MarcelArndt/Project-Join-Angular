@@ -10,10 +10,8 @@ import { CommonModule } from '@angular/common';
 export class BurgermenuComponent {
   @Input() id: string = ''
   @ViewChild('menuSelfRef') menuSelfRef!: ElementRef;
-
   isMenuOpen: boolean = false;
   firstTimeOpen: boolean = true;
-
 
   @HostListener('document:click', ['$event'])
   handleClickOutside(event: Event) {

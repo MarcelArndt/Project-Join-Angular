@@ -76,6 +76,10 @@ export class DatabaseService {
     this.tasks[taskId].progress = setProgressNumber;
   }
 
+  deleteTaskById(id: string) {
+    delete this.tasks[id];
+  }
+
   categories: AllCategory = {
     technicalTask: { name: 'Technical Task', color: '#1DD5BA' },
     userStory: { name: 'User Story', color: '#3F65F0' },

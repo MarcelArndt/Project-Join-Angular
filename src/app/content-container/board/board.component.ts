@@ -5,11 +5,13 @@ import { BoardTaskCardsComponent } from './board-task-cards/board-task-cards.com
 import { CommonModule } from '@angular/common';
 import { DropZoneComponent } from './drop-zone/drop-zone.component';
 import { BoardService } from '../../service/board.service';
+import { LightboxComponent } from '../../lightbox/lightbox.component';
+import { AddTaskComponent } from '../add-task/add-task.component';
 
 
 @Component({
   selector: 'app-board',
-  imports: [IconComponent, BoardTaskCardsComponent, CommonModule, DropZoneComponent],
+  imports: [IconComponent, BoardTaskCardsComponent, CommonModule, DropZoneComponent, LightboxComponent, AddTaskComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })

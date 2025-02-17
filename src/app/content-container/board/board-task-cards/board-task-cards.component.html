@@ -5,7 +5,7 @@
         </div>
         <nav class="card-menu-nav">
             <ul class="card-menu">
-                <li class="list-icon" (click)="deleteTask()">
+                <li class="list-icon" (click)="database.deleteTaskById(taskId)">
                     <icon>delete</icon>
                 </li>
                 <li class="list-icon" (click)="preventClick($event); menu.toggleMenu();">
@@ -16,7 +16,7 @@
                 <ul>
                     <li>Edit Task</li>
                     <li>Move To</li>
-                    <li (click)="deleteTask()">Delete</li>
+                    <li (click)="database.deleteTaskById(taskId)">Delete</li>
                 </ul>
             </menu>
         </nav>

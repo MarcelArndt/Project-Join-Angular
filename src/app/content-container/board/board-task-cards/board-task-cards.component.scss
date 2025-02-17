@@ -1,7 +1,7 @@
 .card-body {
     --text-size: 17px;
     --edge-distance: 24px;
-    width: 300px;
+    width: 316px;
 
     margin: 10px 0px;
     background-color: var(--white);
@@ -12,7 +12,7 @@
 
     &:hover {
         cursor: grab;
-        rotate: (4deg);
+        rotate: (-3deg);
         transition: rotate 0.125s ease-in-out;
     }
 }
@@ -32,10 +32,9 @@
     margin-left: var(--edge-distance);
     display: block;
     text-align: center;
-    padding: 8px 8px;
+    padding: 8px 12px;
     border-radius: 8px;
     color: var(--white);
-    box-shadow: 0px 1px 1px var(--shadow);
     font-size: var(--text-size);
 }
 
