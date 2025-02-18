@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Tasks } from '../interface/interface';
 import { AllUsers } from '../interface/interface';
 import { AllCategory } from '../interface/interface';
+import { SubTask } from '../interface/interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,7 +27,7 @@ export class DatabaseService {
     },
     date: "2025-02-18",
     description: "This is the description of a task. this description has to be long as possible to test some styling things on it.",
-    name: "This is a Title of a Task. The Title is extra long to check some Issus.",
+    name: "Neues Framework testen",
     priority: "medium",
     progress: 0,
     subTasks: {
@@ -75,6 +76,12 @@ export class DatabaseService {
     if (!taskId) return;
     this.tasks[taskId].progress = setProgressNumber;
   }
+
+  saveSubTasktoTask(taskId: string, subtaskId: string, newSubtaksValues: SubTask) {
+    if (!taskId || !subtaskId) return;
+    this.tasks[taskId].subTasks[subtaskId] = JSON.parse(JSON.stringify(newSubtaksValues));
+  }
+
 
   deleteTaskById(id: string) {
     delete this.tasks[id];

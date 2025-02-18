@@ -27,17 +27,19 @@
     border: 36px solid var(--whitebox-background-color);
     max-height: 80vh;
     box-shadow: 0px 3px 3px var(--lightbox-shadow);
-    overflow-x: hidden;
     overflow-y: scroll;
     max-width: 75%;
+    position: relative;
 }
 
 .headline-of-box {
-    height: 75px;
+    position: sticky;
+    top: 0px;
+    left: 0px;
+    height: 60px;
     color: var(--whitebox-font-color);
-    border-bottom: 1px solid var(--whitebox-inner-shadow);
     background-color: var(--whitebox-background-color);
-    font-size: 18px;
+    font-size: 21px;
     display: flex;
     justify-content: flex-end;
     box-sizing: content-box;
@@ -135,5 +137,14 @@
 
     100% {
         opacity: 1;
+    }
+}
+
+
+@media (max-width: 750px) {
+    .whitebox {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 100%;
     }
 }

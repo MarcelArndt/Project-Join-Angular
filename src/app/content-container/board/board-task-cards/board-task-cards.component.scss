@@ -97,6 +97,7 @@
         height: 8px;
         border-radius: 12px;
         background-color: var(--cyan);
+        transition: width 0.75s ease-in-out;
     }
 
     .amount {

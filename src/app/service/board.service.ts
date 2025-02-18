@@ -7,7 +7,8 @@ export class BoardService {
 
   constructor() { }
   currentDragElement?: HTMLElement;
-  isOnDrag = false;
+  isOnDrag: boolean = false;
+  currentId: string = '';
 
   setCurrentDragElement(element: HTMLElement) {
     this.currentDragElement = element;
@@ -23,6 +24,14 @@ export class BoardService {
 
   setisOnDragOff() {
     this.isOnDrag = false;
+  }
+
+  setCurrentId(id: string) {
+    this.currentId = id;
+  }
+
+  clearCurrentId() {
+    this.currentId = '';
   }
 
 }

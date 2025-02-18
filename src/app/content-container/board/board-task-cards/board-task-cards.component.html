@@ -5,7 +5,7 @@
         </div>
         <nav class="card-menu-nav">
             <ul class="card-menu">
-                <li class="list-icon" (click)="database.deleteTaskById(taskId)">
+                <li class="list-icon" (click)="preventClick($event); database.deleteTaskById(taskId)">
                     <icon>delete</icon>
                 </li>
                 <li class="list-icon" (click)="preventClick($event); menu.toggleMenu();">
@@ -28,9 +28,10 @@
 
     <div *ngIf="allSubTaskKeys!.length > 0" class="subtask-bar">
         <div class="loading-bar">
-            <div class="filling-bar" [style.width]="lengthOfTaskBar"></div>
+            <div class="filling-bar" [style.width]="checkForLenghtOfSubtaskBar()"></div>
         </div>
-        <div class="amount"><span>{{AmountOfSubtaskAreDone}}&nbsp;/&nbsp;{{allSubTaskKeys?.length}}</span></div>
+        <div class="amount"><span>{{checkForAmountOfSubtaskAreDone()}}&nbsp;/&nbsp;{{allSubTaskKeys?.length}}</span>
+        </div>
     </div>
 
     <div *ngIf="allSubTaskKeys!.length <= 0" class="div-hr">
