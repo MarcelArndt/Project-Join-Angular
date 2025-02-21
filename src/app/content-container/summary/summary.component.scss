@@ -1,0 +1,47 @@
+.headline {
+    display: flex;
+    height: 72px;
+    justify-self: start;
+    align-items: center;
+    color: var(--black);
+
+    h1 {
+        width: max-content;
+
+    }
+
+    h3 {
+        font-weight: 400;
+        font-size: 32px;
+    }
+
+    hr {
+        margin: 0px 36px;
+        width: 3px;
+        height: 100%;
+        background-color: var(--cyan);
+    }
+}
+
+.row {
+    width: 100%;
+    display: flex;
+
+    app-card-for-summary:first-child {
+        margin-left: 0px;
+    }
+}
+
+app-card-for-summary {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 32px;
+}
+
+.panel-content-container {
+    width: 100%;
+    max-width: 50%;
+    background-color: aqua;
+}

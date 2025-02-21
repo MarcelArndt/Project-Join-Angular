@@ -124,3 +124,19 @@ hr {
         box-shadow: none !important;
     }
 }
+
+::-webkit-scrollbar {
+    background-color: var(--white);
+}
+
+::-webkit-scrollbar-track {
+    box-sizing: border-box;
+    background-color: var(--hover-white);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--hover-black);
+    border-radius: 8px;
+    box-sizing: border-box;
+    border: 3px solid var(--white);
+}
