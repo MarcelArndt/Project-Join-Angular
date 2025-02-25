@@ -1,4 +1,4 @@
-<div class="Summary-Container">
+<div class="summary-container">
 
     <div class="headline">
         <h1>JOIN 360</h1>
@@ -6,42 +6,77 @@
         <h3>Key Metrics at a Glance</h3>
     </div>
 
+    <div class="summary-content-wrapper">
+
     <div class="panel-content-container">
         <div class="row">
-            <app-card-for-summary icon="edit" value='0'>
-                <p>To-Do</p>
-            </app-card-for-summary>
 
-            <app-card-for-summary icon="check" value='2'>
-                <p>Done</p>
-            </app-card-for-summary>
+            <div class="card-container">
+                <icon>edit</icon>
+                <div class="dflex">
+                    <p>To-Do</p>
+                    <div class="value">{{summaryValues.numberOfToDo}}</div>
+                </div>
+            </div>
+
+            <div class="card-container">
+                <icon>check</icon>
+                    <div class="dflex">
+            
+                    <p>Done</p>
+                    <div class="value">{{summaryValues.numberOfDone}}</div>
+                </div>
+           </div>
         </div>
 
-        <app-card-for-summary icon='double_arrow' value='5'>
-            <p>Task&nbsp;in Board</p>
-            <hr>
-            <div class="second-column">
-                <p>Marc 23, 2025</p>
-                <p>Upcoming Deadline</p>
-            </div>
-        </app-card-for-summary>
-
         <div class="row">
-            <app-card-for-summary value='5'>
-                <p>Task&nbsp;in Board</p>
-            </app-card-for-summary>
-
-            <app-card-for-summary value='1'>
-                <p>Task&nbsp;in Progress</p>
-            </app-card-for-summary>
-
-            <app-card-for-summary value='3'>
-                <p>Await Feedback</p>
-            </app-card-for-summary>
+            <div class="card-container">
+                <icon class="red rotate-270deg">double_arrow</icon>
+                <div class="dflex">
+            <div class="columns-container">
+                <div class="column">
+                    <div class="value">{{summaryValues.numberOfUrgentTasks}}</div>
+                    <p>Task&nbsp;in Board</p>
+                </div>
+                <hr>
+                <div class="column">
+                    <p>Marc 23, 2025</p>
+                    <p>Upcoming Deadline</p>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
 
+        <div class="row">
+            <div class="card-container">
+                <div class="dflex">
+                <p>Task&nbsp;in<br>Board</p>
+                <div class="value">{{summaryValues.numberOfTaskInBoard}}</div>
+            </div>
+            </div>
 
+            <div class="card-container">
+                <div class="dflex">
+                <p>Task&nbsp;in<br>Progress</p>
+                <div class="value">{{summaryValues.numberOfTaskInProgress}}</div>
+            </div>
+            </div>
+
+            <div class="card-container">
+                <div class="dflex">
+                <p>Await<br>Feedback</p>
+                <div class="value">{{summaryValues.numberOfAwaitFeedback}}</div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-content-container">
+        <h1>{{currentTimeText}}</h1>
+    </div>
+
+</div>
 
 
 </div>
