@@ -149,3 +149,10 @@ label {
     display: flex;
     justify-content: start;
 }
+
+@media (max-width: 456px) {
+    .min-witdh-button{
+        white-space: nowrap; 
+        min-width: 115px;
+    }
+}

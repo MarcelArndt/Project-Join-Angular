@@ -38,3 +38,15 @@ input {
 .min-height-for-container {
     min-height: 55px;
 }
+
+.assined-to-render-container{
+    box-sizing: border-box;
+    padding-left: 8px;
+
+}
+
+@media (max-width:1440px){
+    .assined-to-render-container{
+        padding-bottom: 36px;
+    }
+}

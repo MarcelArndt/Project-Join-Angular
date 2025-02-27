@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-navigation',
   imports: [IconComponent, RouterModule],
   templateUrl: './navigation.component.html',
-  styleUrl: './navigation.component.scss'
+  styleUrls: ['./navigation.component.scss', './mobil-navigation.scss']
 })
 export class NavigationComponent {
 
