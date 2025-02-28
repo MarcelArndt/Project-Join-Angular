@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Type } from '@angular/core';
 import { IconComponent } from '../../icon/icon.component';
 import { DatabaseService } from '../../service/database.service';
 import { BoardTaskCardsComponent } from './board-task-cards/board-task-cards.component';
@@ -8,6 +8,8 @@ import { BoardService } from '../../service/board.service';
 import { LightboxComponent } from '../../lightbox/lightbox.component';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { TaskOverviewComponent } from './task-overview/task-overview.component';
+import { EditTaskComponent } from './edit-task/edit-task.component';
+import { LightboxService } from '../../lightbox/lightbox.service';
 
 
 @Component({
@@ -17,17 +19,24 @@ import { TaskOverviewComponent } from './task-overview/task-overview.component';
   styleUrl: './board.component.scss'
 })
 export class BoardComponent {
-  constructor(public database: DatabaseService, public service: BoardService) { }
+  constructor(public database: DatabaseService, public service: BoardService, public lightboxService: LightboxService ) { }
   @ViewChild('lightbox') lightbox!: LightboxComponent;
 
   openAddTaskInLightBox() {
-    this.lightbox.openLightBox(AddTaskComponent);
+    this. lightboxService.openLightBox(AddTaskComponent);
   }
 
-  openTaskOverView(id: string) {
+  openTaskOverViewInLightBox(id: string) {
     this.service.setCurrentId(id);
-    this.lightbox.openLightBox(TaskOverviewComponent);
+    this.lightboxService.openLightBox(TaskOverviewComponent);
   }
 
+  checkLightboxClosingEvent(event:Event){
+    console.log(event);
+  }
+
+  closeLightBox(){
+    this.lightboxService.closeLightbox();
+  }
 
 }

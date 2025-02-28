@@ -1,9 +1,9 @@
-<section class="lightbox-background" (click)="closeLightbox()"
-    [ngClass]="{'lightbox-fade-in' : isLightBoxOpen && !firstTimeopen, 'lightbox-fade-out' : !isLightBoxOpen && !firstTimeopen, 'init' : firstTimeopen}">
+<section class="lightbox-background" (click)="service.closeLightbox()"
+    [ngClass]="{'lightbox-fade-in' : service.isLightBoxOpen && !service.firstTimeopen, 'lightbox-fade-out' : !service.isLightBoxOpen && !service.firstTimeopen, 'init' : service.firstTimeopen}">
     <div (click)="preventClick($event)" class="whitebox"
-        [ngClass]="{'whitebox-fade-in' : isLightBoxOpen, 'whitebox-fade-out' : !isLightBoxOpen}">
+        [ngClass]="{'whitebox-fade-in' : service.isLightBoxOpen, 'whitebox-fade-out' : !service.isLightBoxOpen}">
         <div class="headline-of-box">
-            <icon (click)="closeLightbox()" class="close-button">close</icon>
+            <icon (click)="service.closeLightbox()" class="close-button">close</icon>
         </div>
         <div class="whitebox-container">
             <ng-content></ng-content>
