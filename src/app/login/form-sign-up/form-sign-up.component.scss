@@ -30,3 +30,30 @@ form {
 .login-h1 {
     text-align: center;
 }
+
+@media (max-width:600px){
+    .button-backwards{
+        display: flex;
+        top: 12px;
+        left: 24px; 
+        width: 32px;
+        height: 32px; 
+        flex-shrink: 0;
+        overflow: hidden;
+        font-size: 27px;
+
+        icon{
+            padding-left: 2px;
+        }
+    }
+
+    h1{
+        font-size: clamp(32px,12vw,64px); 
+        margin-bottom: 0px;
+    }
+
+    .input-frame{
+        width: auto  !important;
+    }
+
+}

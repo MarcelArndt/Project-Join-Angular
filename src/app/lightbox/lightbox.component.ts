@@ -2,6 +2,7 @@ import { Component, Type, ViewChild, ComponentRef, ViewContainerRef, } from '@an
 import { CommonModule } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
 import { LightboxService } from './lightbox.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'lightbox',
@@ -10,8 +11,13 @@ import { LightboxService } from './lightbox.service';
   styleUrl: './lightbox.component.scss'
 })
 export class LightboxComponent {
+
+  @ViewChild('lightboxContainer', { read: ViewContainerRef }) contentContainer!: ViewContainerRef;
+  currentComponentRef: ComponentRef<any> | null = null;
+  componentSubcribtion?: Subscription;
+
   constructor(public service: LightboxService ){
-    this.service.nextComponent$.subscribe( (comp) => {
+    this.componentSubcribtion = this.service.nextComponent$.subscribe( (comp) => {
       if(comp){
         this.loadComponent(comp);
       } else {
@@ -20,31 +26,14 @@ export class LightboxComponent {
     });
   }
 
-  @ViewChild('lightboxContainer', { read: ViewContainerRef }) contentContainer!: ViewContainerRef;
-  currentComponentRef: ComponentRef<any> | null = null;
- 
-  openLightBox<T>(component: Type<T>) {
-    this.contentContainer.clear();
-    this.contentContainer.createComponent(component);
-    this.service.ToggleLightBoxValues();
-  }
-
-  switchContent<T>(component: Type<T>){
-    this.contentContainer.clear();
-    this.contentContainer.createComponent(component);
-  }
-
   preventClick(event: Event) {
     event.stopPropagation();
-  }
-
-  closeLightbox(){
-    this.service.closeLightbox()
   }
 
   ngOnDestroy(){
     this.service.firstTimeopen = true;
     this.service.isLightBoxOpen = false;
+    this.componentSubcribtion?.unsubscribe();
   }
 
   loadComponent(component:Type<any>){

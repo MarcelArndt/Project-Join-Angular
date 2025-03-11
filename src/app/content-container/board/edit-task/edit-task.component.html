@@ -1,1 +1,30 @@
-<p>edit-task works!</p>
+<form #editTaskForm="ngForm">
+
+    <label for="title" class="important">Title</label>
+    <div (click)="service.checkForValidationinForm(editTaskForm, false)" class="input-frame input-frame-add-task"
+        >
+        <input id='nameInput' required name="taskTitle" [(ngModel)]='service.task!.name' type="text"
+            (input)="service.checkForValidationinForm(editTaskForm, false)"
+            (blur)="service.checkForValidationinForm(editTaskForm, false)" placeholder="Enter a Title"
+            minlength="3" #taskTitleInput="ngModel">
+    </div>
+    
+    <label for="description">Description</label>
+    <div class="text-frame">
+        <textarea id="description" name="task-description" [(ngModel)]='service.task!.description'
+            placeholder="Enter a Description" minlength="3"></textarea>
+    </div>
+
+    <label for="title" class="important">Due date</label>
+    <div class="input-frame input-frame-add-task" id="dueDateInput"
+        
+        (blur)="service.checkForValidationinForm(editTaskForm, false)"
+        (input)="service.checkForValidationinForm(editTaskForm, false)">
+        <div class="suffix-icon data-picker-icon">
+            <icon>calendar_month</icon>
+        </div>
+        <input class='data-picker-input' [(ngModel)]='service.task!.date' required type="date" id="start"
+            name="dueDate" [min]="dateToday" #dueDateTaskInput="ngModel" />
+    </div>
+
+</form>

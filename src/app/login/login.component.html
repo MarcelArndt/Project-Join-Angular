@@ -5,18 +5,20 @@
             <p>Not a Join-User?</p>
             <div class="black-button" (click)="siwtchToSignUp()">Sign-up</div>
         </div>
-        <nav>
+        <nav class="bottom-nav">
             <ul>
                 <li [routerLink]="['/main/privacy-policy']">Privacy Policy</li>
                 <li [routerLink]="['/main/legal-notice']">Legal Notice</li>
             </ul>
         </nav>
+        <div class="whitebox-wrapper">
         <div class="whitebox">
             <form-log-in class="fullsize"
                 [ngClass]="{'animation-fade-in-left' : !isSignUp && !isInit, 'animation-fade-out-left' : isSignUp && !isInit, 'initIn' : isInit}"></form-log-in>
             <form-sign-up class="fullsize" (switchEvent)="toggleContent()"
                 [ngClass]="{'animation-fade-in-right' : isSignUp && !isInit, 'animation-fade-out-right' : !isSignUp && !isInit, 'initOut' : isInit}"></form-sign-up>
         </div>
+         </div>
         <div class="none" [ngClass]="{'white-space' : secondClassForLogo == 'animation'}"></div>
         <div class="logo"><img src="./img/logo-black.svg" [ngClass]="secondClassForLogo"></div>
     </div>

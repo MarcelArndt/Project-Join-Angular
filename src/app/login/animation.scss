@@ -116,7 +116,15 @@
     to {
         left: 48px;
         top: 48px;
-        width: 90px;
+        width: clamp(44px, 12vw, 90px);
+    }
+}
+
+@keyframes move-to-top-small {
+    to {
+        left: 48px;
+        top: 48px;
+        width: 12px;
     }
 }
 
@@ -132,4 +140,10 @@
         width: 0%;
         display: none;
     }
+}
+
+@media (max-width:560px){
+
+
+
 }

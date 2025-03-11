@@ -70,3 +70,37 @@ header {
         transform: scale(105%);
     }
 }
+
+.logo{
+    position: absolute;
+    left: 64px;
+    display: none;
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+    
+ }
+
+@media (max-width: 1024px){
+    header{
+        width: calc(100% + (90px - 68px));
+        p {
+            left: 64px;
+        }
+    }
+
+
+
+}
+
+@media (max-width: 600px){
+    header{
+        p {
+            display: none;
+        }
+    }
+    
+    .logo{
+        display: flex;
+    }
+}

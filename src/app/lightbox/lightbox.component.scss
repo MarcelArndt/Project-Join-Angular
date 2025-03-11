@@ -6,6 +6,8 @@
     --whitebox-font-color-hover: var(--black);
     --lightbox-shadow: var(--black);
     --whitebox-inner-shadow: var(--shadow);
+    --whitebox-inner-animation-duration: 0.75s;
+    
     z-index: 999;
     position: fixed;
     width: 100vw;
@@ -76,19 +78,19 @@
 }
 
 .lightbox-fade-in {
-    animation: fade-lightbox-in 0.75s ease-in-out forwards;
+    animation: fade-lightbox-in var(--whitebox-inner-animation-duration) ease-in-out forwards;
 }
 
 .lightbox-fade-out {
-    animation: fade-lightbox-out 0.75s ease-in-out forwards;
+    animation: fade-lightbox-out var(--whitebox-inner-animation-duration) ease-in-out forwards;
 }
 
 .whitebox-fade-in {
-    animation: whitebox-fade-in 0.75s ease-in-out forwards;
+    animation: whitebox-fade-in var(--whitebox-inner-animation-duration) ease-in-out forwards;
 }
 
 .whitebox-fade-out {
-    animation: whitebox-fade-out 0.75s ease-in-out forwards;
+    animation: whitebox-fade-out var(--whitebox-inner-animation-duration) ease-in-out forwards;
 }
 
 .init {
