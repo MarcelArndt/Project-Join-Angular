@@ -3,7 +3,7 @@
     <div class="content-wrapper">
         <div class="sign-up-bar">
             <p>Not a Join-User?</p>
-            <div class="black-button" (click)="siwtchToSignUp()">Sign-up</div>
+            <div class="black-button" (click)="sliderservice.slideto(1)">Sign-up</div>
         </div>
         <nav class="bottom-nav">
             <ul>
@@ -11,14 +11,15 @@
                 <li [routerLink]="['/main/legal-notice']">Legal Notice</li>
             </ul>
         </nav>
-        <div class="whitebox-wrapper">
+
         <div class="whitebox">
-            <form-log-in class="fullsize"
-                [ngClass]="{'animation-fade-in-left' : !isSignUp && !isInit, 'animation-fade-out-left' : isSignUp && !isInit, 'initIn' : isInit}"></form-log-in>
-            <form-sign-up class="fullsize" (switchEvent)="toggleContent()"
-                [ngClass]="{'animation-fade-in-right' : isSignUp && !isInit, 'animation-fade-out-right' : !isSignUp && !isInit, 'initOut' : isInit}"></form-sign-up>
+            <app-content-slider>
+                <form-log-in class="box-element"></form-log-in>
+                <form-sign-up class="box-element"></form-sign-up>
+            </app-content-slider>
         </div>
-         </div>
+
+
         <div class="none" [ngClass]="{'white-space' : secondClassForLogo == 'animation'}"></div>
         <div class="logo"><img src="./img/logo-black.svg" [ngClass]="secondClassForLogo"></div>
     </div>
