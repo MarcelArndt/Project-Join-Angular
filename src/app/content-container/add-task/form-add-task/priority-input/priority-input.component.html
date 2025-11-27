@@ -1,0 +1,28 @@
+<label for="priority">Priority</label>
+<div class="priority-container">
+
+    <div class="priority-button" [ngClass]="{'hover-shadow': value != 'urgent'}"
+        (click)="setPriority('urgent')" [style.background]="value == 'urgent'?  '#ff3d00' : ''"
+        [style.color]="value == 'urgent'?  'white' : 'black'">
+        <span>Urgent</span>
+        <icon class="icon-roate-270deg" [style.color]="value != 'urgent'?  '#ff3d00' : ''">
+            double_arrow</icon>
+    </div>
+
+    <div class="priority-button" [ngClass]="{'hover-shadow': value != 'medium'}"
+        (click)="setPriority('medium')" [style.background]="value== 'medium'?  '#FFA800' : ''"
+        [style.color]="value == 'medium'?  'white' : 'black'">
+        <span>Medium</span>
+        <icon [style.color]="value != 'medium'?  '#FFA800' : ''">
+            drag_handle</icon>
+    </div>
+
+    <div class="priority-button" [ngClass]="{'hover-shadow': value != 'low'}"
+        (click)="setPriority('low')" [style.background]="value == 'low'?  '#7AE229' : ''"
+        [style.color]="value == 'low'?  'white' : 'black'">
+        <span>Low</span>
+        <icon class="icon-roate-90deg" [style.color]="value != 'low'?  '#7AE229' : ''">
+            double_arrow</icon>
+    </div>
+
+</div>

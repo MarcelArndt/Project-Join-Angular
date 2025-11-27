@@ -1,0 +1,101 @@
+:host{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.priority-container {
+    margin: 24px 0px 32px;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+
+    .hover-shadow {
+        &:hover {
+            box-shadow: 0px 3px 3px var(--shadow);
+        }
+    }
+
+    .priority-button {
+        width: 30%;
+        height: 65px;
+        max-width: 175px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        border-radius: 12px;
+        background-color: var(--white);
+        border: 1px solid var(--shadow);
+        font-size: clamp(18px, 2.5vw, 21px);
+        user-select: none;
+
+        span {
+            margin-right: 8px;
+        }
+
+        &:hover {
+            cursor: pointer;
+
+        }
+
+        icon {
+            font-size: clamp(24px, 2.5vw, 36px);
+        }
+    }
+
+    .icon-roate-270deg {
+        rotate: (270deg);
+        margin-top: 3px;
+    }
+
+    .icon-roate-90deg {
+        rotate: (90deg);
+        margin-bottom: 3px;
+    }
+}
+
+label {
+    width: max-content;
+    font-size: 21px;
+    display: flex;
+    justify-content: start;
+}
+
+@media (max-width: 1060px) {
+    .priority-button {
+        flex-direction: column-reverse;
+        padding-bottom: 24px;
+        padding-top: 10px;
+
+        span {
+            margin: 0 0 0 0 !important;
+        }
+
+        icon {
+            font-size: 32px !important;
+        }
+
+
+    }
+
+}
+
+@media (max-width: 1024px) {
+    .priority-container {
+        justify-content: start;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 436px) {
+    .priority-container {
+        justify-content: center;
+
+        .priority-button {
+            font-size: 14px;
+        }
+    }
+
+}

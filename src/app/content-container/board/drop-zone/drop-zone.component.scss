@@ -1,0 +1,20 @@
+.drop-zone-container {
+    width: 100%;
+    height: 200px;
+    border: 1px dashed var(--grey);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--hover-grey);
+}
+
+.drop-zone-content {
+    color: var(--grey);
+    font-size: 18px;
+
+    icon {
+        font-size: 48px;
+        opacity: 0.25;
+    }
+}

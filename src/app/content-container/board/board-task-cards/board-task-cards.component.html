@@ -1,0 +1,66 @@
+<div class="card-body" #card draggable="true" (drag)="startToDrag($event)" (dragend)="stopToDrag()">
+    <div class="block-flex">
+        <div class="category" [style.background-color]="task?.category?.color">
+            {{task?.category?.name}}
+        </div>
+        <nav class="card-menu-nav">
+            <ul class="card-menu">
+                <li class="list-icon" (click)="preventClick($event); database.deleteTaskById(taskId)">
+                    <icon>delete</icon>
+                </li>
+                <li class="list-icon" (click)="preventClick($event); menu.toggleMenu();">
+                    <icon>menu</icon>
+                </li>
+            </ul>
+            <menu #menu>
+                <ul>
+                    <li>Edit Task</li>
+                    <li>Move To</li>
+                    <li (click)="database.deleteTaskById(taskId)">Delete</li>
+                </ul>
+            </menu>
+        </nav>
+    </div>
+    <div class="text-container">
+        <p class="title">{{task?.name}}</p>
+        <p class="text">{{task?.description}}</p>
+    </div>
+
+    <div *ngIf="allSubTaskKeys!.length > 0" class="subtask-bar">
+        <div class="loading-bar">
+            <div class="filling-bar" [style.width]="checkForLenghtOfSubtaskBar()"></div>
+        </div>
+        <div class="amount"><span>{{checkForAmountOfSubtaskAreDone()}}&nbsp;/&nbsp;{{allSubTaskKeys?.length}}</span>
+        </div>
+    </div>
+
+    <div *ngIf="allSubTaskKeys!.length <= 0" class="div-hr">
+    </div>
+
+    <div class="info-bar">
+        <div *ngIf="task!.assignedTo" class="assign-to-bar">
+            <ng-container *ngFor="let user of task!.assignedTo; index as i">
+                <div *ngIf="i < 5 && task!.assignedTo.length > 0" class="profil-picture"
+                    [style.background-color]="this.database.contacts[user].color">
+                    {{this.database.contacts[user].inital}}</div>
+                <div *ngIf="i == 6 && task!.assignedTo.length > 6 && task!.assignedTo.length > 0"
+                    class="extra-amount-of-user">
+                    +{{task!.assignedTo.length - 5}}</div>
+            </ng-container>
+        </div>
+
+        <div class="priority-icon-bar">
+            <span *ngIf="task?.priority == 'urgent'" class="rotate-270deg">
+                <icon>double_arrow</icon>
+            </span>
+            <span *ngIf="task?.priority == 'medium'" class="rotate-0deg">
+                <icon>drag_handle</icon>
+            </span>
+            <span *ngIf="task?.priority == 'low'" class="rotate-90deg">
+                <icon>double_arrow</icon>
+            </span>
+        </div>
+
+    </div>
+
+</div>

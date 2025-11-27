@@ -1,0 +1,33 @@
+.suffix-icon {
+    padding: 0px 16px;
+    color: var(--grey);
+}
+
+.select-container {
+    z-index: 100;
+}
+
+.important {
+    position: relative;
+
+    &::before {
+        content: '*';
+        position: absolute;
+        width: min-content;
+        height: 100%;
+        top: -5px;
+        right: -12px;
+        font-size: 24px;
+        color: var(--error);
+    }
+}
+
+.data-field-catogory {
+    li {
+        border-radius: 8px !important;
+    }
+}
+
+.error-border {
+    border-color: var(--error) !important;
+}

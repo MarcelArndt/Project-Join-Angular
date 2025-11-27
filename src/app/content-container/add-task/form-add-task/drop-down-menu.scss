@@ -1,0 +1,231 @@
+label {
+    width: max-content;
+    font-size: 21px;
+    display: flex;
+    justify-content: start;
+}
+
+.select-input {
+    border: 1px solid var(--grey);
+    width: 100%;
+    height: 20px;
+    display: flex;
+    font-size: 18px;
+    align-items: center;
+    border-radius: 14px;
+    margin: 8px 0px 24px 0px;
+    background-color: var(--white);
+    padding: 16px 0px 16px 0px;
+    justify-content: space-between;
+    position: relative;
+
+    icon {
+        font-size: 26px;
+
+    }
+
+    hr {
+        flex-grow: 0;
+        width: 1px;
+        height: 24px;
+        background-color: var(--grey);
+    }
+
+    span {
+        font-size: 18px;
+        display: flex;
+        height: 100%;
+        width: 100%;
+        margin-left: 16px;
+    }
+
+    input {
+        padding: 8px 0px;
+        font-size: 18px;
+        width: 100% !important;
+        margin-left: 0px !important;
+    }
+
+    &:hover,
+    &:focus-within,
+    &:active {
+        border-color: var(--cyan);
+    }
+
+    .select-container {
+        z-index: 999;
+        width: 100%;
+        background-color: var(--white);
+        height: 0px;
+        opacity: 0;
+        overflow-y: auto;
+        position: absolute;
+        top: 64px;
+        left: 0px;
+        box-sizing: border-box;
+        border-radius: 14px;
+        padding: 0px;
+        box-shadow: 0px 3px 8px var(--shadow);
+    }
+
+    .search-iocn {
+        width: 44px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--grey);
+        font-size: 28px;
+        padding-left: 8px;
+    }
+
+    .suffix-icon {
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+    }
+}
+
+.assined-to-render-container {
+    width: calc(100% - 8px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+
+
+}
+
+.profil-picture-big {
+    user-select: none;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    border-radius: 50%;
+    margin: 0px -8px;
+    border: 2px solid var(--white);
+}
+
+.amount-of-number {
+    user-select: none;
+    margin-left: -8px;
+    color: var(--white);
+    font-size: 14px;
+    padding: 0px 16px;
+    height: 30px;
+    background-color: var(--cyan);
+    border-radius: 21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--white);
+}
+
+.display-off {
+    display: none !important;
+}
+
+.data-field {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 12px 18px;
+    box-sizing: border-box;
+    border-radius: 14px;
+    user-select: none;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+
+    .profil-picture {
+        width: 34px;
+        height: 34px;
+        aspect-ratio: 1 / 1;
+        background-color: rgb(227, 0, 0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        border-radius: 50%;
+        font-size: 16px;
+    }
+
+    span {
+        font-size: 18px;
+        border: none;
+    }
+
+    &:hover {
+        cursor: pointer;
+        background-color: var(--hover-grey);
+        border-color: var(--grey);
+    }
+
+    &:hover icon {
+        color: var(--cyan);
+    }
+}
+
+.selectable {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 16px;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+
+    &:hover {
+        cursor: pointer;
+        background-color: var(--hover-grey);
+        border-color: var(--grey);
+    }
+
+}
+
+.clickable {
+    user-select: none;
+    cursor: pointer;
+}
+
+
+.animate-fade-in-container {
+    animation: fade-in-container 0.5s ease-in-out forwards;
+}
+
+.animate-fade-out-container {
+    animation: fade-out-container 0.5s ease-in-out forwards;
+}
+
+@keyframes fade-in-container {
+    0% {
+        display: block;
+        height: 0px;
+        opacity: 0;
+    }
+
+    100% {
+        height: 180px;
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out-container {
+    0% {
+        height: 180px;
+        opacity: 1;
+    }
+
+    99% {
+        height: 0px;
+        opacity: 0;
+    }
+
+    100% {
+        display: none;
+    }
+}

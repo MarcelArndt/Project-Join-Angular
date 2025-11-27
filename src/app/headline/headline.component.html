@@ -1,0 +1,16 @@
+<header>
+    <img src="./img/logo-black.svg" class="logo">
+    <p class="title">Kanban Project Management Tool</p>
+    <div class="container-wrapper">
+        <div class="button-help" routerLink="help">
+            <icon>help</icon>
+        </div>
+        <div class="profil-container" (click)="naviService.preventClick($event)">
+            <div class="profil" (click)="naviService.toggleNavi()">
+                <span class="initial">MA</span>
+            </div>
+            <app-head-navigation></app-head-navigation>
+        </div>
+
+    </div>
+</header>

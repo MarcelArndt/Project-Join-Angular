@@ -1,0 +1,160 @@
+.lightbox-background {
+    --lightbox-background-color: rgba(11, 35, 67, 0.85);
+    --whitebox-background-color: var(--white);
+    --whitebox-font-color: var(--black);
+    --whitebox-font-color-unhover: var(--grey);
+    --whitebox-font-color-hover: var(--black);
+    --lightbox-shadow: var(--black);
+    --whitebox-inner-shadow: var(--shadow);
+    --whitebox-inner-animation-duration: 0.75s;
+    
+    z-index: 999;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    background-color: var(--lightbox-background-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(3px);
+}
+
+.whitebox {
+    background-color: var(--whitebox-background-color);
+    min-width: 325px;
+    min-height: 475px;
+    border-radius: 32px;
+
+    border: 36px solid var(--whitebox-background-color);
+    border-right: none;
+
+    max-height: 80vh;
+    box-shadow: 0px 3px 3px var(--lightbox-shadow);
+    overflow-y: scroll;
+    max-width: 75%;
+    position: relative;
+}
+
+.headline-of-box {
+    position: sticky;
+    top: 0px;
+    left: 0px;
+    height: 60px;
+    color: var(--whitebox-font-color);
+    background-color: var(--whitebox-background-color);
+    font-size: 21px;
+    display: flex;
+    justify-content: flex-end;
+    box-sizing: content-box;
+    align-items: center;
+    padding: 0px 16px;
+}
+
+.whitebox-container {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 16px 0px;
+    padding-right: 36px;
+}
+
+.close-button {
+    user-select: none;
+    font-size: 32px;
+    color: var(--whitebox-font-color-unhover);
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.125);
+        color: var(--whitebox-font-color-hover);
+    }
+}
+
+.no-scroll {
+    overflow: hidden;
+    height: 100vh;
+}
+
+.lightbox-fade-in {
+    animation: fade-lightbox-in var(--whitebox-inner-animation-duration) ease-in-out forwards;
+}
+
+.lightbox-fade-out {
+    animation: fade-lightbox-out var(--whitebox-inner-animation-duration) ease-in-out forwards;
+}
+
+.whitebox-fade-in {
+    animation: whitebox-fade-in var(--whitebox-inner-animation-duration) ease-in-out forwards;
+}
+
+.whitebox-fade-out {
+    animation: whitebox-fade-out var(--whitebox-inner-animation-duration) ease-in-out forwards;
+}
+
+.init {
+    display: none;
+    transform: translateX(300px);
+    opacity: 0;
+}
+
+@keyframes whitebox-fade-in {
+    from {
+        transform: translateX(500px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+
+}
+
+@keyframes whitebox-fade-out {
+    from {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(-500px);
+        opacity: 0;
+    }
+
+}
+
+@keyframes fade-lightbox-out {
+    0% {
+        opacity: 1;
+    }
+
+    99% {
+        opacity: 0;
+    }
+
+    100% {
+        display: none;
+    }
+}
+
+@keyframes fade-lightbox-in {
+    0% {
+        display: flex;
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+@media (max-width: 750px) {
+    .whitebox {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 100%;
+    }
+}

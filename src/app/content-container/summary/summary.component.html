@@ -1,0 +1,82 @@
+<div class="summary-container">
+
+    <div class="headline">
+        <h1>JOIN 360</h1>
+        <hr class="blue_hr">
+        <h3>Key Metrics at a Glance</h3>
+    </div>
+
+    <div class="summary-content-wrapper">
+
+    <div class="panel-content-container">
+        <div class="row">
+
+            <div class="card-container">
+                <icon>edit</icon>
+                <div class="dflex">
+                    <p>To-Do</p>
+                    <div class="value">{{summaryValues.numberOfToDo}}</div>
+                </div>
+            </div>
+
+            <div class="card-container">
+                <icon>check</icon>
+                    <div class="dflex">
+            
+                    <p>Done</p>
+                    <div class="value">{{summaryValues.numberOfDone}}</div>
+                </div>
+           </div>
+        </div>
+
+        <div class="row">
+            <div class="card-container">
+                <icon class="red rotate-270deg">double_arrow</icon>
+                <div class="dflex">
+            <div class="columns-container mobil-flex">
+                <div class="column">
+                    <div class="value">{{summaryValues.numberOfUrgentTasks}}</div>
+                    <p>Task&nbsp;in Board</p>
+                </div>
+                <hr>
+                <div class="column">
+                    <p>September 30, 2025</p>
+                    <p>Upcoming Deadline</p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+        <div class="row">
+            <div class="card-container">
+                <div class="dflex">
+                <p>Task&nbsp;in<br>Board</p>
+                <div class="value">{{summaryValues.numberOfTaskInBoard}}</div>
+            </div>
+            </div>
+
+            <div class="card-container">
+                <div class="dflex">
+                <p>Task&nbsp;in<br>Progress</p>
+                <div class="value">{{summaryValues.numberOfTaskInProgress}}</div>
+            </div>
+            </div>
+
+            <div class="card-container">
+                <div class="dflex">
+                <p>Await<br>Feedback</p>
+                <div class="value">{{summaryValues.numberOfAwaitFeedback}}</div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-content-container">
+        <h2>{{currentTimeText}}</h2>
+    </div>
+
+</div>
+
+
+</div>

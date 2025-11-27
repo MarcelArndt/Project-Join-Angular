@@ -1,0 +1,38 @@
+<form>
+
+    <h1 class="login-h1">Log-in</h1>
+    <hr>
+
+    <div class="error-box">
+
+    </div>
+
+    <div class="input-frame">
+        <input required autocomplete="email" type="text" placeholder="name" minlength="3">
+        <div class="suffix-icon">
+            <icon>mail</icon>
+        </div>
+    </div>
+
+    <div class="input-frame">
+        <input required autocomplete="current-password" [type]="isFieldPassword? 'text' : 'password' "
+            placeholder="password" minlength="6">
+        <div (click)="changeFieldType()" class="suffix-icon password">
+            <icon>{{ isFieldPassword? 'visibility' : 'visibility_off'}}</icon>
+        </div>
+    </div>
+
+    <div class="flex-box">
+        <div class="checkbox-container">
+            <icon>{{isCheckBox? 'check_box' : 'check_box_outline_blank'}}</icon>
+            <input type="checkbox" [(ngModel)]="isCheckBox" name="rememberMe" checked="checked">
+        </div>
+        <p>Remember Me</p>
+    </div>
+
+    <div class="button-container">
+        <button class="black-button">Log-in</button>
+        <button class="white-button" (click)="guestLogIn()">Guest-Log-in</button>
+    </div>
+
+</form>

@@ -1,0 +1,71 @@
+.nav-container {
+    --width-from-profil-pic: 56px;
+    --width: 186px;
+    box-sizing: border-box;
+    position: absolute;
+    top: calc(var(--width-from-profil-pic) + 8px);
+    right: calc(0px - (var(--width) / 2) + calc(var(--width-from-profil-pic) / 2));
+    width: var(--width);
+    background-color: var(--black);
+    border-radius: 18px 0px 18px 0px;
+    overflow: hidden;
+}
+
+ul {
+    padding: 16px;
+    color: var(--grey);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    li {
+        margin: 12px 0px;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            color: var(--cyan);
+            cursor: pointer;
+        }
+    }
+}
+
+
+.animation-fade-in {
+    display: block;
+    height: 0;
+    opacity: 0;
+    animation: navi-fade-in 0.5s ease-in-out forwards;
+}
+
+.animation-fade-out {
+    display: block;
+    height: 165px;
+    opacity: 1;
+    animation: navi-fade-out 0.5s ease-in-out forwards;
+}
+
+.display-init {
+    opacity: 0px;
+    height: 0px;
+    display: none;
+}
+
+
+@keyframes navi-fade-in {
+    to {
+        height: 165px;
+        opacity: 1;
+    }
+}
+
+
+
+@keyframes navi-fade-out {
+    to {
+        height: 0px;
+        opacity: 0;
+    }
+}

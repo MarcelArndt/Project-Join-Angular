@@ -1,0 +1,49 @@
+<label for="subtask" class="important">Subtask</label>
+<div class="select-input subtask-input clickable"
+    (click)="toggleAddSubTaskWindow(); service.closeAssignedTo($event); service.preventClick($event)">
+    <span *ngIf="!service.addSubTaskObj.open">Add new Subtask</span>
+    <div *ngIf="service.addSubTaskObj.open" class="full-width" (click)="service.preventClick($event)">
+        <input #addSubTaskInput name="newSubTask" id="newSubTask" [(ngModel)]="service.addSubTaskObj.currentTask"
+            placeholder="Add new Subtask">
+    </div>
+    <hr *ngIf="!service.addSubTaskObj.open">
+    <div class="suffix-icon">
+
+        <div *ngIf="!service.addSubTaskObj.open">
+            <icon>add</icon>
+        </div>
+        <div *ngIf="service.addSubTaskObj.open" class="icon-flex icon-hover" (click)="service.preventClick($event)">
+            <icon (click)="toggleAddSubTaskWindow()">close</icon>
+            <hr>
+            <icon (click)="setSubTask()">check</icon>
+        </div>
+    </div>
+
+    <div (click)="service.preventClick($event)" class="select-container static-box"
+        [ngClass]="{'animate-fade-in-container' : service.allSubTaskKey?.length! > 0 && !service.addSubTaskObj.firstTimeVisit, 'animate-fade-out-container' : service.allSubTaskKey?.length! <= 0 && !service.addSubTaskObj.firstTimeVisit && !service.addSubTaskObj.open}">
+        <ng-content *ngFor="let key of service.allSubTaskKey; index as i" (click)='service.preventClick($event)'>
+            <div [id]='i' class="task-container">
+                <p *ngIf="!service.addSubTaskObj.allSubTasks[key].inOnEdit">
+                    {{service.addSubTaskObj.allSubTasks[key].text}}</p>
+
+                <div *ngIf="service.addSubTaskObj.allSubTasks[key].inOnEdit" class="edit-input-field">
+                    <icon>edit</icon>
+                    <input #editSubTask name="editSubTask" id="editSubTask"
+                        [(ngModel)]="service.addSubTaskObj.allSubTasks[key].text">
+                </div>
+
+                <div class="icon-flex icon-hover" *ngIf="!service.addSubTaskObj.allSubTasks[key].inOnEdit">
+                    <icon (click)="openEditById(key)">edit</icon>
+                    <hr>
+                    <icon (click)="deleteSubTaskbById(key)">delete</icon>
+                </div>
+                <div class="icon-flex icon-hover" *ngIf="service.addSubTaskObj.allSubTasks[key].inOnEdit">
+                    <icon (click)="restoreEditById(key); closeEditById(key)">close</icon>
+                    <hr>
+                    <icon (click)="closeEditById(key)">check</icon>
+                </div>
+            </div>
+        </ng-content>
+    </div>
+
+</div>

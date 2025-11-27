@@ -1,0 +1,219 @@
+.card-body {
+    --text-size: 17px;
+    --edge-distance: 24px;
+    width: 316px;
+
+    margin: 10px 0px;
+    background-color: var(--white);
+    border-radius: 16px;
+    box-shadow: 0px 1px 2px var(--shadow);
+    transition: rotate 0.125s ease-in-out;
+    padding-bottom: var(--edge-distance);
+
+    &:hover {
+        cursor: grab;
+        rotate: (-3deg);
+        transition: rotate 0.125s ease-in-out;
+    }
+}
+
+.block-flex {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category {
+    user-select: none;
+    margin-top: var(--edge-distance);
+    margin-left: var(--edge-distance);
+    display: block;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: var(--white);
+    font-size: var(--text-size);
+}
+
+.text-container {
+    margin-left: var(--edge-distance);
+    margin-top: 12px;
+}
+
+.title {
+    user-select: none;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: var(--edge-distance);
+    white-space: nowrap;
+    overflow: hidden;
+    color: var(--black);
+    font-size: var(--text-size);
+}
+
+.text {
+    user-select: none;
+    width: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    box-sizing: border-box;
+    padding-right: var(--edge-distance);
+    margin-top: 8px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: var(--grey);
+    font-weight: 300;
+    font-size: var(--text-size);
+}
+
+.subtask-bar {
+    margin-top: 12px;
+    width: 100%;
+    padding: 0px var(--edge-distance);
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    .loading-bar {
+        width: 100%;
+        height: 8px;
+        background-color: var(--hover-grey);
+        border-radius: 12px;
+        position: relative;
+    }
+
+    .filling-bar {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        height: 8px;
+        border-radius: 12px;
+        background-color: var(--cyan);
+        transition: width 0.75s ease-in-out;
+    }
+
+    .amount {
+        user-select: none;
+        font-size: 14px;
+        font-weight: 200;
+        padding: 0px 16px;
+        min-width: min-content;
+    }
+}
+
+.assign-to-bar {
+    display: flex;
+    box-sizing: border-box;
+    align-items: end;
+    margin-top: 12px;
+    margin-left: var(--edge-distance);
+
+    .profil-picture {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 38px;
+        height: 38px;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        font-size: 14px;
+        border: 2px solid var(--white);
+        margin-right: -8px;
+        color: var(--white)
+    }
+
+    .extra-amount-of-user {
+        background-color: var(--cyan);
+        height: max-content;
+        padding: 4px 12px;
+        border-radius: 18px;
+        color: var(--white);
+        font-size: 13px;
+        border: 2px solid var(--white);
+    }
+}
+
+.info-bar {
+    user-select: none;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding-right: var(--edge-distance);
+}
+
+.priority-icon-bar {
+    display: flex;
+    text-align: center;
+    align-items: end;
+    justify-content: end;
+    font-size: 24px;
+}
+
+.rotate-270deg {
+    rotate: (270deg);
+    color: var(--red);
+}
+
+.rotate-0deg {
+    color: var(--yellow);
+}
+
+.rotate-90deg {
+    rotate: (90deg);
+    color: var(--green);
+}
+
+.div-hr {
+    margin: 12px 0px 0px 0px;
+    width: calc(100% - (var(--edge-distance) * 2));
+    height: 2px;
+    border-radius: 12px;
+    background-color: var(--hover-grey);
+    box-sizing: border-box;
+    margin-left: var(--edge-distance);
+    margin-right: var(--edge-distance);
+}
+
+.card-menu-nav {
+    position: relative;
+    height: 72px;
+}
+
+.card-menu {
+    list-style: none;
+    display: flex;
+
+    margin-right: var(--edge-distance);
+    margin-top: 8px;
+
+    .list-icon {
+        padding: 8px;
+        transform: scale(1.0);
+        transition: transform 0.125s ease-in-out;
+        color: var(--hover-grey);
+        user-select: none;
+
+        &:hover {
+            color: var(--grey);
+            cursor: pointer;
+            transform: scale(1.3);
+            transition: transform 0.125s ease-in-out;
+        }
+    }
+
+    icon {
+        font-size: 24px;
+    }
+}

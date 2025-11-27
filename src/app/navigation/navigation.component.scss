@@ -1,0 +1,94 @@
+aside {
+    background-color: var(--black);
+    z-index: 1;
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+}
+
+.logo {
+    padding-top: 64px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        width: 35%;
+        height: auto;
+    }
+}
+
+nav {
+    position: absolute;
+    top: 35%;
+    color: var(--grey);
+    font-size: 17px;
+    width: 100%;
+    font-weight: 400;
+
+    ul {
+        display: flex;
+        list-style: none;
+        width: 100%;
+        justify-content: center;
+        flex-direction: column;
+
+        div {
+            min-width: 128px;
+            display: flex;
+            align-items: center;
+        }
+
+        li {
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            margin: 8px 0px;
+
+            &:hover {
+                cursor: pointer;
+                background-color: var(--hover-black);
+                color: var(--white);
+                transition: all 0.125s ease-in-out;
+            }
+
+            &:hover icon,
+            &:hover span {
+                transform: scale(105%);
+                transition: all 0.125s ease-in-out;
+            }
+        }
+
+        icon {
+            width: 27px;
+            display: flex;
+            font-size: 36px;
+            margin-right: 16px;
+        }
+    }
+}
+
+.subnav {
+    position: absolute;
+    bottom: 64px;
+    color: var(--grey);
+    font-size: 17px;
+    width: 100%;
+    font-weight: 400;
+
+    li {
+        margin-top: 21px;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+
+        &:hover {
+            cursor: pointer;
+            color: var(--cyan);
+        }
+    }
+}

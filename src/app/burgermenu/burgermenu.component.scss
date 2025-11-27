@@ -1,0 +1,113 @@
+.nav-body {
+    --burger-nav-backgound-color: var(--black);
+    --burger-nav-font-color: var(--grey);
+    --burger-nav-font-hover-color: var(--white);
+    --burger-nav-padding-width: 16px;
+    position: absolute;
+    top: calc(0px + 50%);
+    margin-top: 8px;
+    left: 0px;
+    background-color: var(--burger-nav-backgound-color) !important;
+    border-radius: 12px 0px 12px 0px;
+    min-width: 100px;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.init {
+    display: none;
+    height: 0%;
+    opacity: 0;
+    padding: 0px var(--burger-nav-padding-width);
+}
+
+.open-nav {
+    animation: open-navigation-animation 0.25s ease-in-out forwards;
+}
+
+.close-nav {
+    animation: close-navigation-animation 0.25s ease-in-out forwards;
+}
+
+
+ng-content {
+    color: azure;
+    background-color: aqua;
+}
+
+:host ::ng-deep ul {
+    width: 100%;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    margin-block-end: 0px;
+    margin-block-start: 0px;
+    padding-inline-start: 0px;
+    padding-inline-end: 0px;
+    padding-inline: 0px;
+    padding-block: 0px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+:host ::ng-deep li {
+    user-select: none;
+    cursor: none;
+    padding: 4px 0px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    z-index: 1000;
+    color: var(--burger-nav-font-color);
+    padding: 4px;
+
+    &:hover {
+        cursor: pointer;
+        color: var(--burger-nav-font-hover-color);
+    }
+}
+
+.nav-content {
+    display: flex;
+}
+
+@keyframes open-navigation-animation {
+    0% {
+        display: flex;
+        opacity: 0;
+        height: 0px;
+        padding: 0px var(--burger-nav-padding-width);
+    }
+
+    100% {
+        opacity: 1;
+        height: 100%;
+        padding: 16px var(--burger-nav-padding-width);
+    }
+}
+
+@keyframes close-navigation-animation {
+    0% {
+        display: flex;
+        opacity: 1;
+        height: 100%;
+        padding: 16px var(--burger-nav-padding-width);
+    }
+
+    99% {
+        opacity: 0;
+        height: 0px;
+        padding: 0px var(--burger-nav-padding-width);
+    }
+
+    100% {
+        display: none;
+    }
+}

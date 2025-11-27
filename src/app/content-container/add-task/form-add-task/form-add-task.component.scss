@@ -1,0 +1,152 @@
+form {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.form-main-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-frame-add-task {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 8px 0px 24px 0px !important;
+    background-color: var(--white);
+    position: relative;
+
+    input {
+        font-family: 'inter';
+        width: calc(100% - 24px) !important;
+        flex-grow: 0;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        height: 100%;
+        width: 44px;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        opacity: 0;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .data-picker-input {
+        z-index: 99;
+    }
+
+    .data-picker-icon {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        z-index: 0;
+    }
+}
+
+.form-container-size {
+    width: 46%;
+    box-sizing: border-box;
+
+}
+
+.vertical-hr-container {
+    flex-grow: 1;
+
+    hr {
+        width: 1px !important;
+        height: 508px;
+        ;
+        background-color: var(--grey);
+    }
+}
+
+.form-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-right: 32px;
+
+}
+
+.white-button,
+.black-button {
+    margin: 0px 0px 0px 32px;
+}
+
+.min-witdh-button {
+    min-width: 160px;
+}
+
+.error-container {
+    height: 56px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: var(--error);
+    font-size: 21px;
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+.error-border {
+    border-color: var(--error) !important;
+}
+
+@media (max-width: 1440px) {
+    .form-main-container {
+        flex-direction: column;
+    }
+
+    .form-container-size {
+        width: 75%;
+    }
+
+    .vertical-hr-container {
+        display: none;
+    }
+
+    .form-button-container {
+        max-width: 75%;
+        margin-right: 0px;
+    }
+
+    .error-container {
+        text-align: center;
+        vertical-align: top;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        min-height: min-content;
+    }
+
+    h1 {
+        display: flex !important;
+        width: 75% !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    .form-button-container {
+        max-width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .min-witdh-button {
+        margin: 0px 16px 0px 16px;
+    }
+
+    .form-container-size {
+        width: 100%;
+    }
+}

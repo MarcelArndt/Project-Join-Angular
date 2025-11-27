@@ -1,0 +1,55 @@
+<form>
+    <h1 class="login-h1">Sign-up</h1>
+    <hr>
+
+    <div class="error-box">
+
+    </div>
+
+    <div class="button-backwards" [ngClass]="{'hiddeButton' : isInAnimation}" (click)="sliderservice.slideto(0)">
+        <icon>keyboard_arrow_left</icon>
+    </div>
+
+    <div class="input-frame">
+        <input required autocomplete="name" type="text" placeholder="name" minlength="3">
+        <div class="suffix-icon">
+            <icon>person</icon>
+        </div>
+    </div>
+
+    <div class="input-frame">
+        <input required autocomplete="email" type="email" placeholder="name" minlength="3">
+        <div class="suffix-icon">
+            <icon>mail</icon>
+        </div>
+    </div>
+
+    <div class="input-frame">
+        <input required autocomplete="new-password" [type]="isFieldPassword? 'text' : 'password' "
+            placeholder="password" minlength="6">
+        <div (click)="changeFieldType()" class="suffix-icon password">
+            <icon>{{ isFieldPassword? 'visibility' : 'visibility_off'}}</icon>
+        </div>
+    </div>
+
+
+    <div class="input-frame">
+        <input required autocomplete="new-password" [type]="isFieldPassword? 'text' : 'password' "
+            placeholder="Confirm password" minlength="6">
+        <div (click)="changeFieldType()" class="suffix-icon password">
+            <icon>{{ isFieldPassword? 'visibility' : 'visibility_off'}}</icon>
+        </div>
+    </div>
+
+    <div class="flex-box">
+        <div class="checkbox-container">
+            <icon>{{isCheckBox? 'check_box' : 'check_box_outline_blank'}}</icon>
+            <input type="checkbox" [(ngModel)]="isCheckBox" name="checkPrivacyPolicy" checked="checked">
+        </div>
+        <p>I accept the Privacy policy</p>
+    </div>
+
+    <div class="button-container">
+        <button class="black-button">Sign-Up</button>
+    </div>
+</form>

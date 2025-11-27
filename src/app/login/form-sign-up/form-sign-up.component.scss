@@ -1,0 +1,58 @@
+form {
+    position: relative;
+    overflow: hidden;
+}
+
+.button-backwards {
+    position: absolute;
+    top: 36px;
+    left: 46px;
+    font-size: 42px;
+    background-color: var(--white);
+    border: 2px solid var(--grey);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    aspect-ratio: 1 /1;
+    color: var(--grey);
+
+    &:hover {
+        cursor: pointer;
+        color: var(--cyan);
+        border-color: var(--cyan);
+    }
+}
+
+.hiddeButton {
+    display: none;
+}
+
+.login-h1 {
+    text-align: center;
+}
+
+@media (max-width:600px){
+    .button-backwards{
+        display: flex;
+        top: 12px;
+        left: 24px; 
+        width: 32px;
+        height: 32px; 
+        flex-shrink: 0;
+        overflow: hidden;
+        font-size: 27px;
+
+        icon{
+            padding-left: 2px;
+        }
+    }
+
+    h1{
+        font-size: clamp(32px,12vw,64px); 
+        margin-bottom: 0px;
+    }
+
+    .input-frame{
+        width: auto  !important;
+    }
+}

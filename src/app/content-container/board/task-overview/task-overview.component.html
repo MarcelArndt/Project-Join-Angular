@@ -1,0 +1,61 @@
+<div class="overview-wrapper">
+    <div class="overview-content-wrapper">
+        <div class="category" [style.background-color]="task?.category?.color">
+            {{task?.category?.name}}
+        </div>
+        <h1>{{task?.name}}</h1>
+
+        <p class="description">{{task?.description}}</p>
+
+        <div class="block-container"><span class="grey">Due-Date: </span><span
+                class="black">{{getDateInFormat()}}</span></div>
+
+        <div class="block-container"><span class="grey">Priority: </span><span class="black">{{task?.priority}}</span>
+            <div class="priority-icon-bar">
+                <span *ngIf="task?.priority == 'urgent'" class="rotate-270deg">
+                    <icon>double_arrow</icon>
+                </span>
+                <span *ngIf="task?.priority == 'medium'" class="rotate-0deg">
+                    <icon>drag_handle</icon>
+                </span>
+                <span *ngIf="task?.priority == 'low'" class="rotate-90deg">
+                    <icon>double_arrow</icon>
+                </span>
+            </div>
+        </div>
+
+        <div class="Assin-To-Area">
+            <span class="headline">Assing-To:</span>
+            <div class="assing-container">
+                <div *ngFor="let key of task?.assignedTo; index as i" class="contact-container">
+                    <div class="profil-picture" [style.background-color]="contacts![key].color">
+                        {{contacts![key].inital}}</div>
+                    <div class="profil-name">{{contacts![key].firstname}}{{contacts![key].secondname}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="Subtask-Area">
+            <span class="headline">Subtasks:</span>
+            <div class="assing-container">
+                <div *ngFor="let key of AllSubtaskKeys; index as i" class="contact-container">
+                    <div class="subtask-container" (click)="toggleSubtaskIsDone(key)">
+                        <icon>{{task!.subTasks[key].isDone? 'check_box' : 'check_box_outline_blank'}}</icon>
+                        <div class="name">{{task!.subTasks[key].text}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="end-navigation">
+            <div class="element-of-navi" (click)="deleteTask(service.currentId)">
+                <icon>delete</icon><span>Delete</span>
+            </div>
+            <div class="vertical-hr"></div>
+            <div class="element-of-navi" (click)="swicthLightBoxToEdit()">
+                <icon>edit</icon><span>Edit</span>
+            </div>
+        </nav>
+
+    </div>
+</div>

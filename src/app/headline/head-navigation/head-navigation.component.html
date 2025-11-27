@@ -1,0 +1,8 @@
+<div class="nav-container"
+    [ngClass]="{'animation-fade-out' : !naviService.isfadingIn, 'animation-fade-in' : naviService.isfadingIn, 'display-init' : naviService.isfirstTime}">
+    <ul>
+        <li routerLink="legal-notice">Legal Notice</li>
+        <li routerLink="privacy-policy">Privacy Policy</li>
+        <li (click)="naviService.userLogOut()">Log-out</li>
+    </ul>
+</div>

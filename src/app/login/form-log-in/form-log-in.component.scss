@@ -1,0 +1,23 @@
+.login-h1 {
+    text-align: center;
+}
+
+@media (max-width:600px){
+
+    .flex-box{
+        justify-content: center !important;
+    }
+
+    .checkbox-container{
+        margin-left: 0px !important;
+    }
+
+    h1{
+        font-size: clamp(56px,12vw,64px); 
+        margin-bottom: 0px;
+    }
+
+    .input-frame{
+        width: auto  !important;
+    }
+}

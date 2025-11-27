@@ -1,0 +1,52 @@
+.suffix-icon {
+    padding: 0px 16px;
+    color: var(--grey);
+}
+
+input {
+    outline: none;
+    border: none;
+}
+
+.error {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 16px 16px;
+    font-size: 18px;
+}
+
+.important {
+    position: relative;
+
+    &::before {
+        content: '*';
+        position: absolute;
+        width: min-content;
+        height: 100%;
+        top: -5px;
+        right: -12px;
+        font-size: 24px;
+        color: var(--error);
+    }
+}
+
+.error-border {
+    border-color: var(--error) !important;
+}
+
+.min-height-for-container {
+    min-height: 55px;
+}
+
+.assined-to-render-container{
+    box-sizing: border-box;
+    padding-left: 8px;
+
+}
+
+@media (max-width:1440px){
+    .assined-to-render-container{
+        padding-bottom: 36px;
+    }
+}

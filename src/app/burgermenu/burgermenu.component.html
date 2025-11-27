@@ -1,0 +1,6 @@
+<nav [id]="id" class="nav-body" #menuSelfRef (click)="preventClick($event)"
+    [ngClass]="{'open-nav': isMenuOpen && !firstTimeOpen, 'close-nav': !isMenuOpen && !firstTimeOpen, 'init': firstTimeOpen}">
+    <div class="nav-content">
+        <ng-content></ng-content>
+    </div>
+</nav>

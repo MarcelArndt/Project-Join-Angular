@@ -1,0 +1,44 @@
+.headline-container {
+    width: 100%;
+}
+
+.add-task-main-container {
+
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-container {
+    width: 100%;
+}
+
+app-form-add-task {
+    width: 100%;
+}
+
+@media (max-width: 1440px) {
+    .headline-container {
+        text-align: center;
+        vertical-align: top;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 1024px) {
+    .headline-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        h1 {
+            text-align: center;
+        }
+    }
+}

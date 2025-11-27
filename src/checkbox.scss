@@ -1,0 +1,39 @@
+.checkbox-container {
+    --size-of-checkbox: 32px;
+    position: relative;
+    width: var(--size-of-checkbox);
+    height: var(--size-of-checkbox);
+    margin: 8px;
+    color: var(--black);
+
+    &:hover {
+        color: var(--cyan);
+    }
+
+    input {
+        opacity: 0;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        margin: 0px;
+        padding: 0px;
+        width: var(--size-of-checkbox);
+        height: var(--size-of-checkbox);
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    icon {
+        position: absolute;
+        top: -3px;
+        left: 0px;
+        margin: 0px;
+        padding: 0px;
+        width: var(--size-of-checkbox);
+        height: var(--size-of-checkbox);
+        font-size: var(--size-of-checkbox);
+    }
+
+}

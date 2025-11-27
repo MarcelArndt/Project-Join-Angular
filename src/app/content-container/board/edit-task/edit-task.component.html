@@ -1,0 +1,29 @@
+
+<div class="overview-wrapper">
+    <form >
+
+        <div class="input-frame input-frame-add-task"
+            >
+            <input id='nameInput' required name="taskTitle" type="text"
+                [value]="currentTask?.name"
+                minlength="3">
+        </div>
+        
+        <div class="text-frame">
+            <textarea id="description" name="task-description" 
+                [placeholder]="currentTask?.description" minlength="3"></textarea>
+        </div>
+
+        <div class="input-frame input-frame-add-task" id="dueDateInput"
+            >
+            <div class="suffix-icon data-picker-icon">
+                <icon>calendar_month</icon>
+            </div>
+            <input class='data-picker-input' required type="date" id="start"
+                name="dueDate" [min]="dateToday" />
+        </div>
+
+        <app-priority-input (priorityChange)="onPriorityChange($event)"></app-priority-input>
+
+    </form>
+</div>

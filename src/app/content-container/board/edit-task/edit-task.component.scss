@@ -1,0 +1,21 @@
+.overview-wrapper{
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: relative;
+}
+
+form{
+    box-sizing: border-box;
+    padding: 1px;
+}
+
+.input-frame{ 
+    width: 100% !important;
+    max-width: none !important;
+    margin: 1rem 0px !important;
+}
