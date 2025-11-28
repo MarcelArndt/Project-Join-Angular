@@ -13,6 +13,9 @@ export class DatabaseService {
   currentSelectedTask!:TaskPayload | null;
   currentSelectedTaskID!:string;
 
+  currentSelectedUser!:TaskPayload | null;
+  currentSelectedUserID!:string;
+
   tasksKeys?: string[];
   contactsKeys?: string[];
   dummyTask = {
@@ -96,6 +99,13 @@ export class DatabaseService {
     const selectTask = this.tasks[taskID]
     this.currentSelectedTask = structuredClone(selectTask)
     this.currentSelectedTaskID = taskID;
+  }
+
+  overwriteCurrentSelectedTask(taskID:string, task:TaskPayload){
+    this.setCurrentSelectedTaskBlank()
+    this.currentSelectedTask = structuredClone(task)
+    this.currentSelectedTaskID = taskID;
+    this.saveCurrentSelectedTaskToTask()
   }
 
   setCurrentSelectedTaskBlank(){

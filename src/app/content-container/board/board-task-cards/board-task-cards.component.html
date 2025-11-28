@@ -49,17 +49,11 @@
             </ng-container>
         </div>
 
-        <div class="priority-icon-bar">
-            <span *ngIf="task?.priority == 'urgent'" class="rotate-270deg">
-                <icon>double_arrow</icon>
-            </span>
-            <span *ngIf="task?.priority == 'medium'" class="rotate-0deg">
-                <icon>drag_handle</icon>
-            </span>
-            <span *ngIf="task?.priority == 'low'" class="rotate-90deg">
-                <icon>double_arrow</icon>
-            </span>
-        </div>
+            <div class="priority-icon-bar" *ngIf="getTaskPriority(task) as prio">
+                <span [class]="prio.class">
+                <icon>{{ prio.icon }}</icon>
+                </span>
+            </div>
 
     </div>
 

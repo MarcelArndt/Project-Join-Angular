@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostListener } from '@angular/core';
 import { IconComponent } from '../../../../icon/icon.component';
 import { AddTaskService } from '../../../../service/add-task.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Category } from '../../../../interface/interface';
 import { DatabaseService } from '../../../../service/database.service';
+import { CategoryInputService } from './category-input.service';
 @Component({
   selector: 'app-category-input',
   imports: [FormsModule, CommonModule, IconComponent],
@@ -12,7 +13,14 @@ import { DatabaseService } from '../../../../service/database.service';
   styleUrls: ['./category-input.component.scss', './../drop-down-menu.scss']
 })
 export class CategoryInputComponent {
-  constructor(public service: AddTaskService, public database: DatabaseService) { }
+  constructor(public service: AddTaskService, public database: DatabaseService,private  categoryService: CategoryInputService) { }
+
+  @HostListener('document:click', ['$event'])
+
+    onDocumentClick(event: MouseEvent) {
+    this.categoryService.closeMenu();
+  }
+
 
   @Input() OnHoverIsValid: boolean = false;
   @Input() form?: NgForm;

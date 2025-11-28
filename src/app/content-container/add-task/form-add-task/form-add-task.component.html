@@ -20,7 +20,7 @@
                     placeholder="Enter a Description" minlength="3"></textarea>
             </div>
 
-            <app-assigned-to-input [OnHoverIsValid]="service.formHasError[3]"
+            <app-assigned-to-input [CurrentTaskDataSet]="service.newTask" [OnHoverIsValid]="service.formHasError[3]"
                 [form]="addTaskForm"></app-assigned-to-input>
 
         </div>

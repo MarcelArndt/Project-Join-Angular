@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { IconComponent } from '../../../icon/icon.component';
 import { CommonModule } from '@angular/common';
@@ -10,6 +10,9 @@ import { SubtaskInputComponent } from './subtask-input/subtask-input.component';
 import { MainFeaturesService } from '../../../service/main-features.service';
 import { AllSubTask } from '../../../interface/interface';
 import { DatabaseService } from '../../../service/database.service';
+import { AssignedToInputService } from './assigned-to-input/assigned-to-input-service';
+
+
 
 @Component({
   selector: 'app-form-add-task',
@@ -18,14 +21,21 @@ import { DatabaseService } from '../../../service/database.service';
   styleUrls: ['./form-add-task.component.scss', './../../../../form.scss', './../../../../checkbox.scss', './drop-down-menu.scss']
 })
 export class FormAddTaskComponent {
-  constructor(public service: AddTaskService, private main: MainFeaturesService, public database: DatabaseService) { }
+  constructor(public service: AddTaskService, private main: MainFeaturesService, public database: DatabaseService, private assignService: AssignedToInputService ) { }
   dateToday?: string;
   checkCategory: boolean = false;
   checkAssignedTo: boolean = false;
+  @ViewChild('addTaskForm') addTaskForm!: NgForm;
 
   ngOnInit() {
     this.service.allKeyOfCategoryAndAssignedTo();
     this.dateToday = this.main.getCurrentDate();
+  }
+
+  ngAfterViewInit(){
+    this.assignService.changeEvent$.subscribe(() => {
+      this.service.checkForValidationinForm(this.addTaskForm!, false);
+    });
   }
 
   ngOnDestroy() {

@@ -14,4 +14,5 @@ export class AddTaskComponent {
     this.service.allUser = this.database.contacts;
     this.service.allCategory = this.database.categories;
   }
+
 }

@@ -1,7 +1,7 @@
 <label for="category" class="important">Category</label>
 <div class="select-input category-input clickable" id="categoryInput"
     [ngClass]="{'error-border': service.categoryObj.currentName == 'Select Task Category' && !service.categoryObj.firstTimeVisit || OnHoverIsValid}"
-    (click)="toggleCategoryWindow(); service.closeAssignedTo($event); service.preventClick($event)">
+    (click)="toggleCategoryWindow(); service.preventClick($event)">
     <span>{{service.categoryObj.currentName}}</span>
     <hr>
     <div class="suffix-icon">

@@ -1,29 +1,29 @@
 <label for="assignTo" class="important">Assigned to</label>
 <div class="select-input assignedTo-input"
     [ngClass]="{'error-border': !service.assignToObj.firstTimeVisit && service.assignToObj.selectetUser.length <= 0 || OnHoverIsValid}"
-    (click)="searchFotResults(); toggleAssignedToWindow(); service.closeCategory($event) ;service.preventClick($event)">
-    <span *ngIf="!service.assignToObj.open">Select Contacts</span>
+    (click)="searchForResults(); toggleAssignedToWindow(); service.closeCategory($event) ;preventClick($event)">
+    <span *ngIf="!assignService.isMenuOpen()">Select Contacts</span>
 
-    <ng-content *ngIf="service.assignToObj.open">
+    <ng-content *ngIf="assignService.isMenuOpen()">
         <icon class="search-iocn">search</icon>
-        <input #serachbar (click)="service.preventClick($event)" (input)="searchFotResults()" name="search"
+        <input #serachbar (click)="preventClick($event)" (input)="searchForResults()" name="search"
             [(ngModel)]="service.search" id='assignTo' placeholder="Search Contacts">
     </ng-content>
     <hr>
     <div class="suffix-icon">
-        <icon>{{service.assignToObj.open? 'arrow_drop_down' : 'arrow_drop_up'}}</icon>
+        <icon>{{assignService.isMenuOpen()? 'arrow_drop_down' : 'arrow_drop_up'}}</icon>
     </div>
 
-    <div (click)="service.preventClick($event)" class="select-container"
-        [ngClass]="{'animate-fade-in-container' : service.assignToObj.open && !service.assignToObj.firstTimeVisit, 'animate-fade-out-container' : !service.assignToObj.open && !service.assignToObj.firstTimeVisit,}">
+    <div (click)="preventClick($event)" class="select-container"
+        [ngClass]="{'animate-fade-in-container' : assignService.isMenuOpen() && !assignService.firstTimeVisit, 'animate-fade-out-container' : !assignService.isMenuOpen() && assignService.firstTimeVisit,}">
 
         <!-- ////////////// Content- / Resultcontainer  //////////////  -->
 
         <ng-content *ngFor="let key of searchResults; index as i;">
-            <div class="data-field" (click)="toggleAssignTo(key)">
-                <div class="profil-picture" [style.background-color]="service.allUser![key].color">AD</div>
-                <span>{{service.allUser![key].firstname}} {{service.allUser![key].secondname}}</span>
-                <icon>{{isAssinedTo(key)? 'check_box' : 'check_box_outline_blank'}}</icon>
+            <div class="data-field" (click)="assignService.toggleToAssignTo(key)">
+                <div class="profil-picture" [style.background-color]="assignService.allUsers![key].color">AD</div>
+                <span>{{assignService.allUsers![key].firstname}} {{assignService.allUsers![key].secondname}}</span>
+                <icon>{{assignService.isUserAleadyAssigned(key) >= 0? 'check_box' : 'check_box_outline_blank'}}</icon>
             </div>
         </ng-content>
         <p class="error" *ngIf="!searchHasResults">Search could not find any results.</p>
@@ -32,17 +32,19 @@
     </div>
 </div>
 
+
+<!-- ////////////// -Seleced User Container-  //////////////  -->
 <div class="assined-to-render-container min-height-for-container">
-    <ng-content *ngFor="let key of service.assignToObj.selectetUser; index as i;">
-        <div *ngIf="i <= 4" class="profil-picture-big" [style.background-color]="service.allUser![key].color">
-            {{service.allUser![key].inital}}
+    <ng-content *ngFor="let key of assignService.selectetUser; index as i;">
+        <div *ngIf="i <= 4" class="profil-picture-big" [style.background-color]="assignService.allUsers![key].color">
+            {{assignService.allUsers!![key].inital}}
         </div>
-        <div *ngIf="i >= 5 && i + 1 == service.assignToObj.selectetUser.length" class="amount-of-number">+{{i -
+        <div *ngIf="i >= 5 && i + 1 == assignService.selectetUser.length" class="amount-of-number">+{{i -
             4}}
         </div>
 
     </ng-content>
-    <span *ngIf="service.assignToObj.selectetUser.length == 0" class="error">
+    <span *ngIf="assignService.selectetUser.length == 0" class="error">
         <p>No User is assigned to your Task.</p>
     </span>
 

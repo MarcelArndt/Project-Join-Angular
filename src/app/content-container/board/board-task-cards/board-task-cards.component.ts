@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { DatabaseService } from '../../../service/database.service';
 import { TaskPayload } from '../../../interface/interface';
 import { CommonModule } from '@angular/common';
@@ -13,7 +13,7 @@ import { BoardService } from '../../../service/board.service';
   styleUrl: './board-task-cards.component.scss'
 })
 export class BoardTaskCardsComponent {
-  constructor(public database: DatabaseService, public service: BoardService) { }
+  constructor(public database: DatabaseService, public service: BoardService, private cdr: ChangeDetectorRef) { }
   @Input() taskId: string = '';
   @Input() oderNumberInColoumn: number = 0;
   @ViewChild('card') card!: ElementRef;
@@ -47,6 +47,18 @@ export class BoardTaskCardsComponent {
     this.lengthOfTaskBar = Math.floor(100 / this.allSubTaskKeys!.length * this.AmountOfSubtaskAreDone).toString() + '%'
     return this.lengthOfTaskBar;
   }
+
+    getTaskPriority(task: TaskPayload | undefined) {
+      if (!task) return null;
+      const key = task.priority as keyof typeof values;
+      const values = {
+        urgent: {icon: 'double_arrow', class: 'rotate-270deg'},
+        medium: {icon: 'drag_handle', class: 'rotate-0deg'},
+        low: {icon: 'double_arrow', class: 'rotate-90deg'},
+      } as const;
+
+      return values[key];
+    }
 
 
   preventClick(event: Event) {

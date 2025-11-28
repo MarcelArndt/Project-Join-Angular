@@ -1,5 +1,12 @@
+:host{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 0;
+}
+
 .overview-wrapper{
-    width: 100%;
+    width: 500px;
     max-width: 500px;
     display: flex;
     flex-direction: column;
@@ -7,11 +14,21 @@
     align-items: center;
     height: 100%;
     position: relative;
+
+    @media screen and (max-width:750px) {
+        width: 100%;
+    }
 }
 
 form{
     box-sizing: border-box;
     padding: 1px;
+    display: flex;
+    align-items: start !important;
+}
+
+label {
+    text-align: start;
 }
 
 .input-frame{ 

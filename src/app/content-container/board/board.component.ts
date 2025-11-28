@@ -10,7 +10,7 @@ import { AddTaskComponent } from '../add-task/add-task.component';
 import { TaskOverviewComponent } from './task-overview/task-overview.component';
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { LightboxService } from '../../lightbox/lightbox.service';
-
+import { AddTaskService } from '../../service/add-task.service';
 
 @Component({
   selector: 'app-board',
@@ -19,8 +19,13 @@ import { LightboxService } from '../../lightbox/lightbox.service';
   styleUrl: './board.component.scss'
 })
 export class BoardComponent {
-  constructor(public database: DatabaseService, public service: BoardService, public lightboxService: LightboxService ) { }
+  constructor(public database: DatabaseService, public service: BoardService, public lightboxService: LightboxService, private addTaskservice:AddTaskService ) { }
   @ViewChild('lightbox') lightbox!: LightboxComponent;
+
+
+  ngOnInit(){
+    this.addTaskservice.allUser = this.database.contacts;
+  }
 
   openAddTaskInLightBox() {
     this. lightboxService.openLightBox(AddTaskComponent);

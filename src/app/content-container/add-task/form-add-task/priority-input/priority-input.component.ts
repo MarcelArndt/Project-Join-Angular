@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter  } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { IconComponent } from '../../../../icon/icon.component';
 import { CommonModule } from '@angular/common';
 
@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './priority-input.component.scss'
 })
 export class PriorityInputComponent {
+  @Input() setStateOnInit!:string | undefined;
   @Output() priorityChange = new EventEmitter<'' | 'low'| 'medium' | 'urgent'>();
   currentValue: '' | 'low'| 'medium' | 'urgent' = ''
 
@@ -19,6 +20,12 @@ export class PriorityInputComponent {
       this.currentValue = value;
     }
     this.priorityChange.emit(this.currentValue);
+  }
+
+  ngOnInit(){
+    if(this.setStateOnInit){
+      this.currentValue = this.setStateOnInit as '' | 'low'| 'medium' | 'urgent';
+    }
   }
 
   get value():'' | 'low'| 'medium' | 'urgent'{

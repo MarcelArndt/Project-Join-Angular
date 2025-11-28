@@ -11,7 +11,7 @@ export interface AllUsers {
     [key: string]: Contact;
 }
 
-export interface Person {
+export interface User {
     firstname: string;
     secondname: string;
     inital: string;

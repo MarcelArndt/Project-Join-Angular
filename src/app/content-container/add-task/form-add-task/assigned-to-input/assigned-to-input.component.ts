@@ -1,9 +1,10 @@
-import { Component, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, ViewChild, ElementRef, Input, effect, Output, EventEmitter, HostListener } from '@angular/core';
 import { IconComponent } from '../../../../icon/icon.component';
 import { AddTaskService } from '../../../../service/add-task.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Person } from '../../../../interface/interface';
+import { TaskPayload, User } from '../../../../interface/interface';
+import { AssignedToInputService } from './assigned-to-input-service';
 
 @Component({
   selector: 'app-assigned-to-input',
@@ -12,55 +13,51 @@ import { Person } from '../../../../interface/interface';
   styleUrls: ['./assigned-to-input.component.scss', './../drop-down-menu.scss']
 })
 export class AssignedToInputComponent {
-  constructor(public service: AddTaskService) { }
+  constructor(public service: AddTaskService, public assignService: AssignedToInputService) {}
+
+    @HostListener('document:click', ['$event'])
+  
+      onDocumentClick(event: MouseEvent) {
+      this.assignService.closeMenu();
+    }
+  
+  @Output() selectedUser = new EventEmitter<string[]>();
+  @Input({required:true})CurrentTaskDataSet!:TaskPayload;
   @Input() OnHoverIsValid: boolean = false;
   @ViewChild('serachbar') serachbar!: ElementRef<HTMLInputElement>;
+
   searchResults: string[] = [];
   searchHasResults: boolean = false;
+  currentSearchKey:string = '';
   @Input() form?: NgForm;
 
   ngOnInit() {
-    this.service.allKeyOfCategoryAndAssignedTo();
-    this.searchFotResults();
+    this.assignService.initAssignToDataBase(this.CurrentTaskDataSet);
+    this.searchForResults();
   }
+
 
   toggleAssignedToWindow() {
-    this.service.assignToObj.firstTimeVisit = false;
-    this.service.assignToObj.open = !this.service.assignToObj.open;
-    this.service.search = '';
-    this.service.checkForValidationinForm(this.form!, false);
-    if (this.service.assignToObj.open) {
-      setTimeout(() => { this.serachbar.nativeElement.focus() }, 250)
-    }
+    this.assignService.disableFirstTimeVisit();
+    this.assignService.toggleMenu();
   }
 
-  toggleAssignTo(id: string = '') {
-    let isAssinedTo = this.isAssinedTo(id);
-    let position = 0
-    if (!isAssinedTo) {
-      this.service.assignToObj.selectetUser.push(id);
-    } else if (isAssinedTo) {
-      position = this.service.assignToObj.selectetUser.indexOf(id)
-      this.service.assignToObj.selectetUser.splice(position, 1);
-    }
-    this.service.checkForValidationinForm(this.form!, false);
+  preventClick(event:Event){
+    event.stopPropagation();
   }
 
-  isAssinedTo(id: string = '') {
-    return this.service.assignToObj.selectetUser.includes(id);
-  }
 
-  searchFotResults() {
+  searchForResults() {
     const search = this.resetLastSearch()
     let resultCounter = 0;
-    for (let personKey = 0; personKey < this.service.allKeys!.length; personKey++) {
+    for (let i = 0; i < this.assignService.allUsersIDKeys!.length; i++) {
       if (search.length == 0) {
-        this.searchResults.push(this.service.allKeys![personKey]);
+        this.searchResults.push(this.assignService.allUsersIDKeys![i]);
         resultCounter += 1;
         this.searchHasResults = true;
       } else {
-        const person = this.PreparePersonForSearch(this.service.allKeys![personKey]);
-        const result = this.search(person, this.service.allKeys![personKey], search);
+        const person = this.PreparePersonForSearch(this.assignService.allUsersIDKeys![i]);
+        const result = this.search(person, this.assignService.allUsersIDKeys![i], search);
         resultCounter = result ? resultCounter + 1 : resultCounter;
       }
     }
@@ -75,14 +72,14 @@ export class AssignedToInputComponent {
 
   PreparePersonForSearch(personKey: string = '') {
     let obj = { firstname: '', secondname: '', inital: '' };
-    obj.firstname = this.service.allUser![personKey].firstname.toLowerCase();
-    obj.secondname = this.service.allUser![personKey].secondname.toLowerCase();
-    obj.inital = this.service.allUser![personKey].inital.toLowerCase();
+    obj.firstname = this.assignService.allUsers![personKey].firstname.toLowerCase();
+    obj.secondname = this.assignService.allUsers![personKey].secondname.toLowerCase();
+    obj.inital = this.assignService.allUsers![personKey].inital.toLowerCase();
     return obj;
   }
 
-  search(person: Person, personId: string = '', search: string = '') {
-    const keys = Object.keys(person) as Array<keyof Person>;
+  search(person: User, personId: string = '', search: string = '') {
+    const keys = Object.keys(person) as Array<keyof User>;
     for (let i = 0; i < keys.length; i++) {
       if (person[keys[i]].includes(search)) {
         this.searchResults.push(personId);

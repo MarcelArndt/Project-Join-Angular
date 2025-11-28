@@ -1,29 +1,33 @@
 
 <div class="overview-wrapper">
     <form >
-
+        <label for="nameInput" class="important">Title</label>
         <div class="input-frame input-frame-add-task"
             >
             <input id='nameInput' required name="taskTitle" type="text"
                 [value]="currentTask?.name"
                 minlength="3">
         </div>
-        
+
+        <label for="description">Description</label>
         <div class="text-frame">
             <textarea id="description" name="task-description" 
-                [placeholder]="currentTask?.description" minlength="3"></textarea>
+                [value]="currentTask?.description" minlength="3"></textarea>
         </div>
 
+        <label for="start" class="important">Due-Date</label>
         <div class="input-frame input-frame-add-task" id="dueDateInput"
             >
             <div class="suffix-icon data-picker-icon">
                 <icon>calendar_month</icon>
             </div>
-            <input class='data-picker-input' required type="date" id="start"
+            <input class='data-picker-input' required type="date" id="start" [value]="currentTask?.date"
                 name="dueDate" [min]="dateToday" />
         </div>
 
-        <app-priority-input (priorityChange)="onPriorityChange($event)"></app-priority-input>
+        <app-priority-input [setStateOnInit]="currentTask?.priority" (priorityChange)="onPriorityChange($event)"></app-priority-input>
+        <app-assigned-to-input [CurrentTaskDataSet]="currentTask!"></app-assigned-to-input>
+        <button (click)="onSave()">save</button>
 
     </form>
 </div>

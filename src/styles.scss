@@ -150,3 +150,44 @@ hr {
     box-sizing: border-box;
     border: 3px solid var(--white);
 }
+
+.input-frame-add-task {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 8px 0px 24px 0px !important;
+    background-color: var(--white);
+    position: relative;
+
+    input {
+        font-family: 'inter';
+        width: calc(100% - 24px) !important;
+        flex-grow: 0;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        height: 100%;
+        width: 44px;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        opacity: 0;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .data-picker-input {
+        z-index: 99;
+    }
+
+    .data-picker-icon {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        z-index: 0;
+    }
+}
