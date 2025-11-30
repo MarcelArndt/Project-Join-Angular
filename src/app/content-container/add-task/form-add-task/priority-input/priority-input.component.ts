@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { IconComponent } from '../../../../icon/icon.component';
 import { CommonModule } from '@angular/common';
+import { PriorityInputService } from './priority-input.service';
 
 @Component({
   selector: 'app-priority-input',
@@ -9,27 +10,20 @@ import { CommonModule } from '@angular/common';
   styleUrl: './priority-input.component.scss'
 })
 export class PriorityInputComponent {
+  constructor(private  priorityService : PriorityInputService ){}
   @Input() setStateOnInit!:string | undefined;
   @Output() priorityChange = new EventEmitter<'' | 'low'| 'medium' | 'urgent'>();
-  currentValue: '' | 'low'| 'medium' | 'urgent' = ''
 
-  setPriority(value: '' | 'low'| 'medium' | 'urgent' = '') {
-    if (this.currentValue === value) {
-      this.currentValue = '';
-    } else if (this.currentValue != value) {
-      this.currentValue = value;
-    }
-    this.priorityChange.emit(this.currentValue);
+  get value(){
+    return this.priorityService.currentValue();
   }
 
-  ngOnInit(){
-    if(this.setStateOnInit){
-      this.currentValue = this.setStateOnInit as '' | 'low'| 'medium' | 'urgent';
-    }
-  }
-
-  get value():'' | 'low'| 'medium' | 'urgent'{
-      return this.currentValue
+  setPriority(value:'' | 'low'| 'medium' | 'urgent'){
+  if (this.value === value) {
+        this.priorityService.setValue('');
+      } else if (this.value != value) {
+        this.priorityService.setValue(value);
+      }
   }
 
 }

@@ -1,13 +1,13 @@
 <label for="assignTo" class="important">Assigned to</label>
 <div class="select-input assignedTo-input"
-    [ngClass]="{'error-border': !service.assignToObj.firstTimeVisit && service.assignToObj.selectetUser.length <= 0 || OnHoverIsValid}"
-    (click)="searchForResults(); toggleAssignedToWindow(); service.closeCategory($event) ;preventClick($event)">
+    [ngClass]="{'error-border': assignService.isValid() === false}"
+    (click)="searchForResults(); toggleAssignedToWindow() ;preventClick($event)">
     <span *ngIf="!assignService.isMenuOpen()">Select Contacts</span>
 
     <ng-content *ngIf="assignService.isMenuOpen()">
         <icon class="search-iocn">search</icon>
         <input #serachbar (click)="preventClick($event)" (input)="searchForResults()" name="search"
-            [(ngModel)]="service.search" id='assignTo' placeholder="Search Contacts">
+            [(ngModel)]="currentSearchKey" id='assignTo' placeholder="Search Contacts">
     </ng-content>
     <hr>
     <div class="suffix-icon">
@@ -15,7 +15,7 @@
     </div>
 
     <div (click)="preventClick($event)" class="select-container"
-        [ngClass]="{'animate-fade-in-container' : assignService.isMenuOpen() && !assignService.firstTimeVisit, 'animate-fade-out-container' : !assignService.isMenuOpen() && assignService.firstTimeVisit,}">
+        [ngClass]="{'animate-fade-in-container' : assignService.isMenuOpen() && !assignService.isFirstTimeVisit(), 'animate-fade-out-container' : !assignService.isMenuOpen() && !assignService.isFirstTimeVisit(),}">
 
         <!-- ////////////// Content- / Resultcontainer  //////////////  -->
 
@@ -35,16 +35,16 @@
 
 <!-- ////////////// -Seleced User Container-  //////////////  -->
 <div class="assined-to-render-container min-height-for-container">
-    <ng-content *ngFor="let key of assignService.selectetUser; index as i;">
+    <ng-content *ngFor="let key of assignService.selectetUser(); index as i;">
         <div *ngIf="i <= 4" class="profil-picture-big" [style.background-color]="assignService.allUsers![key].color">
             {{assignService.allUsers!![key].inital}}
         </div>
-        <div *ngIf="i >= 5 && i + 1 == assignService.selectetUser.length" class="amount-of-number">+{{i -
+        <div *ngIf="i >= 5 && i + 1 == assignService.selectetUser().length" class="amount-of-number">+{{i -
             4}}
         </div>
 
     </ng-content>
-    <span *ngIf="assignService.selectetUser.length == 0" class="error">
+    <span *ngIf="assignService.selectetUser().length == 0" class="error">
         <p>No User is assigned to your Task.</p>
     </span>
 

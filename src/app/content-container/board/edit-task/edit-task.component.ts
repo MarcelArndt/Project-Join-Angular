@@ -7,6 +7,7 @@ import { DatabaseService } from '../../../service/database.service';
 import { TaskPayload, Tasks } from '../../../interface/interface';
 import { PriorityInputComponent } from '../../add-task/form-add-task/priority-input/priority-input.component';
 import { AssignedToInputComponent } from '../../add-task/form-add-task/assigned-to-input/assigned-to-input.component';
+import { CategoryInputComponent } from '../../add-task/form-add-task/category-input/category-input.component';
 
 @Component({
   selector: 'app-edit-task',

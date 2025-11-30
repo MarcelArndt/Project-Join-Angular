@@ -7,13 +7,16 @@ import { MainFeaturesService } from './main-features.service';
 import { DatabaseService } from './database.service';
 import { NgForm } from '@angular/forms';
 import { AssignedToInputService } from '../content-container/add-task/form-add-task/assigned-to-input/assigned-to-input-service';
+import { CategoryInputService } from '../content-container/add-task/form-add-task/category-input/category-input.service';
+import { SubtaskInputService } from '../content-container/add-task/form-add-task/subtask-input/subtask-input.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddTaskService {
 
-  constructor(private main: MainFeaturesService, public database: DatabaseService, private assignService: AssignedToInputService) { }
+  constructor(private main: MainFeaturesService, public database: DatabaseService, private assignService: AssignedToInputService, private  categoryService: CategoryInputService, private subtaskService: SubtaskInputService) { }
   @HostListener('document:click', ['$event'])
 
   assignedToMenu = document.querySelector('.assignedTo-input');
@@ -38,29 +41,6 @@ export class AddTaskService {
   allKeys?: string[];
   allCategoryKeys?: string[];
   allSubTaskKey?: string[];
-  search: string = '';
-
-  assignToObj = {
-    open: false,
-    selectetUser: [] as string[],
-    allUser: this.allUser,
-    firstTimeVisit: true,
-  }
-
-  addSubTaskObj = {
-    open: false,
-    firstTimeVisit: true,
-    currentTask: '',
-    allSubTasks: {} as AllSubTask,
-  }
-
-  categoryObj = {
-    open: false,
-    allCategory: this.allCategory,
-    currentName: 'Select Task Category',
-    currentKey: '',
-    firstTimeVisit: true,
-  }
 
   newTask: TaskPayload = {
     name: '',
@@ -79,26 +59,8 @@ export class AddTaskService {
     this.database.setNewTask(id, task);
   }
 
-
   getNewId() {
     return this.main.getNewId()
-  }
-
-  checkforClosingWindow(event: Event) {
-    this.closeCategory(event);
-  }
-
-  closeAddSubTask(event: Event) {
-    if (!this.assignToObj.firstTimeVisit && this.assignToObj.open && !this.assignedToMenu?.contains(event.target as Node)) {
-      this.assignToObj.open = false;
-      this.addSubTaskObj.currentTask = '';
-    }
-  }
-
-  closeCategory(event: Event) {
-    if (!this.categoryObj.firstTimeVisit && this.categoryObj.open && !this.categoryMenu?.contains(event.target as Node)) {
-      this.categoryObj.open = false;
-    }
   }
 
   allKeyOfCategoryAndAssignedTo() {
@@ -114,11 +76,31 @@ export class AddTaskService {
     this.ProgressIndexForAddTask = index;
   }
 
+  checkOnMouseHoverValidation(isMouseOnButton:boolean){
+    if(isMouseOnButton){
+      this.categoryService.onMouseHover()
+    } else {
+      this.categoryService.onMouseLeave()
+    }
+
+  }
+
+  /*
+
+  formErrorText: string[] = [
+    "Your task does not have a valid name with three or more characters.",
+    "No due Date is set.",
+    'No Category selected.',
+    'No person is assigned to your task.'
+  ]
+  */
+
   checkForValidationinForm(newTaskForm: NgForm, isMouseOnButton: boolean = false): void {
+    this.checkOnMouseHoverValidation(isMouseOnButton)
     this.formHasError = [false, false, false, false];
     this.errorText = '';
-    this.formHasError[3] = this.assignService.checkAssignToValidation(isMouseOnButton);
-    this.formHasError[2] = this.checkCategoryValidation(isMouseOnButton);
+    this.formHasError[3] = this.assignService.isValid() && !this.assignService.isFirstTimeVisit()? false : true;
+    this.formHasError[2] = this.categoryService.isValid()  && !this.categoryService.isFirstTimeVisit()? false : true;
     this.formHasError[1] = this.checkDueDateValidation(newTaskForm, isMouseOnButton);
     this.formHasError[0] = this.checkTaskNameValidation(newTaskForm, isMouseOnButton);
     for (let i = 0; i < this.formHasError.length; i++) {
@@ -127,14 +109,6 @@ export class AddTaskService {
         break;
       }
     }
-  }
-
-  checkCategoryValidation(isMouseOnButton: boolean = false): boolean {
-    if ((this.categoryObj.currentName == 'Select Task Category' && !this.categoryObj.firstTimeVisit)
-      || (this.categoryObj.currentName == 'Select Task Category' && isMouseOnButton)) {
-      return true;
-    }
-    return false;
   }
 
   checkDueDateValidation(newTaskForm: NgForm, isMouseOnButton: boolean = false): boolean {

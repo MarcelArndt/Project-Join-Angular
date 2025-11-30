@@ -44,13 +44,13 @@
 
             <app-priority-input (priorityChange)="onPriorityChange($event)"></app-priority-input>
 
-            <app-category-input [OnHoverIsValid]="service.formHasError[2]" [form]="addTaskForm"></app-category-input>
+            <app-category-input></app-category-input>
 
-            <app-subtask-input></app-subtask-input>
+            <app-subtask-input [currentTask]="service.newTask"></app-subtask-input>
 
         </div>
     </div>
-    <div [style.margin-top]="buttonMarginTop" class="form-button-container" (hover)="this.service.preventClick($event)">
+    <div class="form-button-container" (hover)="this.service.preventClick($event)">
         <button class="white-button min-witdh-button" (click)="resetForm(addTaskForm)">Clear</button>
 
         <div (mouseenter)="service.checkForValidationinForm(addTaskForm, true)"

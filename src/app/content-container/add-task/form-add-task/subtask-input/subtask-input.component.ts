@@ -1,10 +1,16 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, Input, HostListener} from '@angular/core';
 import { IconComponent } from '../../../../icon/icon.component';
 import { AddTaskService } from '../../../../service/add-task.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MainFeaturesService } from '../../../../service/main-features.service';
-import { AllSubTask } from '../../../../interface/interface';
+import { AllSubTask, SubTask, TaskPayload } from '../../../../interface/interface';
+import { SubtaskInputService } from './subtask-input.service';
+
+ interface BackSubTask {
+  [id: string]: string; 
+}
+
 
 
 @Component({
@@ -14,50 +20,60 @@ import { AllSubTask } from '../../../../interface/interface';
   styleUrls: ['./subtask-input.component.scss', './../drop-down-menu.scss']
 })
 export class SubtaskInputComponent {
-  constructor(public service: AddTaskService, private mainFeatures: MainFeaturesService) { }
+  constructor(public service: AddTaskService, private mainFeatures: MainFeaturesService, public subtaskService: SubtaskInputService) { }
+  @Input({required:true})currentTask!:TaskPayload;
   @ViewChild('addSubTaskInput') addSubTaskInput!: ElementRef<HTMLInputElement>;
 
-  newSubTask: string = '';
-  backUpOfSubTask: string = '';
+  
+  backUpOfSubTask: BackSubTask = {};
 
-  toggleAddSubTaskWindow() {
-    this.service.addSubTaskObj.firstTimeVisit = false;
-    this.service.addSubTaskObj.open = !this.service.addSubTaskObj.open
-    this.service.addSubTaskObj.currentTask = '';
-    if (this.service.addSubTaskObj.open) {
-      setTimeout(() => { this.addSubTaskInput.nativeElement.focus(); }, 250)
+    @HostListener('document:click', ['$event'])
+  
+      onDocumentClick(event: MouseEvent) {
+      if(!this.subtaskService.isFirstTimeVisit() && this.subtaskService.isMenuOpen()){
+        this.subtaskService.closeMenu();
+      }
     }
+
+  ngOnInit(){
+    this.subtaskService.initSubTaskService(this.currentTask)
+    this.subtaskService.resetEvent$.subscribe(()=>{
+      this.backUpOfSubTask = {}
+    })
   }
 
   setSubTask() {
-    if (this.service.addSubTaskObj.currentTask.length <= 0) return;
-    const id = this.mainFeatures.getNewId();
-    if (!this.service.addSubTaskObj.allSubTasks) {
-      this.service.addSubTaskObj.allSubTasks = {} as AllSubTask;
+    if(!this.subtaskService.newSubTask) return;
+    const newTask:SubTask = {
+      text:this.subtaskService.newSubTask,
+      inOnEdit:false,
+      isDone:false,
     }
-    this.service.addSubTaskObj.allSubTasks[id] = { text: this.service.addSubTaskObj.currentTask, inOnEdit: false, isDone: false };
-    this.service.allSubTaskKey = Object.keys(this.service.addSubTaskObj.allSubTasks);
-    this.toggleAddSubTaskWindow();
+    this.subtaskService.setNewSubTask(newTask);
   }
 
 
   deleteSubTaskbById(id: string) {
-    delete this.service.addSubTaskObj.allSubTasks[id];
-    this.service.allSubTaskKey = Object.keys(this.service.addSubTaskObj.allSubTasks);
+    this.subtaskService.deleteSubTaskByID(id)
   }
 
   openEditById(id: string) {
-    this.service.addSubTaskObj.allSubTasks[id].inOnEdit = true;
-    this.backUpOfSubTask = this.service.addSubTaskObj.allSubTasks[id].text;
+    this.subtaskService.openEditMenuForSubTaskByID(id)
+    this.backUpOfSubTask[id] = this.subtaskService.allSubTask()![id].text;
   }
 
-  restoreEditById(id: string) {
-    this.service.addSubTaskObj.allSubTasks[id].text = this.backUpOfSubTask;
-    this.backUpOfSubTask = '';
+  preventClick(event:Event){
+    event.stopPropagation()
   }
 
   closeEditById(id: string) {
-    this.service.addSubTaskObj.allSubTasks[id].inOnEdit = false;
+    this.subtaskService.closeEditMenuForSubTaskByID(id)
+    this.subtaskService.allSubTask()![id].text = this.backUpOfSubTask[id]
+    delete this.backUpOfSubTask[id];
+  }
+
+  saveEditById(id:string){
+    this.subtaskService.closeEditMenuForSubTaskByID(id)
   }
 
 }

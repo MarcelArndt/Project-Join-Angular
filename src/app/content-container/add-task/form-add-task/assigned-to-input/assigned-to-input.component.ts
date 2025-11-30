@@ -18,13 +18,18 @@ export class AssignedToInputComponent {
     @HostListener('document:click', ['$event'])
   
       onDocumentClick(event: MouseEvent) {
-      this.assignService.closeMenu();
+      if(!this.assignService.isFirstTimeVisit() && this.assignService.isMenuOpen()){
+        this.assignService.closeMenu();
+      }
     }
   
   @Output() selectedUser = new EventEmitter<string[]>();
   @Input({required:true})CurrentTaskDataSet!:TaskPayload;
   @Input() OnHoverIsValid: boolean = false;
   @ViewChild('serachbar') serachbar!: ElementRef<HTMLInputElement>;
+
+
+
 
   searchResults: string[] = [];
   searchHasResults: boolean = false;
@@ -67,7 +72,7 @@ export class AssignedToInputComponent {
   resetLastSearch() {
     this.searchResults = [];
     this.searchHasResults = false;
-    return this.service.search.toLowerCase();
+    return this.currentSearchKey.toLowerCase();
   }
 
   PreparePersonForSearch(personKey: string = '') {
@@ -76,6 +81,10 @@ export class AssignedToInputComponent {
     obj.secondname = this.assignService.allUsers![personKey].secondname.toLowerCase();
     obj.inital = this.assignService.allUsers![personKey].inital.toLowerCase();
     return obj;
+  }
+
+  getCurrentValue(){
+    this.assignService.selectetUser();
   }
 
   search(person: User, personId: string = '', search: string = '') {

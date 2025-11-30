@@ -1,4 +1,4 @@
-import { ElementRef, Injectable, signal, ViewChild } from '@angular/core';
+import { Injectable, signal, computed} from '@angular/core';
 import { AllUsers, TaskPayload,} from '../../../../interface/interface';
 import { DatabaseService } from '../../../../service/database.service';
 import {Subject} from 'rxjs';
@@ -12,19 +12,27 @@ export class AssignedToInputService{
   isMenuOpen = signal(false);
   currentTaskDataSet!:TaskPayload;
 
-  firstTimeVisit:boolean=true;
-  selectetUser:string[] = [];
+  isFirstTimeVisit = signal<boolean>(true);
+  selectetUser=signal<string[]>([]);
   allUsers!:AllUsers;
   allUsersIDKeys!:string[];
-
+  isMouseOnHover = signal(false);
   changeEvent$ = new Subject<void>();
+
+ isValid = computed(() => {
+    if (this.isFirstTimeVisit() && !this.isMouseOnHover()) {
+      return null;
+    }
+    return this.selectetUser().length > 0;
+  });
 
 
   initAssignToDataBase(newTaskDataSet:TaskPayload){
     this.isMenuOpen.set(false);
     this.initCurrentTaskDataSet(newTaskDataSet);
     this.pullAllUsers();
-    this.selectetUser = [...this.currentTaskDataSet.assignedTo];
+    const value = [...this.currentTaskDataSet.assignedTo]
+    this.selectetUser.set(value);
     this.allUsersIDKeys= Object.keys(this.allUsers)
   }
 
@@ -37,42 +45,36 @@ export class AssignedToInputService{
   }
 
   getListOfAllAssignedUser():string[]{
-    return this.selectetUser
-  }
-
-
-  checkAssignToValidation(isMouseOnButton: boolean = false) {
-    if ((!this.firstTimeVisit && this.selectetUser.length <= 0)
-      || (this.selectetUser.length <= 0 && isMouseOnButton)) {
-      return true;
-    }
-    return false;
+    return this.selectetUser()
   }
 
   isUserAleadyAssigned(UserID:string):number{
-    return this.selectetUser.indexOf(UserID);
+    const allSelectedUsers = this.selectetUser()
+    return allSelectedUsers.indexOf(UserID);
   }
 
   toggleToAssignTo(UserID:string){
-    const currentIndex = this.isUserAleadyAssigned(UserID)
+    const currentIndex = this.isUserAleadyAssigned(UserID);
+    const allSelectedUsers = [...this.selectetUser()];
     if(currentIndex >= 0){
-      this.selectetUser.splice(currentIndex, 1);
-    } else if (currentIndex < 0) {
-      this.selectetUser.push(UserID)
+      allSelectedUsers.splice(currentIndex, 1);
+    } else {
+      allSelectedUsers.push(UserID);
     }
+    this.selectetUser.set(allSelectedUsers); 
     this.changeEvent$.next();
   }
 
   disableFirstTimeVisit(){
-    this.firstTimeVisit = false;
+    this.isFirstTimeVisit.set(false)
   }
 
   enableFirstTimeVisit(){
-    this.firstTimeVisit = true; 
+    this.isFirstTimeVisit.set(true)
   }
 
   get isfirstTimeVisit():boolean{
-    return this.firstTimeVisit
+    return this.isFirstTimeVisit()
   }
 
   openMenu(){
@@ -89,6 +91,21 @@ export class AssignedToInputService{
     if(!this.isMenuOpen()){
       this.changeEvent$.next();
     }
+  }
+
+  reset(){
+    this.isMenuOpen.set(false);
+    this.selectetUser.set([]);
+    this.isMouseOnHover.set(false);
+    this.isFirstTimeVisit.set(true);
+  }
+
+  onMouseHover(){
+    this.isMouseOnHover.set(true);
+  }
+
+  onMouseLeave(){
+    this.isMouseOnHover.set(false);
   }
 
 

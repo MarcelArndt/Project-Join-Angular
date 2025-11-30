@@ -1,8 +1,8 @@
-import { Component, Input, HostListener } from '@angular/core';
+import { Component, HostListener} from '@angular/core';
 import { IconComponent } from '../../../../icon/icon.component';
 import { AddTaskService } from '../../../../service/add-task.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule} from '@angular/forms';
 import { Category } from '../../../../interface/interface';
 import { DatabaseService } from '../../../../service/database.service';
 import { CategoryInputService } from './category-input.service';
@@ -13,30 +13,25 @@ import { CategoryInputService } from './category-input.service';
   styleUrls: ['./category-input.component.scss', './../drop-down-menu.scss']
 })
 export class CategoryInputComponent {
-  constructor(public service: AddTaskService, public database: DatabaseService,private  categoryService: CategoryInputService) { }
+  constructor(public service: AddTaskService, public database: DatabaseService, public categoryService: CategoryInputService) { }
 
   @HostListener('document:click', ['$event'])
-
     onDocumentClick(event: MouseEvent) {
-    this.categoryService.closeMenu();
+      if(!this.categoryService.isFirstTimeVisit() && this.categoryService.isMenuOpen()){
+        this.categoryService.closeMenu();
+      }
   }
 
-
-  @Input() OnHoverIsValid: boolean = false;
-  @Input() form?: NgForm;
-  toggleCategoryWindow() {
-    this.service.categoryObj.firstTimeVisit = false;
-    this.service.categoryObj.open = !this.service.categoryObj.open
-    this.service.checkForValidationinForm(this.form!, false);
+  setChoice(category:Category){
+    this.categoryService.setCurrentChoice(category);
   }
 
-  setCategory(obj: Category) {
-    this.service.newTask.category = obj;
-    this.service.categoryObj.currentName = obj.name;
-    this.service.newTask.category = obj;
-    this.service.categoryObj.open = false;
-    this.service.search = '';
-    this.service.checkForValidationinForm(this.form!, false);
+  toggleMenu(){
+    this.categoryService.toggleMenu();
+  }
+
+  preventClick(event:Event){
+    event.stopPropagation();
   }
 
 }

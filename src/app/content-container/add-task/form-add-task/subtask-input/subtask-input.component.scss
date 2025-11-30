@@ -4,9 +4,11 @@
 }
 
 .select-container {
+    width: 100%;
     z-index: 80;
     background-color: var(--hover-grey) !important;
     border: 1px solid var(--grey);
+    border-radius: 12px;
 }
 
 .select-input {
@@ -49,6 +51,7 @@
 }
 
 .icon-hover {
+    cursor: pointer;
     icon {
         &:hover {
             color: var(--cyan) !important;
@@ -65,8 +68,11 @@
 
 .static-box {
     z-index: 9 !important;
-    max-height: max-content;
     box-sizing: border-box;
+    height: max-content !important;
+    max-height: 164px;
+    overflow-y: auto;
+    margin-bottom: 64px;
 
     .task-container {
         display: flex;
@@ -76,6 +82,13 @@
         border-top: 1px solid transparent;
         border-bottom: 1px solid transparent;
         color: var(--black);
+
+        hr{
+            border: none;
+            width: 1px;
+            background-color: var(--grey);
+            height: 1.25rem;
+        }
 
         icon {
             font-size: 21px !important;
@@ -94,11 +107,23 @@
             width: 100% !important;
         }
 
+        input{ 
+            outline: none;
+            border: none;
+            background-color: transparent;
+            color: var(--black);
+            font-weight: 400;
+            font-family: "inter";
+            font-size: 16px;
+        }
+
     }
 }
 
 .edit-input-field {
+    max-width: 92%;
     width: 100%;
+    padding: 8px 0px;
     display: flex;
     align-items: center;
     border: 1px solid var(--grey) !important;
@@ -111,6 +136,22 @@
     }
 
     input {
-        padding: 0px 0px !important;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 0px 12px 0px 0px;
     }
+}
+
+.render-area-subtask{
+    display: flex;
+    width: 100%;
+    position: relative;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+}
+
+.on-edit{
+    background-color: white;
 }

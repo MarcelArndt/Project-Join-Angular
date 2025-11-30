@@ -1,20 +1,24 @@
 <label for="category" class="important">Category</label>
 <div class="select-input category-input clickable" id="categoryInput"
-    [ngClass]="{'error-border': service.categoryObj.currentName == 'Select Task Category' && !service.categoryObj.firstTimeVisit || OnHoverIsValid}"
-    (click)="toggleCategoryWindow(); service.preventClick($event)">
-    <span>{{service.categoryObj.currentName}}</span>
+    [ngClass]="{'error-border': categoryService.isValid() === false}"
+    (click)="toggleMenu(); preventClick($event)">
+    @if(categoryService.getCurrentChoice() && categoryService.getCurrentChoiceName().length  > 0){
+        <span>{{categoryService.getCurrentChoiceName()}}</span>
+    } @else {
+        <span>Select task category</span>
+    }
     <hr>
     <div class="suffix-icon">
-        <icon>{{service.categoryObj.open? 'arrow_drop_down' : 'arrow_drop_up'}}</icon>
+        <icon>{{categoryService.isMenuOpen() ? 'arrow_drop_down' : 'arrow_drop_up'}}</icon>
     </div>
 
     <div (click)="service.preventClick($event)" class="select-container"
-        [ngClass]="{'animate-fade-in-container' : service.categoryObj.open && !service.categoryObj.firstTimeVisit, 'animate-fade-out-container' : !service.categoryObj.open && !service.categoryObj.firstTimeVisit,}">
+        [ngClass]="{'animate-fade-in-container' : categoryService.isMenuOpen() && !categoryService.isFirstTimeVisit(), 'animate-fade-out-container' : !categoryService.isMenuOpen() && !categoryService.isFirstTimeVisit()}">
 
         <ng-content *ngFor="let key of service.allCategoryKeys; index as i;">
             <ul class="data-field-catogory">
                 <li *ngIf="database.categories[key].name != 'No Category'"
-                    (click)="setCategory(database.categories[key] )" class="selectable">
+                    (click)="setChoice(database.categories[key])" class="selectable">
                     {{database.categories[key].name}}</li>
             </ul>
         </ng-content>
