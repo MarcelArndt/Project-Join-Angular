@@ -29,15 +29,11 @@ export class AssignedToInputService{
 
   initAssignToDataBase(newTaskDataSet:TaskPayload){
     this.isMenuOpen.set(false);
-    this.initCurrentTaskDataSet(newTaskDataSet);
+    this.currentTaskDataSet = newTaskDataSet;
     this.pullAllUsers();
     const value = [...this.currentTaskDataSet.assignedTo]
     this.selectetUser.set(value);
     this.allUsersIDKeys= Object.keys(this.allUsers)
-  }
-
-  initCurrentTaskDataSet(newTaskDataSet:TaskPayload){
-    this.currentTaskDataSet = newTaskDataSet;
   }
   
   pullAllUsers(){
@@ -106,6 +102,10 @@ export class AssignedToInputService{
 
   onMouseLeave(){
     this.isMouseOnHover.set(false);
+  }
+
+  getData(){
+    return this.selectetUser();
   }
 
 

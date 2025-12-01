@@ -8,12 +8,13 @@ import { CategoryInputComponent } from './category-input/category-input.componen
 import { PriorityInputComponent } from './priority-input/priority-input.component';
 import { SubtaskInputComponent } from './subtask-input/subtask-input.component';
 import { MainFeaturesService } from '../../../service/main-features.service';
-import { AllSubTask } from '../../../interface/interface';
+
 import { DatabaseService } from '../../../service/database.service';
 import { AssignedToInputService } from './assigned-to-input/assigned-to-input-service';
 import { CategoryInputService } from './category-input/category-input.service';
 import { PriorityInputService } from './priority-input/priority-input.service';
 import { SubtaskInputService } from './subtask-input/subtask-input.service';
+import { TaskPayload } from '../../../interface/interface';
 
 
 @Component({
@@ -43,11 +44,17 @@ export class FormAddTaskComponent {
   }
 
   ngAfterViewInit(){
-  
+    this.service.initAddTaskService(this.addTaskForm);
+    this.assignService.changeEvent$.subscribe(()=> {
+      this.service.checkForValidationinForm(false);
+    });
+    this.categoryService.changeEvent$.subscribe(()=> {
+      this.service.checkForValidationinForm(false);
+    });
   }
 
-  resetForm(form: NgForm) {
-    form.reset();
+  resetForm() {
+    this.addTaskForm.reset();
     this.priorityService.reset();
     this.categoryService.reset();
     this.assignService.reset();
@@ -55,7 +62,7 @@ export class FormAddTaskComponent {
     this.service.newTask.name = '';
     this.service.newTask.assignedTo = [];
     this.service.allSubTaskKey = [];
-    this.service.checkForValidationinForm(form, false);
+    this.service.checkForValidationinForm(false);
   }
 
   checkForValidationForButton(form: NgForm) {
@@ -67,13 +74,33 @@ export class FormAddTaskComponent {
     return false;
   }
 
-  creatNewTask(form: NgForm) {
-    this.service.pushTaskToDatabase();
-    this.resetForm(form);
-    console.log(this.database.tasks);
+  creatNewTask() {
+   const allData = this.getAllDataFromSerive()
+    console.table(allData);
+    const newTask:TaskPayload = {
+      name : allData.name,
+      description: allData.description,
+      date : allData.dueDate,
+      assignedTo : allData.assignedTo,
+      priority: allData.priority,
+      progress: 0,
+      category : allData.category,
+      subTasks : allData.subtasks
+    }
+    this.service.generateNewTask(newTask);
+    console.table(newTask)
+    this.resetForm();
   }
 
-  onPriorityChange(priority: '' | 'low'| 'medium' | 'urgent') {
-    this.service.newTask.priority = priority
+  getAllDataFromSerive(){
+    return {
+      'name' : this.service.getNameData(),
+      'description': this.service.getDescriptionData(),
+      'dueDate': this.service.getDueDateData(),
+      'assignedTo': this.assignService.getData(),
+      'priority': this.priorityService.getData(),
+      'category': this.categoryService.getData(),
+      'subtasks': this.subtaskService.getData(),
+    }
   }
 }

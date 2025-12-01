@@ -16,4 +16,8 @@ export class PriorityInputService {
    this.currentValue.set('')  
   }
 
+  getData(){
+   return this.currentValue() as string;
+  }
+
 }

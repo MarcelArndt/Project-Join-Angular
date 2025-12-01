@@ -5,18 +5,18 @@
     <div class="form-main-container">
         <div class="form-container-size">
 
-            <label for="title" class="important">Title</label>
-            <div (click)="service.checkForValidationinForm(addTaskForm, false)" class="input-frame input-frame-add-task"
+            <label for="taskTitle" class="important">Title</label>
+            <div (click)="service.checkForValidationinForm(false)" class="input-frame input-frame-add-task"
                 [ngClass]="{'error-border': service.formHasError[0]}">
-                <input id='nameInput' required name="taskTitle" [(ngModel)]='service.newTask.name' type="text"
-                    (input)="service.checkForValidationinForm(addTaskForm, false)"
-                    (blur)="service.checkForValidationinForm(addTaskForm, false)" placeholder="Enter a Title"
+                <input id='taskTitle' required name="taskTitle" [(ngModel)]='service.newTask.name' type="text"
+                    (input)="service.checkForValidationinForm(false)"
+                    (blur)="service.checkForValidationinForm(false)" placeholder="Enter a Title"
                     minlength="3" #taskTitleInput="ngModel">
             </div>
 
             <label for="description">Description</label>
             <div class="text-frame">
-                <textarea id="description" name="task-description" [(ngModel)]='service.newTask.description'
+                <textarea id="description" name="description" [(ngModel)]='service.newTask.description'
                     placeholder="Enter a Description" minlength="3"></textarea>
             </div>
 
@@ -30,19 +30,19 @@
 
         <div class="form-container-size">
 
-            <label for="title" class="important">Due date</label>
+            <label for="dueDate" class="important">Due date</label>
             <div class="input-frame input-frame-add-task" id="dueDateInput"
                 [ngClass]="{'error-border' : service.formHasError[1]}"
-                (blur)="service.checkForValidationinForm(addTaskForm, false)"
-                (input)="service.checkForValidationinForm(addTaskForm, false)">
+                (blur)="service.checkForValidationinForm(false)"
+                (input)="service.checkForValidationinForm(false)">
                 <div class="suffix-icon data-picker-icon">
                     <icon>calendar_month</icon>
                 </div>
-                <input class='data-picker-input' [(ngModel)]='service.newTask.date' required type="date" id="start"
+                <input class='data-picker-input' [(ngModel)]='service.newTask.date' required type="date" id="dueDate"
                     name="dueDate" [min]="dateToday" #dueDateTaskInput="ngModel" />
             </div>
 
-            <app-priority-input (priorityChange)="onPriorityChange($event)"></app-priority-input>
+            <app-priority-input></app-priority-input>
 
             <app-category-input></app-category-input>
 
@@ -51,12 +51,12 @@
         </div>
     </div>
     <div class="form-button-container" (hover)="this.service.preventClick($event)">
-        <button class="white-button min-witdh-button" (click)="resetForm(addTaskForm)">Clear</button>
+        <button class="white-button min-witdh-button" (click)="resetForm()">Clear</button>
 
-        <div (mouseenter)="service.checkForValidationinForm(addTaskForm, true)"
-            (mouseleave)="service.checkForValidationinForm(addTaskForm, false)">
+        <div (mouseenter)="service.checkForValidationinForm(true)"
+            (mouseleave)="service.checkForValidationinForm(false)">
             <button class="black-button min-witdh-button" [disabled]="!checkForValidationForButton(addTaskForm)"
-                (click)="creatNewTask(addTaskForm)">Add
+                (click)="creatNewTask()">Add
                 Task</button>
         </div>
     </div>

@@ -1,5 +1,5 @@
-<label for="category" class="important">Category</label>
-<div class="select-input category-input clickable" id="categoryInput"
+<label class="important">Category</label>
+<div class="select-input category-input clickable" id="category" name="category"
     [ngClass]="{'error-border': categoryService.isValid() === false}"
     (click)="toggleMenu(); preventClick($event)">
     @if(categoryService.getCurrentChoice() && categoryService.getCurrentChoiceName().length  > 0){

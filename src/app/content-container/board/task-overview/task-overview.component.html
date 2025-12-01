@@ -40,8 +40,8 @@
             <div class="assing-container">
                 <div *ngFor="let key of AllSubtaskKeys; index as i" class="contact-container">
                     <div class="subtask-container" (click)="toggleSubtaskIsDone(key)">
-                        <icon>{{task!.subTasks[key].isDone? 'check_box' : 'check_box_outline_blank'}}</icon>
-                        <div class="name">{{task!.subTasks[key].text}}</div>
+                        <icon>{{task!.subTasks![key].isDone? 'check_box' : 'check_box_outline_blank'}}</icon>
+                        <div class="name">{{task!.subTasks![key].text}}</div>
                     </div>
                 </div>
             </div>

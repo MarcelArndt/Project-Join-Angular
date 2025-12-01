@@ -19,10 +19,9 @@ export class AddTaskService {
   constructor(private main: MainFeaturesService, public database: DatabaseService, private assignService: AssignedToInputService, private  categoryService: CategoryInputService, private subtaskService: SubtaskInputService) { }
   @HostListener('document:click', ['$event'])
 
-  assignedToMenu = document.querySelector('.assignedTo-input');
-  categoryMenu = document.querySelector('.category-input');
-  addSubTaskMenu = document.querySelector('.subtask-input');
   ProgressIndexForAddTask: number = 0;
+
+  newTaskForm!:NgForm;
 
   errorText: string = '';
   formHasError: boolean[] = [false, false, false, false]
@@ -37,7 +36,6 @@ export class AddTaskService {
 
   allUser?: AllUsers;
   allCategory?: AllCategory;
-
   allKeys?: string[];
   allCategoryKeys?: string[];
   allSubTaskKey?: string[];
@@ -79,30 +77,42 @@ export class AddTaskService {
   checkOnMouseHoverValidation(isMouseOnButton:boolean){
     if(isMouseOnButton){
       this.categoryService.onMouseHover()
+      this.assignService.onMouseHover()
     } else {
       this.categoryService.onMouseLeave()
+       this.assignService.onMouseLeave()
     }
-
   }
 
-  /*
+  checkForErrorInForm(isMouseOnButton:boolean){
+    if(!this.newTaskForm) return console.warn('No Form set! Please init the service with initAddTaskService()');
 
-  formErrorText: string[] = [
-    "Your task does not have a valid name with three or more characters.",
-    "No due Date is set.",
-    'No Category selected.',
-    'No person is assigned to your task.'
-  ]
-  */
+    if(this.assignService.isValid() === false){
+      this.formHasError[3] = true
+    }
+    if(this.categoryService.isValid() === false){
+       this.formHasError[2] = true
+    }
+    if ((!this.newTask.date && this.newTaskForm.form.get('dueDate')?.touched)
+      || (!this.newTask.date && isMouseOnButton)) {
+        this.formHasError[1] = true;
+    }
+    if ((!this.newTaskForm.form.get('taskTitle')?.valid && this.newTaskForm.form.get('taskTitle')?.touched)
+      || (!this.newTaskForm.form.get('taskTitle')?.valid && isMouseOnButton)) {
+      this.formHasError[0] = true;
+    }
+  }
 
-  checkForValidationinForm(newTaskForm: NgForm, isMouseOnButton: boolean = false): void {
+ initAddTaskService(form:NgForm){
+    if(!form) return
+    this.newTaskForm = form
+  }
+
+  checkForValidationinForm( isMouseOnButton: boolean = false): void {
     this.checkOnMouseHoverValidation(isMouseOnButton)
     this.formHasError = [false, false, false, false];
     this.errorText = '';
-    this.formHasError[3] = this.assignService.isValid() && !this.assignService.isFirstTimeVisit()? false : true;
-    this.formHasError[2] = this.categoryService.isValid()  && !this.categoryService.isFirstTimeVisit()? false : true;
-    this.formHasError[1] = this.checkDueDateValidation(newTaskForm, isMouseOnButton);
-    this.formHasError[0] = this.checkTaskNameValidation(newTaskForm, isMouseOnButton);
+    this.checkForErrorInForm(isMouseOnButton);
     for (let i = 0; i < this.formHasError.length; i++) {
       if (this.formHasError[i]) {
         this.errorText = this.formErrorText[i];
@@ -111,20 +121,34 @@ export class AddTaskService {
     }
   }
 
-  checkDueDateValidation(newTaskForm: NgForm, isMouseOnButton: boolean = false): boolean {
-    if ((!this.newTask.date && newTaskForm.form.get('dueDate')?.touched)
-      || (!this.newTask.date && isMouseOnButton)) {
-      return true;
-    }
-    return false;
+  getNameData(){
+    return this.newTaskForm.form.get('taskTitle')?.value
   }
 
-  checkTaskNameValidation(newTaskForm: NgForm, isMouseOnButton: boolean = false): boolean {
-    if ((!newTaskForm.form.get('taskTitle')?.valid && newTaskForm.form.get('taskTitle')?.touched)
-      || (!newTaskForm.form.get('taskTitle')?.valid && isMouseOnButton)) {
-      return true
-    }
-    return false;
+  getDescriptionData(){
+    return this.newTaskForm.form.get('description')?.value
   }
+
+  getDueDateData(){
+    return this.newTaskForm.form.get('dueDate')?.value
+  }
+
+  generateNewTask(task:TaskPayload){
+    const newTask = {
+    name: task.name,
+    description: task.description,
+    assignedTo: task.assignedTo,
+    progress: task.progress,
+    date: task.date,
+    priority: task.priority,
+    category: task.category? task.category : { name: 'No Category', color: '#4F4F4F' } as Category,
+    subTasks: task.subTasks,
+  }
+  const newId = this.getNewId()
+  this.database.setNewTask(newId, structuredClone(newTask));
+  }
+
+
+
 
 }

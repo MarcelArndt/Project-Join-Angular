@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IconComponent } from '../../../../icon/icon.component';
 import { CommonModule } from '@angular/common';
 import { PriorityInputService } from './priority-input.service';
@@ -12,7 +12,6 @@ import { PriorityInputService } from './priority-input.service';
 export class PriorityInputComponent {
   constructor(private  priorityService : PriorityInputService ){}
   @Input() setStateOnInit!:string | undefined;
-  @Output() priorityChange = new EventEmitter<'' | 'low'| 'medium' | 'urgent'>();
 
   get value(){
     return this.priorityService.currentValue();

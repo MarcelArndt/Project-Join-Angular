@@ -25,7 +25,7 @@ export class TaskOverviewComponent {
   ngOnInit() {
     this.task = this.database.tasks[this.service.currentId];
     this.contacts = this.database.contacts;
-    this.AllSubtaskKeys = Object.keys(this.task!.subTasks);
+    this.AllSubtaskKeys = Object.keys(this.task!.subTasks || {});
   }
 
   getDateInFormat() {
@@ -36,8 +36,8 @@ export class TaskOverviewComponent {
   }
 
   toggleSubtaskIsDone(subtaskId: string) {
-    this.task!.subTasks[subtaskId].isDone = !this.task!.subTasks[subtaskId].isDone;
-    this.database.saveSubTasktoTask(this.service.currentId, subtaskId, this.task!.subTasks[subtaskId]);
+    this.task!.subTasks![subtaskId].isDone = !this.task!.subTasks![subtaskId].isDone;
+    this.database.saveSubTasktoTask(this.service.currentId, subtaskId, this.task!.subTasks![subtaskId]);
   }
 
   deleteTask(taskId: string) {

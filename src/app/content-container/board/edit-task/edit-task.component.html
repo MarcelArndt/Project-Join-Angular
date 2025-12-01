@@ -25,7 +25,7 @@
                 name="dueDate" [min]="dateToday" />
         </div>
 
-        <app-priority-input [setStateOnInit]="currentTask?.priority" (priorityChange)="onPriorityChange($event)"></app-priority-input>
+        <app-priority-input [setStateOnInit]="currentTask?.priority"></app-priority-input>
         <app-assigned-to-input [CurrentTaskDataSet]="currentTask!"></app-assigned-to-input>
 
         <button (click)="onSave()">save</button>

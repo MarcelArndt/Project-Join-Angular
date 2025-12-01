@@ -1,5 +1,5 @@
-<label for="priority">Priority</label>
-<div class="priority-container">
+<label>Priority</label>
+<div class="priority-container" id="priority" name="priority">
 
     <div class="priority-button" [ngClass]="{'hover-shadow': value != 'urgent'}"
         (click)="setPriority('urgent')" [style.background]="value == 'urgent'?  '#ff3d00' : ''"

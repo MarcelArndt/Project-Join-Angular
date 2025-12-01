@@ -65,6 +65,7 @@ form {
 @media (max-width: 1440px) {
     .form-main-container {
         flex-direction: column;
+        align-items: center;
     }
 
     .form-container-size {

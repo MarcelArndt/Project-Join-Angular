@@ -1,5 +1,5 @@
-<label for="assignTo" class="important">Assigned to</label>
-<div class="select-input assignedTo-input"
+<label class="important">Assigned to</label>
+<div class="select-input assignedTo-input" name="assignTo"
     [ngClass]="{'error-border': assignService.isValid() === false}"
     (click)="searchForResults(); toggleAssignedToWindow() ;preventClick($event)">
     <span *ngIf="!assignService.isMenuOpen()">Select Contacts</span>

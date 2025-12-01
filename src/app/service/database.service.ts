@@ -87,7 +87,7 @@ export class DatabaseService {
 
   saveSubTasktoTask(taskId: string, subtaskId: string, newSubtaksValues: SubTask) {
     if (!taskId || !subtaskId) return;
-    this.tasks[taskId].subTasks[subtaskId] = JSON.parse(JSON.stringify(newSubtaksValues));
+    this.tasks[taskId].subTasks![subtaskId] = JSON.parse(JSON.stringify(newSubtaksValues));
   }
 
   setTaskToCurrentSelectedTask (taskID:string){

@@ -110,5 +110,9 @@ export class SubtaskInputService {
     this.resetEvent$.next();
   }
 
+  getData(){
+    return this.allSubTask()
+  }
+
 
 }

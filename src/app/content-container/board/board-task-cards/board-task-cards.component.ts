@@ -28,7 +28,7 @@ export class BoardTaskCardsComponent {
 
   ngOnInit() {
     this.task = this.database.tasks[this.taskId];
-    this.allSubTaskKeys = Object.keys(this.task.subTasks);
+    this.allSubTaskKeys = Object.keys(this.task.subTasks  || {});
     this.checkForAmountOfSubtaskAreDone();
     this.checkForLenghtOfSubtaskBar();
   }
@@ -36,9 +36,9 @@ export class BoardTaskCardsComponent {
   checkForAmountOfSubtaskAreDone() {
     this.AmountOfSubtaskAreDone = 0;
     this.task = this.database.tasks[this.taskId];
-    this.allSubTaskKeys = Object.keys(this.task.subTasks)
+    this.allSubTaskKeys = Object.keys(this.task.subTasks || {})
     this.allSubTaskKeys?.forEach((idOfSubtask: string) => {
-      this.AmountOfSubtaskAreDone = this.task?.subTasks[idOfSubtask].isDone ? this.AmountOfSubtaskAreDone += 1 : this.AmountOfSubtaskAreDone;
+      this.AmountOfSubtaskAreDone = this.task?.subTasks![idOfSubtask].isDone ? this.AmountOfSubtaskAreDone += 1 : this.AmountOfSubtaskAreDone;
     });
     return this.AmountOfSubtaskAreDone;
   }

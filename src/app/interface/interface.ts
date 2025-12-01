@@ -48,7 +48,7 @@ export interface TaskPayload {
     date: string;
     progress: number;
     priority: string;
-    category: Category;
-    subTasks: AllSubTask;
+    category: Category | null;
+    subTasks: AllSubTask | null;
 }
 

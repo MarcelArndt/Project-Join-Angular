@@ -43,6 +43,7 @@ isValid = computed(() => {
     if (choice !== null) {
       this.closeMenu();
     }
+    this.changeEvent$.next();
   }
 
   getCurrentChoice(): Category | null {
@@ -67,6 +68,11 @@ isValid = computed(() => {
     this.currentChoice.set(null);
     this.isMouseOnHover.set(false);
     this.isFirstTimeVisit.set(true);
+    this.changeEvent$.next();
+  }
+
+  getData(){
+   return this.currentChoice();
   }
 
 }
