@@ -1,34 +1,54 @@
 
 <div class="overview-wrapper">
-    <form >
+
+    <form (click)="closeOpenWinod()" [formGroup]="editForm" (ngSubmit)="onSave()">
         <label for="nameInput" class="important">Title</label>
         <div class="input-frame input-frame-add-task"
             >
-            <input id='nameInput' required name="taskTitle" type="text"
-                [value]="currentTask?.name"
-                minlength="3">
+            <input spellcheck="true" formControlName="name" id='nameInput' required name="taskTitle" type="text">
         </div>
 
         <label for="description">Description</label>
         <div class="text-frame">
-            <textarea id="description" name="task-description" 
-                [value]="currentTask?.description" minlength="3"></textarea>
+            <textarea spellcheck="true" formControlName="description" id="description" name="task-description"></textarea>
         </div>
 
-        <label for="start" class="important">Due-Date</label>
+        <label for="dueDateInput" class="important">Due-Date</label>
         <div class="input-frame input-frame-add-task" id="dueDateInput"
             >
             <div class="suffix-icon data-picker-icon">
                 <icon>calendar_month</icon>
             </div>
-            <input class='data-picker-input' required type="date" id="start" [value]="currentTask?.date"
+            <input class='data-picker-input' formControlName="dueDate" required type="date" id="start" [value]="currentTask?.date"
                 name="dueDate" [min]="dateToday" />
         </div>
 
         <app-priority-input [setStateOnInit]="currentTask?.priority"></app-priority-input>
         <app-assigned-to-input [CurrentTaskDataSet]="currentTask!"></app-assigned-to-input>
+        <app-subtask-input [currentTask]="currentTask!" ></app-subtask-input>
 
-        <button (click)="onSave()">save</button>
+         @if(!isValid()){
+            <div class="errorBox">
+                <icon>error</icon>
+                @if(this.editForm.get('dueDate')?.hasError('minDate') || this.editForm.get('dueDate')?.hasError('required')){
+                    <p>Das aktuelle Datum liegt in der Vergangenheit. Bitte wähle ein neues Datum</p>
+                }
+
+                @else if(this.editForm.get('name')?.hasError('minlength') || this.editForm.get('name')?.hasError('required')){
+                    <p>Der Name muss min. 3 Zeichen haben.</p>
+                }
+
+                @else if(!getAssignedToValid()){
+                    <p>Es wurden keine Personen zur Aufgabe zugeordnet.</p>
+                }
+  
+            </div> 
+        }
+
+        <div class="flex-end-box">
+            <button [disabled]="!isValid()" class="black-button min-witdh-button" (click)="onSave()">Save<icon>check</icon></button>
+        </div>
 
     </form>
+
 </div>

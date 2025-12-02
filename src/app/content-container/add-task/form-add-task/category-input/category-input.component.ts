@@ -22,6 +22,10 @@ export class CategoryInputComponent {
       }
   }
 
+  ngOnInit(){
+    this.categoryService.reset();
+  }
+
   setChoice(category:Category){
     this.categoryService.setCurrentChoice(category);
   }

@@ -8,7 +8,7 @@
             <label for="taskTitle" class="important">Title</label>
             <div (click)="service.checkForValidationinForm(false)" class="input-frame input-frame-add-task"
                 [ngClass]="{'error-border': service.formHasError[0]}">
-                <input id='taskTitle' required name="taskTitle" [(ngModel)]='service.newTask.name' type="text"
+                <input spellcheck="true" id='taskTitle' required name="taskTitle" [(ngModel)]='service.newTask.name' type="text"
                     (input)="service.checkForValidationinForm(false)"
                     (blur)="service.checkForValidationinForm(false)" placeholder="Enter a Title"
                     minlength="3" #taskTitleInput="ngModel">
@@ -16,7 +16,7 @@
 
             <label for="description">Description</label>
             <div class="text-frame">
-                <textarea id="description" name="description" [(ngModel)]='service.newTask.description'
+                <textarea spellcheck="true" id="description" name="description" [(ngModel)]='service.newTask.description'
                     placeholder="Enter a Description" minlength="3"></textarea>
             </div>
 

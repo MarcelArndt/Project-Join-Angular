@@ -9,9 +9,9 @@ import {Subject} from 'rxjs';
 export class AssignedToInputService{
 
   constructor(private database: DatabaseService ) { }
+  
   isMenuOpen = signal(false);
   currentTaskDataSet!:TaskPayload;
-
   isFirstTimeVisit = signal<boolean>(true);
   selectetUser=signal<string[]>([]);
   allUsers!:AllUsers;

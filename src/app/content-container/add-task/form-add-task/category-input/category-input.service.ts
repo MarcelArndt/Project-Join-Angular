@@ -1,4 +1,4 @@
-import { Injectable,signal, computed,} from '@angular/core';
+import { Injectable,signal, computed} from '@angular/core';
 import { Subject } from 'rxjs';
 import { Category } from '../../../../interface/interface';
 
@@ -6,6 +6,7 @@ import { Category } from '../../../../interface/interface';
   providedIn: 'root'
 })
 export class CategoryInputService {
+
 
   constructor() { }
   isFirstTimeVisit = signal<boolean>(true);

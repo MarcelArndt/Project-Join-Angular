@@ -25,4 +25,10 @@ export class PriorityInputComponent {
       }
   }
 
+  ngOnInit(){
+    if(this.setStateOnInit){
+      this.setPriority(this.setStateOnInit as '' | 'low'| 'medium' | 'urgent' );
+    }
+  }
+
 }

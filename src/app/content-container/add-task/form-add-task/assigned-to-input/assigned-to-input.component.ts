@@ -37,6 +37,7 @@ export class AssignedToInputComponent {
   @Input() form?: NgForm;
 
   ngOnInit() {
+    this.assignService.reset();
     this.assignService.initAssignToDataBase(this.CurrentTaskDataSet);
     this.searchForResults();
   }
