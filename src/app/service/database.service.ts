@@ -3,6 +3,8 @@ import { TaskPayload, Tasks } from '../interface/interface';
 import { AllUsers } from '../interface/interface';
 import { AllCategory } from '../interface/interface';
 import { SubTask } from '../interface/interface';
+import { taskOne,taskTwo ,taskThree } from './dummy-data/dummy-tasks';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,45 +20,15 @@ export class DatabaseService {
 
   tasksKeys?: string[];
   contactsKeys?: string[];
-  dummyTask = {
-    assignedTo: [
-      "id001",
-      "id002",
-      "id003",
-      "id004",
-      "id005",
-      "id008",
-      "id007"
-    ],
-    category: {
-      color: "#2DCD52",
-      name: "Testing"
-    },
-    date: "2025-02-18",
-    description: "This is the description of a task. this description has to be long as possible to test some styling things on it.",
-    name: "Neues Framework testen",
-    priority: "medium",
-    progress: 0,
-    subTasks: {
-      "8OSUI17397016624398QYDV": {
-        inOnEdit: false,
-        isDone: false,
-        text: "remove one Subtask if possible"
-      },
-      "9K5P41739701621869QD7R3": {
-        inOnEdit: false,
-        isDone: true,
-        text: "check for more Subtasks"
-      },
-      "69DFJ1739701608748M20V3": {
-        inOnEdit: false,
-        isDone: false,
-        text: "add a new Subtask to your Task"
-      }
-    }
-  };
+  dummyTask = taskOne;
 
-  tasks: Tasks = { "ZR0C91739701668516SP5TX": this.dummyTask, }
+  tasks: Tasks = { "AR0C91739701668516SP5TX": structuredClone(taskOne), 
+                    "BR0C91736701668516SP5XY": structuredClone(taskTwo), 
+                    "CR0C96736701668516SP6CY": structuredClone(taskThree),
+                    "DR0C91736701668516SP5XY": structuredClone(taskTwo), 
+                    "ER0C96736701668516SP6CY": structuredClone(taskThree),
+                    "FR0C96736701668516SP6CY": structuredClone(taskThree),
+  }
 
   contacts: AllUsers = {
     id001: { firstname: 'Max', secondname: 'Mustermann', inital: 'MM', color: '#ff5733', email: 'max.mustermann@example.com', phone: '+49 170 1234567' },
@@ -110,10 +82,12 @@ export class DatabaseService {
   }
 
   overwriteCurrentSelectedTask(taskID:string, task:TaskPayload){
-    this.setCurrentSelectedTaskBlank()
-    this.currentSelectedTask = structuredClone(task)
+  Promise.resolve().then(() => {
+    this.setCurrentSelectedTaskBlank();
+    this.currentSelectedTask = structuredClone(task);
     this.currentSelectedTaskID = taskID;
-    this.saveCurrentSelectedTaskToTask()
+    this.saveCurrentSelectedTaskToTask();
+  });
   }
 
   setCurrentSelectedTaskBlank(){

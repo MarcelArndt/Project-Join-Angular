@@ -21,25 +21,31 @@ export class BoardTaskCardsComponent {
   @Input() taskId: string = '';
   @Input() oderNumberInColoumn: number = 0;
   @ViewChild('card') card!: ElementRef;
-  task?: TaskPayload;
-  allSubTaskKeys?: string[];
+
+
   AmountOfSubtaskAreDone: number = 0;
   lengthOfTaskBar: string = '0px'
   taskOnSearchResults:string[] = []
 
+
+  get task() {
+    return this.database.tasks[this.taskId] as TaskPayload;
+  }
+
+  get allSubTaskKeys() {
+    return Object.keys(this.task.subTasks || []);
+  }
+
+
   ngAfterViewInit() {
     this.card.nativeElement.id = this.taskId;
+    this.checkForResultInSearch();
+    this.cdr.detectChanges()
   }
 
-  ngOnInit() {
-    this.task = this.database.tasks[this.taskId];
-    this.allSubTaskKeys = Object.keys(this.task.subTasks  || {});
-    this.checkForAmountOfSubtaskAreDone();
-    this.checkForLenghtOfSubtaskBar();
-    this.checkForResultInSearch();
-  }
 
   get isOnSearch(){
+   
     return this.searchService.isOnSearch
   }
 
@@ -53,20 +59,19 @@ export class BoardTaskCardsComponent {
     })
   }
 
-  checkForAmountOfSubtaskAreDone() {
-    this.AmountOfSubtaskAreDone = 0;
-    this.task = this.database.tasks[this.taskId];
-    this.allSubTaskKeys = Object.keys(this.task.subTasks || {})
-    this.allSubTaskKeys?.forEach((idOfSubtask: string) => {
-      this.AmountOfSubtaskAreDone = this.task?.subTasks![idOfSubtask].isDone ? this.AmountOfSubtaskAreDone += 1 : this.AmountOfSubtaskAreDone;
-    });
-    return this.AmountOfSubtaskAreDone;
-  }
+get amountOfSubtaskAreDone(): number {
+  return this.allSubTaskKeys.filter(idOfSubtask => 
+    this.task?.subTasks?.[idOfSubtask]?.isDone
+  ).length;
+}
 
-  checkForLenghtOfSubtaskBar() {
-    this.lengthOfTaskBar = Math.floor(100 / this.allSubTaskKeys!.length * this.AmountOfSubtaskAreDone).toString() + '%'
-    return this.lengthOfTaskBar;
-  }
+get lengthOfSubtaskBar(): string {
+  const total = this.allSubTaskKeys.length;
+  if (total === 0) return '0%';
+  
+  const percentage = Math.floor((this.amountOfSubtaskAreDone / total) * 100);
+  return `${percentage}%`;
+}
 
     getTaskPriority(task: TaskPayload | undefined) {
       if (!task) return null;

@@ -8,7 +8,6 @@ import { BoardService } from '../../service/board.service';
 import { LightboxComponent } from '../../lightbox/lightbox.component';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { TaskOverviewComponent } from './task-overview/task-overview.component';
-import { EditTaskComponent } from './edit-task/edit-task.component';
 import { LightboxService } from '../../lightbox/lightbox.service';
 import { AddTaskService } from '../../service/add-task.service';
 import { SearchTaskComponentComponent } from './search-task-component/search-task-component.component';
@@ -16,7 +15,7 @@ import { SearchTaskComponentComponent } from './search-task-component/search-tas
 
 @Component({
   selector: 'app-board',
-  imports: [IconComponent, BoardTaskCardsComponent, CommonModule, DropZoneComponent, LightboxComponent, SearchTaskComponentComponent, AddTaskComponent],
+  imports: [IconComponent, BoardTaskCardsComponent, CommonModule, DropZoneComponent, LightboxComponent, SearchTaskComponentComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })

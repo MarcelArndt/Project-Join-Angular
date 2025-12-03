@@ -1,5 +1,4 @@
-import { Component} from '@angular/core';
-import { EditTaskService } from '../../../service/edit-task.service';
+import { Component, ChangeDetectorRef} from '@angular/core';
 import { MainFeaturesService } from '../../../service/main-features.service';
 import { IconComponent } from '../../../icon/icon.component';
 import { DatabaseService } from '../../../service/database.service';
@@ -10,6 +9,8 @@ import { SubtaskInputComponent } from "../../add-task/form-add-task/subtask-inpu
 import { AssignedToInputService } from '../../add-task/form-add-task/assigned-to-input/assigned-to-input-service';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { LightboxService } from '../../../lightbox/lightbox.service';
+import { SubtaskInputService } from '../../add-task/form-add-task/subtask-input/subtask-input.service';
+import { PriorityInputService } from '../../add-task/form-add-task/priority-input/priority-input.service';
 
 @Component({
   selector: 'app-edit-task',
@@ -20,11 +21,13 @@ import { LightboxService } from '../../../lightbox/lightbox.service';
 export class EditTaskComponent {
 
   constructor(
-    public service: EditTaskService, 
     private main: MainFeaturesService, 
     private database: DatabaseService, 
     private assignService: AssignedToInputService,
     private lightBoxService: LightboxService,
+    private subtaskService: SubtaskInputService ,
+    private priorityService:PriorityInputService ,
+    private cdr:ChangeDetectorRef,
   ){}
 
   editForm = new FormGroup({
@@ -48,6 +51,7 @@ export class EditTaskComponent {
     this.dateToday = this.main.getCurrentDate();
     this.currentTask = structuredClone(this.database.currentSelectedTask);
     this.currentID = this.database.currentSelectedTaskID;
+    this.priorityService.setValue(this.currentTask?.priority as  "" | "low" | "medium" | "urgent")
   }
 
   isValid():boolean{
@@ -87,11 +91,26 @@ export class EditTaskComponent {
      return selected < today ? { minDate: true } : null;
   }
 
+  getAllData(){
+    if(this.currentTask){
+        this.currentTask.name = this.editForm.get('name')?.value as string
+        this.currentTask.description = this.editForm.get('description')?.value as string
+        this.currentTask.date = this.editForm.get('dueDate')?.value as string
+        this.currentTask.assignedTo = this.assignService.getData();
+        this.currentTask.subTasks = this.subtaskService.getData();
+        this.currentTask.priority = this.priorityService.getData();
+    }
+  }
+
 
   onSave(){
     if( this.currentTask && this.currentID){
+      this.getAllData();
       this.database.overwriteCurrentSelectedTask(this.currentID, structuredClone(this.currentTask));
-      this.lightBoxService.closeLightbox()
+      this.lightBoxService.closeLightbox();
+      setTimeout(() => {
+        this.cdr.detectChanges();
+      }, 0);
     }
   }
 
