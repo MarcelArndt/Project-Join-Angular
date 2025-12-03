@@ -37,6 +37,11 @@ export interface AllSubTask {
     [key: string]: SubTask;
 }
 
+export interface TaskWithId {
+  id: string;
+  task: TaskPayload;
+}
+
 export interface Tasks {
     [key: string]: TaskPayload
 }

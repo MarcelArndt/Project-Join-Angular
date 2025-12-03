@@ -11,10 +11,12 @@ import { TaskOverviewComponent } from './task-overview/task-overview.component';
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { LightboxService } from '../../lightbox/lightbox.service';
 import { AddTaskService } from '../../service/add-task.service';
+import { SearchTaskComponentComponent } from './search-task-component/search-task-component.component';
+
 
 @Component({
   selector: 'app-board',
-  imports: [IconComponent, BoardTaskCardsComponent, CommonModule, DropZoneComponent, LightboxComponent],
+  imports: [IconComponent, BoardTaskCardsComponent, CommonModule, DropZoneComponent, LightboxComponent, SearchTaskComponentComponent, AddTaskComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })
@@ -24,7 +26,7 @@ export class BoardComponent {
 
 
   ngOnInit(){
-    this.addTaskservice.allUser = this.database.contacts;
+    this.addTaskservice.allUser = this.database.getAllContacts();
   }
 
   openAddTaskInLightBox() {
@@ -44,5 +46,11 @@ export class BoardComponent {
   closeLightBox(){
     this.lightboxService.closeLightbox();
   }
+
+  openNewTask(currentPositionOfProcess:number){
+    this.addTaskservice.setCurrentPositionOfProcess(currentPositionOfProcess);
+    this.lightboxService.openLightBox( AddTaskComponent );
+  }
+
 
 }

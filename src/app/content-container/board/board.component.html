@@ -1,12 +1,19 @@
 <lightbox #lightbox>
 </lightbox>
+<div class="flex-box">
+    <h1>Board</h1>
+    <div class="flex-row">
+    <search></search>
+    <button (click)="openNewTask(0)" class="black-button min-witdh-button"><span>Add Task</span><icon>add</icon></button>
+    </div>
+</div>
 
-<h1>Board</h1>
 
 <section class="board">
 
     <div class="to-do-column">
-        <nav><span>To Do</span>
+        <nav (click)="openNewTask(0)">
+            <span>To Do</span>
             <icon>add_box</icon>
         </nav>
         <div class="container">
@@ -22,7 +29,8 @@
     </div>
 
     <div class="in-progress-column">
-        <nav><span>In Progress</span>
+        <nav (click)="openNewTask(1)">
+            <span>In Progress</span>
             <icon>add_box</icon>
         </nav>
         <div class="container">
@@ -38,7 +46,8 @@
     </div>
 
     <div class="await-feedback-column">
-        <nav><span>Await Feedback</span>
+        <nav (click)="openNewTask(2)">
+            <span>Await Feedback</span>
             <icon>add_box</icon>
         </nav>
         <div class="container">

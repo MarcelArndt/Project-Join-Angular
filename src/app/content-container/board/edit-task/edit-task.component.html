@@ -13,13 +13,13 @@
             <textarea spellcheck="true" formControlName="description" id="description" name="task-description"></textarea>
         </div>
 
-        <label for="dueDateInput" class="important">Due-Date</label>
+        <label for="dueDate" class="important">Due-Date</label>
         <div class="input-frame input-frame-add-task" id="dueDateInput"
             >
             <div class="suffix-icon data-picker-icon">
                 <icon>calendar_month</icon>
             </div>
-            <input class='data-picker-input' formControlName="dueDate" required type="date" id="start" [value]="currentTask?.date"
+            <input class='data-picker-input' formControlName="dueDate" required type="date" id="dueDate" [value]="currentTask?.date"
                 name="dueDate" [min]="dateToday" />
         </div>
 

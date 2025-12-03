@@ -6,6 +6,11 @@
     padding: 0px 0px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(316px, 1fr));
+    margin-top: 64px;
+}
+
+h2{
+    width: max-content;
 }
 
 nav {
@@ -74,4 +79,70 @@ nav {
     width: 100%;
     padding: 20px 0px;
 
+}
+
+.flex-box{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+
+    @media screen and (max-width:1224px) {
+        padding-bottom: 5rem;
+    }
+
+    span{
+        white-space: nowrap;
+        display: block;
+        margin-right: 1rem;
+
+        @media screen and (max-width: 1224px) {
+            display: none;
+        }
+    }
+
+    icon{
+        font-size: 1.75rem;
+    }
+
+    button{
+        margin: 0px 0px 0px 2rem;
+        min-width: max-content;
+        box-sizing: border-box;
+        padding:12px 24px;
+        transition: scale 0.25s ease-in-out;
+        &:hover{
+            scale: 1.025;
+        }
+
+        @media screen and (max-width: 1224px) {
+            padding:12px 18px;
+        }
+    }
+}
+
+.flex-row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+search{
+    display: flex;
+    align-items: center;
+
+    @media screen and (max-width:1224px) {
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        max-width: 520px;
+        bottom: 18px;
+        left: 0%;
+
+
+    }
+
+    .overview-wrapper{
+        width: 100%;
+        max-width: none;
+    }
 }

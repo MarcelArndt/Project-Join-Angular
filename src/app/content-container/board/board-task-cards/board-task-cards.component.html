@@ -1,4 +1,4 @@
-<div class="card-body" #card draggable="true" (drag)="startToDrag($event)" (dragend)="stopToDrag()">
+<div class="card-body"  [ngClass]="{'not-found': taskOnSearchResults.indexOf(taskId) && isOnSearch}" #card draggable="true" (drag)="startToDrag($event)" (dragend)="stopToDrag()">
     <div class="block-flex">
         <div class="category" [style.background-color]="task?.category?.color">
             {{task?.category?.name}}
@@ -14,7 +14,7 @@
             </ul>
             <menu #menu>
                 <ul>
-                    <li>Edit Task</li>
+                    <li (click)="openLightBoxForEdit(taskId); menu.closeMenu()">Edit Task</li>
                     <li>Move To</li>
                     <li (click)="database.deleteTaskById(taskId)">Delete</li>
                 </ul>

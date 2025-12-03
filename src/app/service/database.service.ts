@@ -75,6 +75,14 @@ export class DatabaseService {
     return this.tasksKeys;
   }
 
+  getAllTasks(){
+    return this.tasks;
+  }
+
+  getAllContacts(){
+    return this.contacts;
+  }
+
   getContactsKeys(): string[] {
     this.contactsKeys = Object.keys(this.contacts);
     return this.contactsKeys;

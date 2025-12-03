@@ -1,0 +1,5 @@
+<form class="input-frame" [formGroup]="searchForm" (click)="preventOnClick($event)">
+    <input class="search-input" spellcheck="true" type="text" placeholder="Search for Task" formControlName="search">
+    <hr>
+    <button (click)="startSearchOnKlick()"><icon>search</icon></button>
+</form>

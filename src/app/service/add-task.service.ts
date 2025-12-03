@@ -39,6 +39,7 @@ export class AddTaskService {
   allKeys?: string[];
   allCategoryKeys?: string[];
   allSubTaskKey?: string[];
+  currentPositionOfProcess!:number;
 
   newTask: TaskPayload = {
     name: '',
@@ -133,12 +134,19 @@ export class AddTaskService {
     return this.newTaskForm.form.get('dueDate')?.value
   }
 
+  setCurrentPositionOfProcess(value:number){
+    if(!value) return;
+    this.currentPositionOfProcess = value;
+    console.log(this.currentPositionOfProcess)
+  }
+
   generateNewTask(task:TaskPayload){
+    if(!this.currentPositionOfProcess) this.currentPositionOfProcess = 0;
     const newTask = {
     name: task.name,
     description: task.description,
     assignedTo: task.assignedTo,
-    progress: task.progress,
+    progress: this.currentPositionOfProcess,
     date: task.date,
     priority: task.priority,
     category: task.category? task.category : { name: 'No Category', color: '#4F4F4F' } as Category,

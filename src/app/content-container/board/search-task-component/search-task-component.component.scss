@@ -1,0 +1,74 @@
+.input-frame{
+    flex-grow: 1;
+    width: 100%;
+    max-width: 750px;
+    background-color: white;
+    border: 1px solid var(--grey);
+    border-radius: 12px;
+    height: 2.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 320px;
+    
+    @media screen and (max-width:500px){
+        min-width: 250px;    
+    }
+
+    &:has(input:hover){
+        border: 1px solid var(--cyan);
+    }
+
+    &:has(input:focus), &:has(input:active){
+        border: 1px solid var(--cyan);
+    }
+
+    input{
+        border: none;
+        outline: none;
+        height: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0px 24px;
+        font-size: 1.25rem;
+        border-radius: 24px;
+    }
+}
+
+button{
+    height: 100%;
+    width: 64px;
+    text-align: center;
+    vertical-align: middle;
+    transition: scale 0.25s ease-in-out;
+    background-color: transparent;
+    border: none;
+
+    icon{
+        color: var(--grey);
+        transition: color 0.25s ease-in-out;
+    }
+
+    &:hover{
+        scale: 1.025;
+        cursor: pointer;
+        background-color: transparent;
+
+        icon{
+            color: var(--cyan);
+        }
+    }
+}
+
+hr{
+    width: 0px;
+    height: 75%;
+    border-left: 1px solid var(--grey);
+}
+
+icon{
+    padding-left: 6px;
+    font-size: 1.75rem;
+    margin: 0px 0px;
+    display: flex;
+}

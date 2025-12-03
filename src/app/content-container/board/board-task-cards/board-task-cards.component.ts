@@ -1,10 +1,14 @@
 import { Component, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { DatabaseService } from '../../../service/database.service';
-import { TaskPayload } from '../../../interface/interface';
+import { TaskPayload, TaskWithId } from '../../../interface/interface';
 import { CommonModule } from '@angular/common';
 import { IconComponent } from '../../../icon/icon.component';
 import { BurgermenuComponent } from '../../../burgermenu/burgermenu.component';
 import { BoardService } from '../../../service/board.service';
+import { LightboxService } from '../../../lightbox/lightbox.service';
+import { EditTaskComponent } from '../edit-task/edit-task.component';
+import { SearchService } from '../search-task-component/search.service';
+import { distinctUntilChanged, map, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-board-task-cards',
@@ -13,7 +17,7 @@ import { BoardService } from '../../../service/board.service';
   styleUrl: './board-task-cards.component.scss'
 })
 export class BoardTaskCardsComponent {
-  constructor(public database: DatabaseService, public service: BoardService, private cdr: ChangeDetectorRef) { }
+  constructor(public database: DatabaseService, public service: BoardService, private cdr: ChangeDetectorRef, private lightboxService: LightboxService, private searchService:SearchService ) { }
   @Input() taskId: string = '';
   @Input() oderNumberInColoumn: number = 0;
   @ViewChild('card') card!: ElementRef;
@@ -21,6 +25,7 @@ export class BoardTaskCardsComponent {
   allSubTaskKeys?: string[];
   AmountOfSubtaskAreDone: number = 0;
   lengthOfTaskBar: string = '0px'
+  taskOnSearchResults:string[] = []
 
   ngAfterViewInit() {
     this.card.nativeElement.id = this.taskId;
@@ -31,6 +36,21 @@ export class BoardTaskCardsComponent {
     this.allSubTaskKeys = Object.keys(this.task.subTasks  || {});
     this.checkForAmountOfSubtaskAreDone();
     this.checkForLenghtOfSubtaskBar();
+    this.checkForResultInSearch();
+  }
+
+  get isOnSearch(){
+    return this.searchService.isOnSearch
+  }
+
+  checkForResultInSearch(){
+    this.searchService.results$.pipe(
+    distinctUntilChanged(),
+      map(tasks => tasks?.map(t => t.id) ?? []),
+      tap(ids => this.taskOnSearchResults = ids),
+    ).subscribe(() =>{
+
+    })
   }
 
   checkForAmountOfSubtaskAreDone() {
@@ -74,6 +94,12 @@ export class BoardTaskCardsComponent {
   stopToDrag() {
     this.service.resetCurrentDragElement();
     this.service.setisOnDragOff();
+  }
+
+  openLightBoxForEdit(id:string){
+    this.service.setCurrentId(id);
+    this.database.setTaskToCurrentSelectedTask(id);
+    this.lightboxService.openLightBox(EditTaskComponent);
   }
 
 
