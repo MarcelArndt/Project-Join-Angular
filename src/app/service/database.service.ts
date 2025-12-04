@@ -51,6 +51,10 @@ export class DatabaseService {
     return this.tasks;
   }
 
+  getCurrentSelectedTask(){
+    return structuredClone(this.currentSelectedTask)
+  }
+
   getAllContacts(){
     return this.contacts;
   }
@@ -82,12 +86,10 @@ export class DatabaseService {
   }
 
   overwriteCurrentSelectedTask(taskID:string, task:TaskPayload){
-  Promise.resolve().then(() => {
     this.setCurrentSelectedTaskBlank();
     this.currentSelectedTask = structuredClone(task);
     this.currentSelectedTaskID = taskID;
     this.saveCurrentSelectedTaskToTask();
-  });
   }
 
   setCurrentSelectedTaskBlank(){

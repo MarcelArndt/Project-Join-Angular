@@ -23,7 +23,7 @@
 
 .whitebox {
     background-color: var(--whitebox-background-color);
-    min-width: 325px;
+    min-width: 450px;
     min-height: 475px;
     border-radius: 32px;
 
@@ -35,6 +35,10 @@
     overflow-y: scroll;
     max-width: 75%;
     position: relative;
+
+    @media screen and (max-width: 450px){
+        min-width: 0px;
+    }
 }
 
 .headline-of-box {

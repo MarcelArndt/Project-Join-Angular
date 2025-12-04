@@ -108,9 +108,6 @@ export class EditTaskComponent {
       this.getAllData();
       this.database.overwriteCurrentSelectedTask(this.currentID, structuredClone(this.currentTask));
       this.lightBoxService.closeLightbox();
-      setTimeout(() => {
-        this.cdr.detectChanges();
-      }, 0);
     }
   }
 

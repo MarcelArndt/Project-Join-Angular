@@ -54,7 +54,7 @@ export const taskTwo = {
     description: "This is the description of a task. this description has to be long as possible to test some styling things on it.",
     name: "Summer can change",
     priority: "medium",
-    progress: 0,
+    progress: 2,
     subTasks: {
       "8OSUI17397016624398QYDV": {
         inOnEdit: false,
@@ -92,7 +92,7 @@ export const taskThree = {
     description: "This is the description of a task. this description has to be long as possible to test some styling things on it.",
     name: "Go and find your purpose",
     priority: "medium",
-    progress: 0,
+    progress: 3,
     subTasks: {
       "8OSUI17397016624398QYDV": {
         inOnEdit: false,

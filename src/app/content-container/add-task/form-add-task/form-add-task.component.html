@@ -1,7 +1,4 @@
-<form #addTaskForm="ngForm">
-    <div class="error-container">
-        <p>{{this.service.errorText}}</p>
-    </div>
+<form #addTaskForm="ngForm" (click)="closeAllWindows()">
     <div class="form-main-container">
         <div class="form-container-size">
 
@@ -59,5 +56,16 @@
                 (click)="creatNewTask()">Add
                 Task</button>
         </div>
+
     </div>
+
+        <div class="error-container" [ngClass]="{'active' : this.service.errorText.length > 0}">
+            <icon>error</icon>
+            <p>{{this.service.errorText}}</p>
+        </div>
+
 </form>
+
+  
+
+    

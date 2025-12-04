@@ -43,6 +43,8 @@ export class FormAddTaskComponent {
     this.dateToday = this.main.getCurrentDate();
   }
 
+
+
   ngAfterViewInit(){
     this.service.initAddTaskService(this.addTaskForm);
     this.assignService.changeEvent$.subscribe(()=> {
@@ -51,6 +53,7 @@ export class FormAddTaskComponent {
     this.categoryService.changeEvent$.subscribe(()=> {
       this.service.checkForValidationinForm(false);
     });
+    this.resetForm();
   }
 
   resetForm() {
@@ -90,6 +93,16 @@ export class FormAddTaskComponent {
     this.service.generateNewTask(newTask);
     console.table(newTask)
     this.resetForm();
+  }
+
+  closeAllWindows(){
+      if(!this.categoryService.isFirstTimeVisit() && this.categoryService.isMenuOpen()){
+        this.categoryService.closeMenu();
+      }
+
+      if(!this.assignService.isFirstTimeVisit() && this.assignService.isMenuOpen()){
+        this.assignService.closeMenu();
+      }
   }
 
   getAllDataFromSerive(){

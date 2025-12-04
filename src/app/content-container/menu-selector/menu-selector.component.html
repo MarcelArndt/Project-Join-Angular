@@ -1,0 +1,13 @@
+<div class="input-wrapper" [class.active]="isMenuOpen" (click)="toggleMenu()">
+    <div class="select-input" [class.active]="isMenuOpen" [ngClass]="{'error': !isValid}">
+        <span [class.valid]="isValid && isTouched">{{currentValue}}</span>
+        <hr>
+        <button><icon>keyboard_arrow_up</icon></button>
+    </div>
+
+    <div class="select-options-field" (click)="preventClick($event)" [class.active]="isMenuOpen">
+        @for (option of AllOptions; track option.name){
+            <option (click)="handleClick(option); setValue(option.value)">{{option.name}}</option>
+        }
+    </div>
+</div>

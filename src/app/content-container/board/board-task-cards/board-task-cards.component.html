@@ -15,7 +15,7 @@
             <menu #menu>
                 <ul>
                     <li (click)="openLightBoxForEdit(taskId); menu.closeMenu()">Edit Task</li>
-                    <li>Move To</li>
+                    <li (click)="openLightBoxForMoveTo(taskId); menu.closeMenu()">Move To</li>
                     <li (click)="database.deleteTaskById(taskId)">Delete</li>
                 </ul>
             </menu>

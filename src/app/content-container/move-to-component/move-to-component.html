@@ -1,0 +1,17 @@
+<div (click)="closeOnClick()" class="content">
+    <div class="category" [style.background-color]="categoryColor">
+        {{categoryName}}
+    </div>
+    <h1>{{taskName}}</h1>
+    <span>Move From:</span>
+    <p>{{currentName}}</p>
+    <span class="important">Move to:</span>
+
+    <app-menu-selector (click)="preventClick($event)" 
+    [options]="optionsValues">
+        </app-menu-selector>
+
+    <div class="flex-end-box">
+        <button [disabled]="!isValid || !isTouched" class="black-button min-witdh-button" (click)="onSave(newValueFromService)">Save<icon>arrow_forward</icon></button>
+    </div>
+</div>

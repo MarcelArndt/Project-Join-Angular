@@ -9,6 +9,7 @@ import { LightboxService } from '../../../lightbox/lightbox.service';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
 import { SearchService } from '../search-task-component/search.service';
 import { distinctUntilChanged, map, switchMap, tap } from 'rxjs';
+import { MoveToComponent } from '../../move-to-component/move-to-component';
 
 @Component({
   selector: 'app-board-task-cards',
@@ -105,6 +106,12 @@ get lengthOfSubtaskBar(): string {
     this.service.setCurrentId(id);
     this.database.setTaskToCurrentSelectedTask(id);
     this.lightboxService.openLightBox(EditTaskComponent);
+  }
+
+  openLightBoxForMoveTo(id:string){
+    this.service.setCurrentId(id);
+    this.database.setTaskToCurrentSelectedTask(id);
+    this.lightboxService.openLightBox(MoveToComponent );
   }
 
 
