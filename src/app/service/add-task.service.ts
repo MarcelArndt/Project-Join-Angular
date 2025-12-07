@@ -140,7 +140,7 @@ export class AddTaskService {
     console.log(this.currentPositionOfProcess)
   }
 
-  generateNewTask(task:TaskPayload){
+  async generateNewTask(task:TaskPayload){
     if(!this.currentPositionOfProcess) this.currentPositionOfProcess = 0;
     const newTask = {
     name: task.name,
@@ -153,7 +153,7 @@ export class AddTaskService {
     subTasks: task.subTasks,
   }
   const newId = this.getNewId()
-  this.database.setNewTask(newId, structuredClone(newTask));
+  await this.database.setNewTask(newId, structuredClone(newTask));
   }
 
 

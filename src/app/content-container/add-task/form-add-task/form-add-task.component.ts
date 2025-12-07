@@ -77,7 +77,7 @@ export class FormAddTaskComponent {
     return false;
   }
 
-  creatNewTask() {
+  async creatNewTask() {
    const allData = this.getAllDataFromSerive()
     console.table(allData);
     const newTask:TaskPayload = {
@@ -90,7 +90,7 @@ export class FormAddTaskComponent {
       category : allData.category,
       subTasks : allData.subtasks
     }
-    this.service.generateNewTask(newTask);
+    await this.service.generateNewTask(newTask);
     console.table(newTask)
     this.resetForm();
   }

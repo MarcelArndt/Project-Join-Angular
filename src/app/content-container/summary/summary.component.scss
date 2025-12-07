@@ -273,4 +273,35 @@ p {
     }
 }
 
+.blink{
+    box-sizing: border-box;
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0px 0px 10px transparent;
+    animation: blinking 2.25s ease-in-out infinite;
+    line-height: 130%;
+}
+
+.box-padding {
+    padding: 1.5rem 1rem;
+}
+
+@keyframes blinking {
+    0%{
+        background-color: var(--black);
+        box-shadow: 0px 0px 10px transparent;
+    }
+    10% {
+        background-color: var(--red);
+        box-shadow: 0px 0px 10px var(--red);
+    }
+   40%{
+         background-color: var(--black);
+         box-shadow: 0px 0px 10px transparent;
+    }
+    100%{
+         background-color: var( --black);
+    }
+}
+
 

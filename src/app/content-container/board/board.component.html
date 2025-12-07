@@ -18,9 +18,10 @@
         </nav>
         <div class="container">
             <ng-container *ngFor="let taskId of database.getTasksKeys(); index as i;">
+
                 <app-board-task-cards (click)="openTaskOverViewInLightBox(taskId)" *ngIf="database.tasks[taskId].progress == 0"
                     [taskId]="taskId" [oderNumberInColoumn]="i"></app-board-task-cards>
-
+                    
             </ng-container>
             <app-drop-zone
                 *ngIf="service.isOnDrag && service.currentDragElement && database.tasks[service.currentDragElement.id].progress != 0"

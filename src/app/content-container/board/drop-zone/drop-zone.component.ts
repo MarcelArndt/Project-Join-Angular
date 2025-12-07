@@ -13,11 +13,12 @@ export class DropZoneComponent {
   constructor(public service: BoardService, private database: DatabaseService) { }
   @Input() dropId: number = 0;
 
-  receiveDrop(event: DragEvent) {
+  async receiveDrop(event: DragEvent) {
     if (!this.service.currentDragElement?.id) return;
     this.database.setProgressToTask(this.service.currentDragElement.id, this.dropId);
     this.service.resetCurrentDragElement();
     this.service.setisOnDragOff();
+    await this.database.saveTaskInAPI();
   }
 
 

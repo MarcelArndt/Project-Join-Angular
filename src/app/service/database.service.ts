@@ -3,14 +3,20 @@ import { TaskPayload, Tasks } from '../interface/interface';
 import { AllUsers } from '../interface/interface';
 import { AllCategory } from '../interface/interface';
 import { SubTask } from '../interface/interface';
-import { taskOne,taskTwo ,taskThree } from './dummy-data/dummy-tasks';
+import { ApiService } from './api.service';
+import { firstValueFrom } from 'rxjs';
+
+
+export interface TaskResponse {
+  tasks: Tasks 
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseService {
 
-  constructor() { }
+  constructor(private apiService: ApiService ) { }
 
   currentSelectedTask!:TaskPayload | null;
   currentSelectedTaskID!:string;
@@ -20,15 +26,9 @@ export class DatabaseService {
 
   tasksKeys?: string[];
   contactsKeys?: string[];
-  dummyTask = taskOne;
 
-  tasks: Tasks = { "AR0C91739701668516SP5TX": structuredClone(taskOne), 
-                    "BR0C91736701668516SP5XY": structuredClone(taskTwo), 
-                    "CR0C96736701668516SP6CY": structuredClone(taskThree),
-                    "DR0C91736701668516SP5XY": structuredClone(taskTwo), 
-                    "ER0C96736701668516SP6CY": structuredClone(taskThree),
-                    "FR0C96736701668516SP6CY": structuredClone(taskThree),
-  }
+
+  tasks: Tasks = {}
 
   contacts: AllUsers = {
     id001: { firstname: 'Max', secondname: 'Mustermann', inital: 'MM', color: '#ff5733', email: 'max.mustermann@example.com', phone: '+49 170 1234567' },
@@ -42,9 +42,18 @@ export class DatabaseService {
     id009: { firstname: 'Peter', secondname: 'Parker', inital: 'PP', color: '#8e44ad', email: 'peter.parker@example.com', phone: '+49 175 5566778' },
   };
 
+  async initDatabase(){
+   const respone = await firstValueFrom(this.apiService.get(this.apiService.tasksEndPoint)) as TaskResponse;
+   if(respone.tasks === null){
+    this.tasks = {}
+   } else {
+    this.tasks = respone.tasks
+   }
+  }
+
   getTasksKeys(): string[] {
     this.tasksKeys = Object.keys(this.tasks);
-    return this.tasksKeys;
+    return this.tasksKeys || [];
   }
 
   getAllTasks(){
@@ -85,11 +94,18 @@ export class DatabaseService {
     this.currentSelectedTaskID = taskID;
   }
 
-  overwriteCurrentSelectedTask(taskID:string, task:TaskPayload){
+  async saveTaskInAPI(){
+    const body = {"tasks" : structuredClone(this.tasks)}
+    console.log(body);
+    const response = await firstValueFrom( this.apiService.patch(this.apiService.tasksEndPoint, body));
+    console.log(response)
+  }
+
+ async overwriteCurrentSelectedTask(taskID:string, task:TaskPayload){
     this.setCurrentSelectedTaskBlank();
     this.currentSelectedTask = structuredClone(task);
     this.currentSelectedTaskID = taskID;
-    this.saveCurrentSelectedTaskToTask();
+    await this.saveCurrentSelectedTaskToTask();
   }
 
   setCurrentSelectedTaskBlank(){
@@ -97,7 +113,7 @@ export class DatabaseService {
     this.currentSelectedTaskID = '';
   }
 
-  saveCurrentSelectedTaskToTask(){
+  async saveCurrentSelectedTaskToTask(){
     if(!this.tasks[this.currentSelectedTaskID]){
       console.warn(`No task with ID:${this.currentSelectedTaskID} found! No Task saved`);
       return
@@ -105,14 +121,17 @@ export class DatabaseService {
     if (this.currentSelectedTask) {
       this.tasks[this.currentSelectedTaskID] = structuredClone(this.currentSelectedTask);
     }
+    await this.saveTaskInAPI();
   }
 
-  setNewTask(id:string, task:TaskPayload){
+  async setNewTask(id:string, task:TaskPayload){
     this.tasks[id] = structuredClone(task);
+    await this.saveTaskInAPI();
   }
 
-  deleteTaskById(id: string) {
+  async deleteTaskById(id: string) {
     delete this.tasks[id];
+    await this.saveTaskInAPI();
   }
 
   categories: AllCategory = {

@@ -103,10 +103,10 @@ export class EditTaskComponent {
   }
 
 
-  onSave(){
+ async onSave(){
     if( this.currentTask && this.currentID){
       this.getAllData();
-      this.database.overwriteCurrentSelectedTask(this.currentID, structuredClone(this.currentTask));
+      await this.database.overwriteCurrentSelectedTask(this.currentID, structuredClone(this.currentTask));
       this.lightBoxService.closeLightbox();
     }
   }

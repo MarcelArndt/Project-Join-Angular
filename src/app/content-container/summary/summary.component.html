@@ -5,6 +5,11 @@
         <hr class="blue_hr">
         <h3>Key Metrics at a Glance</h3>
     </div>
+    @if(isUpcomingTaskNextUrgentTime){
+    <span>ja ne ist eilig
+    </span>
+    }
+
 
     <div class="summary-content-wrapper">
 
@@ -15,7 +20,7 @@
                 <icon>edit</icon>
                 <div class="dflex">
                     <p>To-Do</p>
-                    <div class="value">{{summaryValues.numberOfToDo}}</div>
+                    <div class="value">{{toDoTask}}</div>
                 </div>
             </div>
 
@@ -24,7 +29,7 @@
                     <div class="dflex">
             
                     <p>Done</p>
-                    <div class="value">{{summaryValues.numberOfDone}}</div>
+                    <div class="value">{{DoneTask}}</div>
                 </div>
            </div>
         </div>
@@ -35,14 +40,21 @@
                 <div class="dflex">
             <div class="columns-container mobil-flex">
                 <div class="column">
-                    <div class="value">{{summaryValues.numberOfUrgentTasks}}</div>
+                    <div class="value">{{priorityTask}}</div>
                     <p>Task&nbsp;in Board</p>
                 </div>
                 <hr>
-                <div class="column">
-                    <p>September 30, 2025</p>
-                    <p>Upcoming Deadline</p>
-                </div>
+ 
+                    <div class="column box-padding" [class.blink]="isUpcomingTaskNextUrgentTime">
+                        @if(isUrgentTaskUpcoming){
+                            <p>{{stringOfDate}}</p>
+                            <p>Upcoming Deadline</p>
+                        } @else {
+                            <p>No Upcoming Deadline</p>
+                             <p>Good Job Team</p>
+                        }
+                    </div>
+  
             </div>
         </div>
         </div>
@@ -52,28 +64,28 @@
             <div class="card-container">
                 <div class="dflex">
                 <p>Task&nbsp;in<br>Board</p>
-                <div class="value">{{summaryValues.numberOfTaskInBoard}}</div>
+                <div class="value">{{amountOfTask}}</div>
             </div>
             </div>
 
             <div class="card-container">
                 <div class="dflex">
                 <p>Task&nbsp;in<br>Progress</p>
-                <div class="value">{{summaryValues.numberOfTaskInProgress}}</div>
+                <div class="value">{{inProgressTask}}</div>
             </div>
             </div>
 
             <div class="card-container">
                 <div class="dflex">
                 <p>Await<br>Feedback</p>
-                <div class="value">{{summaryValues.numberOfAwaitFeedback}}</div>
+                <div class="value">{{awaitFeedbackTask}}</div>
             </div>
             </div>
         </div>
     </div>
 
     <div class="panel-content-container">
-        <h2>{{currentTimeText}}</h2>
+        <h2>{{currentTime}}</h2>
     </div>
 
 </div>

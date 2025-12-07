@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TaskPayload, Tasks, TaskWithId } from '../../../interface/interface';
 import { BehaviorSubject } from 'rxjs';
+import { DatabaseService } from '../../../service/database.service';
 
 
 @Injectable({
@@ -8,17 +9,19 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SearchService {
 
-  constructor() { }
+  constructor(private databaseService: DatabaseService) { }
   dataBase!: TaskWithId[];
   results$ = new BehaviorSubject<TaskWithId[] | null>(null);
   results = this.results$.asObservable();
   isOnSearch:boolean=false;
 
-  initSearch(dataSet:Tasks){
-    this.dataBase = Object.entries(dataSet).map(([id, task]) => ({id,task}));
+  initSearch(){
+    const databse = this.databaseService.tasks
+    this.dataBase = Object.entries(databse).map(([id, task]) => ({id,task}));
   }
 
   search(text:string){
+    this.initSearch();
     this.results$.next(this.startSearching(text));
   }
 

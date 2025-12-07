@@ -30,7 +30,7 @@ export class SearchTaskComponentComponent {
 
   ngOnInit(){
     const dateBase = this.database.getAllTasks()
-    this.searchService.initSearch(dateBase)
+    this.searchService.initSearch()
     this.initSearch();
   }
 
@@ -39,6 +39,8 @@ export class SearchTaskComponentComponent {
   }
 
   startSearchOnKlick(){
+    const control = this.searchForm.get('search');
+    if(!control || !control.value || control.value.length < 3) return
     this.searchService.isOnSearch = true;
   }
 
@@ -57,6 +59,12 @@ export class SearchTaskComponentComponent {
         .subscribe(()=>{
             this.searchService.isOnSearch = true;
         });
+  }
+
+  ngOnDestroy(){
+    const control = this.searchForm.get('search');
+    if(!control) return;
+    control.setValue('');
   }
 
 
