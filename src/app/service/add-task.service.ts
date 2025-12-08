@@ -33,8 +33,6 @@ export class AddTaskService {
   ]
 
   firstTimeVisit: boolean = true;
-
-  allUser?: AllUsers;
   allCategory?: AllCategory;
   allKeys?: string[];
   allCategoryKeys?: string[];
@@ -63,7 +61,7 @@ export class AddTaskService {
   }
 
   allKeyOfCategoryAndAssignedTo() {
-    this.allKeys = Object.keys(this.allUser!);
+    this.allKeys = Object.keys(this.database.contacts);
     this.allCategoryKeys = Object.keys(this.allCategory!);
   }
 

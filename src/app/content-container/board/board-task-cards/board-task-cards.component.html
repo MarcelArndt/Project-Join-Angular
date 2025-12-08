@@ -40,7 +40,7 @@
     <div class="info-bar">
         <div *ngIf="task.assignedTo" class="assign-to-bar">
             <ng-container *ngFor="let user of task.assignedTo; index as i">
-                <div *ngIf="i < 5 && task.assignedTo.length > 0" class="profil-picture"
+                <div *ngIf="i < 5 && database.contacts[user] && task.assignedTo.length > 0" class="profil-picture"
                     [style.background-color]="this.database.contacts[user].color">
                     {{this.database.contacts[user].inital}}</div>
                 <div *ngIf="i == 6 && task.assignedTo.length > 6 && task.assignedTo.length > 0"

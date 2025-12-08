@@ -1,31 +1,71 @@
-<form>
+<form [formGroup]="signInForm">
     <h1 class="login-h1">Sign-up</h1>
     <hr>
 
     <div class="error-box">
 
+        <!-- email validation -->
+        @if(signInForm.get("email")?.hasError('required') && signInForm.get("email")?.touched){
+            <p>Email wird benötigt.</p>
+        } 
+        @else if(signInForm.get("email")?.hasError('minlength') && signInForm.get("email")?.touched){
+            <p>E-Mail brauch min. 6 Zeichen.</p>
+        }
+        @else if(signInForm.get("email")?.hasError('email') && signInForm.get("email")?.touched){
+            <p>die E-Mail ist nicht valide.</p>
+        }
+
+        <!-- name validation -->
+        @else if(signInForm.get("name")?.hasError('required') && signInForm.get("name")?.touched){
+            <p>Name wird benötigt.</p>
+        } 
+        @else if(signInForm.get("name")?.hasError('minlength') && signInForm.get("name")?.touched){
+            <p>Name brauch min. 3 Zeichen.</p>
+        }
+
+        <!-- password validation -->
+        @else if(signInForm.get("password")?.hasError('required') && signInForm.get("password")?.touched){
+            <p>Password wird benötigt.</p>
+        } 
+        @else if(signInForm.get("password")?.hasError('minlength') && signInForm.get("password")?.touched){
+            <p>Password brauch min. 6 Zeichen.</p>
+        }
+
+        <!-- repeatedPassword validation -->
+        @else if(signInForm.get("repeatedPassword")?.hasError('required') && signInForm.get("repeatedPassword")?.touched){
+            <p>Confirm password wird benötigt.</p>
+        } 
+        @else if(signInForm.errors?.['repeatPasswordMismatch'] && signInForm.get("repeatedPassword")?.touched){
+            <p>Password stimmt nicht überein.</p>
+        }
+
+        <!-- Checkbox validation -->
+        @else if(signInForm.get("checkbox")?.hasError('required') && signInForm.get("checkbox")?.touched){
+            <p>Datenschutz muss akzeotiert werden</p>
+        }
+
     </div>
 
-    <div class="button-backwards" [ngClass]="{'hiddeButton' : isInAnimation}" (click)="sliderservice.slideto(0)">
+    <div class="button-backwards" [ngClass]="{'hiddeButton' : isInAnimation}" (click)="sliderservice.slideto(0); resetForm()">
         <icon>keyboard_arrow_left</icon>
     </div>
 
-    <div class="input-frame">
-        <input required autocomplete="name" type="text" placeholder="name" minlength="3">
+    <div class="input-frame" [class.input-error]="signInForm.get('name')?.invalid && signInForm.get('name')?.touched">
+        <input required autocomplete="name" type="text" formControlName="name" placeholder="name" minlength="3">
         <div class="suffix-icon">
             <icon>person</icon>
         </div>
     </div>
 
-    <div class="input-frame">
-        <input required autocomplete="email" type="email" placeholder="name" minlength="3">
+    <div class="input-frame" [class.input-error]="signInForm.get('email')?.invalid && signInForm.get('email')?.touched">
+        <input required autocomplete="email" type="email" formControlName="email" placeholder="email" minlength="3">
         <div class="suffix-icon">
             <icon>mail</icon>
         </div>
     </div>
 
-    <div class="input-frame">
-        <input required autocomplete="new-password" [type]="isFieldPassword? 'text' : 'password' "
+    <div class="input-frame" [class.input-error]="signInForm.get('password')?.invalid && signInForm.get('password')?.touched">
+        <input required autocomplete="new-password" formControlName="password" [type]="isFieldPassword? 'text' : 'password' "
             placeholder="password" minlength="6">
         <div (click)="changeFieldType()" class="suffix-icon password">
             <icon>{{ isFieldPassword? 'visibility' : 'visibility_off'}}</icon>
@@ -33,8 +73,8 @@
     </div>
 
 
-    <div class="input-frame">
-        <input required autocomplete="new-password" [type]="isFieldPassword? 'text' : 'password' "
+    <div class="input-frame" [class.input-error]="signInForm.get('repeatedPassword')?.invalid && signInForm.get('repeatedPassword')?.touched">
+        <input required autocomplete="new-password" formControlName="repeatedPassword" [type]="isFieldPassword? 'text' : 'password' "
             placeholder="Confirm password" minlength="6">
         <div (click)="changeFieldType()" class="suffix-icon password">
             <icon>{{ isFieldPassword? 'visibility' : 'visibility_off'}}</icon>
@@ -42,14 +82,14 @@
     </div>
 
     <div class="flex-box">
-        <div class="checkbox-container">
+        <div class="checkbox-container" [class.input-error]="signInForm.get('checkbox')?.invalid && signInForm.get('checkbox')?.touched">
             <icon>{{isCheckBox? 'check_box' : 'check_box_outline_blank'}}</icon>
-            <input type="checkbox" [(ngModel)]="isCheckBox" name="checkPrivacyPolicy" checked="checked">
+            <input type="checkbox" formControlName="checkbox" name="checkPrivacyPolicy" checked="checked">
         </div>
         <p>I accept the Privacy policy</p>
     </div>
 
     <div class="button-container">
-        <button class="black-button">Sign-Up</button>
+        <button [disabled]="signInForm.invalid" class="black-button">Sign-Up</button>
     </div>
 </form>

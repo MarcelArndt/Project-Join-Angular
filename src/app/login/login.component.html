@@ -1,9 +1,11 @@
 <div class="main-content">
 
+
+
     <div class="content-wrapper">
         <div class="sign-up-bar">
             <p>Not a Join-User?</p>
-            <div class="black-button" (click)="sliderservice.slideto(1)">Sign-up</div>
+            <div class="black-button" (click)="sliderservice.slideto(1); loginForm.resetForm()">Sign-up</div>
         </div>
         <nav class="bottom-nav">
             <ul>
@@ -14,7 +16,7 @@
 
         <div class="whitebox">
             <app-content-slider>
-                <form-log-in class="box-element"></form-log-in>
+                <form-log-in #loginForm class="box-element"></form-log-in>
                 <form-sign-up class="box-element"></form-sign-up>
             </app-content-slider>
         </div>

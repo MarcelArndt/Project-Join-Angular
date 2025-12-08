@@ -56,3 +56,17 @@ form {
         width: auto  !important;
     }
 }
+
+.input-error{
+    border-color: red !important;  
+}
+
+.error-box{
+    width: 75%;
+    max-width: 325px;
+    height: 56px;
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    color: rgb(228, 48, 45);
+}

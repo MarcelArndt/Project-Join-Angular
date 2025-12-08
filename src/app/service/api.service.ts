@@ -9,6 +9,7 @@ export class ApiService {
     
     baseUrl:string = 'http://localhost:8000/api/';
     tasksEndPoint = 'tasks/'
+    ContactEndPoint = 'contacts/'
 
     get(endpoint: string) {
       return this.https.get(this.baseUrl + endpoint);

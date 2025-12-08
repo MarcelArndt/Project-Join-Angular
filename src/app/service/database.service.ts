@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
-import { TaskPayload, Tasks } from '../interface/interface';
+import { TaskPayload, Tasks, Contact } from '../interface/interface';
 import { AllUsers } from '../interface/interface';
 import { AllCategory } from '../interface/interface';
 import { SubTask } from '../interface/interface';
 import { ApiService } from './api.service';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, tap, switchMap } from 'rxjs';
+import { ContactFactoryService } from './contact-factory.service';
 
 
 export interface TaskResponse {
   tasks: Tasks 
+}
+
+export interface ContactsResponse {
+  contacts: AllUsers 
 }
 
 @Injectable({
@@ -16,7 +21,9 @@ export interface TaskResponse {
 })
 export class DatabaseService {
 
-  constructor(private apiService: ApiService ) { }
+  constructor(private apiService: ApiService, private contactFactory:ContactFactoryService) { }
+
+  amountForGenerateNewUsers:number = 25;
 
   currentSelectedTask!:TaskPayload | null;
   currentSelectedTaskID!:string;
@@ -27,29 +34,73 @@ export class DatabaseService {
   tasksKeys?: string[];
   contactsKeys?: string[];
 
-
   tasks: Tasks = {}
 
-  contacts: AllUsers = {
-    id001: { firstname: 'Max', secondname: 'Mustermann', inital: 'MM', color: '#ff5733', email: 'max.mustermann@example.com', phone: '+49 170 1234567' },
-    id002: { firstname: 'Erika', secondname: 'Muster', inital: 'EM', color: '#33ff57', email: 'erika.muster@example.com', phone: '+49 151 9876543' },
-    id003: { firstname: 'John', secondname: 'Doe', inital: 'JD', color: '#5733ff', email: 'john.doe@example.com', phone: '+49 160 4567890' },
-    id004: { firstname: 'Jane', secondname: 'Doe', inital: 'JD', color: '#f1c40f', email: 'jane.doe@example.com', phone: '+49 152 3456789' },
-    id005: { firstname: 'Lara', secondname: 'Croft', inital: 'LC', color: '#e74c3c', email: 'lara.croft@example.com', phone: '+49 163 1122334' },
-    id006: { firstname: 'Bruce', secondname: 'Wayne', inital: 'BW', color: '#34495e', email: 'bruce.wayne@example.com', phone: '+49 159 2233445' },
-    id007: { firstname: 'Tony', secondname: 'Stark', inital: 'TS', color: '#d35400', email: 'tony.stark@example.com', phone: '+49 157 3344556' },
-    id008: { firstname: 'Clark', secondname: 'Kent', inital: 'CK', color: '#2980b9', email: 'clark.kent@example.com', phone: '+49 176 4455667' },
-    id009: { firstname: 'Peter', secondname: 'Parker', inital: 'PP', color: '#8e44ad', email: 'peter.parker@example.com', phone: '+49 175 5566778' },
-  };
+  contacts: AllUsers = {};
+
+  ContactsArray!:Contact[]
 
   async initDatabase(){
-   const respone = await firstValueFrom(this.apiService.get(this.apiService.tasksEndPoint)) as TaskResponse;
+    await this.handleTaskAPI();
+    await this.handleContactAPI();
+    await this.handleContactFactoryAPI();
+  }
+
+ async handleContactFactoryAPI(){
+    if(Object.keys(this.contacts).length <= 5){
+       await this.generateNewUsers(this.amountForGenerateNewUsers)
+    }
+  }
+
+  async generateNewUsers(amount:number){
+    this.contactFactory.initNewContacts(amount)
+    this.contactFactory.currentContacts.pipe(
+
+      tap(contacts => {
+      this.ContactsArray = [...contacts];
+      this.contactsAdapterToJSON();
+    }),
+
+    switchMap(() => {
+      const body = { contacts: this.contacts };
+      return this.apiService.patch(
+        this.apiService.ContactEndPoint,
+        structuredClone(body)
+      );
+    })
+    )
+  
+    .subscribe((response)=>{
+        console.log(response);
+    });
+  }
+
+  contactsAdapterToJSON(){
+    this.contacts = {}
+    this.ContactsArray.forEach(contact => {
+      if(!contact.id) return
+      this.contacts[contact.id] = {...contact}
+    });
+  }
+
+  async handleTaskAPI(){
+    const respone = await firstValueFrom(this.apiService.get(this.apiService.tasksEndPoint)) as TaskResponse;
    if(respone.tasks === null){
     this.tasks = {}
    } else {
     this.tasks = respone.tasks
    }
   }
+
+    async handleContactAPI(){
+    const respone = await firstValueFrom(this.apiService.get(this.apiService.ContactEndPoint)) as ContactsResponse;
+   if(respone.contacts === null){
+    this.contacts = {}
+   } else {
+    this.contacts = respone.contacts
+   }
+  }
+
 
   getTasksKeys(): string[] {
     this.tasksKeys = Object.keys(this.tasks);
@@ -96,9 +147,7 @@ export class DatabaseService {
 
   async saveTaskInAPI(){
     const body = {"tasks" : structuredClone(this.tasks)}
-    console.log(body);
-    const response = await firstValueFrom( this.apiService.patch(this.apiService.tasksEndPoint, body));
-    console.log(response)
+    await firstValueFrom( this.apiService.patch(this.apiService.tasksEndPoint, body));
   }
 
  async overwriteCurrentSelectedTask(taskID:string, task:TaskPayload){

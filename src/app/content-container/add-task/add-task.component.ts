@@ -12,7 +12,6 @@ export class AddTaskComponent {
   constructor(public database: DatabaseService, public service: AddTaskService) { }
 
   ngOnInit() {
-    this.service.allUser = this.database.contacts;
     this.service.allCategory = this.database.categories;
   }
 

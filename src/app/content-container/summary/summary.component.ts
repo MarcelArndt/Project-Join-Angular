@@ -67,6 +67,7 @@ export class SummaryComponent {
   }
 
   get isUpcomingTaskNextUrgentTime(){
+    if(!this.isUrgentTaskUpcoming) return null
     const currentTimestamp = Date.now();
     const fiveDaysInMs = 5 * 24 * 60 * 60 * 1000;
     const taskTimestamp = this.urgentTime.timestamp

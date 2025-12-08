@@ -1,37 +1,47 @@
-<form>
+<form [formGroup]="loginForm"> 
 
     <h1 class="login-h1">Log-in</h1>
     <hr>
 
     <div class="error-box">
 
+        <!-- email validation -->
+        @if(loginForm.get("email")?.hasError('required') && loginForm.get("email")?.touched){
+            <p>Email wird benötigt.</p>
+        } 
+        @else if(loginForm.get("email")?.hasError('minlength') && loginForm.get("email")?.touched){
+            <p>E-Mail brauch min. 6 Zeichen.</p>
+        }
+        @else if(loginForm.get("email")?.hasError('email') && loginForm.get("email")?.touched){
+            <p>die E-Mail ist nicht valide.</p>
+        }
+
+        <!-- password validation -->
+        @else if(loginForm.get("password")?.hasError('required') && loginForm.get("password")?.touched){
+            <p>Password wird benötigt.</p>
+        } 
+        @else if(loginForm.get("password")?.hasError('minlength') && loginForm.get("password")?.touched){
+            <p>Password brauch min. 3 Zeichen.</p>
+        }
+
     </div>
 
-    <div class="input-frame">
-        <input required autocomplete="email" type="text" placeholder="name" minlength="3">
+    <div class="input-frame" [class.input-error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" >
+        <input autocomplete="email" type="text" placeholder="E-Mail" formControlName="email">
         <div class="suffix-icon">
             <icon>mail</icon>
         </div>
     </div>
 
-    <div class="input-frame">
-        <input required autocomplete="current-password" [type]="isFieldPassword? 'text' : 'password' "
-            placeholder="password" minlength="6">
+    <div class="input-frame" [class.input-error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        <input placeholder="Password" required autocomplete="current-password" [type]="isFieldPassword? 'text' : 'password'" formControlName="password">
         <div (click)="changeFieldType()" class="suffix-icon password">
             <icon>{{ isFieldPassword? 'visibility' : 'visibility_off'}}</icon>
         </div>
     </div>
 
-    <div class="flex-box">
-        <div class="checkbox-container">
-            <icon>{{isCheckBox? 'check_box' : 'check_box_outline_blank'}}</icon>
-            <input type="checkbox" [(ngModel)]="isCheckBox" name="rememberMe" checked="checked">
-        </div>
-        <p>Remember Me</p>
-    </div>
-
     <div class="button-container">
-        <button class="black-button">Log-in</button>
+        <button class="black-button" [disabled]="loginForm.invalid" >Log-in</button>
         <button class="white-button" (click)="guestLogIn()">Guest-Log-in</button>
     </div>
 

@@ -5,6 +5,7 @@ export interface Contact {
     color: string;
     email: string;
     phone: string;
+    id?:string
 }
 
 export interface AllUsers {

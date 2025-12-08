@@ -25,11 +25,10 @@ export class BoardComponent {
 
 
   ngOnInit(){
-    this.addTaskservice.allUser = this.database.getAllContacts();
   }
 
   openAddTaskInLightBox() {
-    this. lightboxService.openLightBox(AddTaskComponent);
+    this.lightboxService.openLightBox(AddTaskComponent);
   }
 
   openTaskOverViewInLightBox(id: string) {

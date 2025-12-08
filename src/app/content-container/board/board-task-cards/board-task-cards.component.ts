@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { DatabaseService } from '../../../service/database.service';
-import { TaskPayload, TaskWithId } from '../../../interface/interface';
+import { Contact, TaskPayload, TaskWithId } from '../../../interface/interface';
 import { CommonModule } from '@angular/common';
 import { IconComponent } from '../../../icon/icon.component';
 import { BurgermenuComponent } from '../../../burgermenu/burgermenu.component';
@@ -73,6 +73,10 @@ get lengthOfSubtaskBar(): string {
   const percentage = Math.floor((this.amountOfSubtaskAreDone / total) * 100);
   return `${percentage}%`;
 }
+
+  istCurrentSingleUserInDataBase(user:string){
+     return Object.keys(this.database.contacts).includes(user);
+  }
 
     getTaskPriority(task: TaskPayload | undefined) {
       if (!task) return null;
