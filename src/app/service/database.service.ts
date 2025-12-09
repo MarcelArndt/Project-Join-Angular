@@ -6,6 +6,7 @@ import { SubTask } from '../interface/interface';
 import { ApiService } from './api.service';
 import { firstValueFrom, tap, switchMap } from 'rxjs';
 import { ContactFactoryService } from './contact-factory.service';
+import { TaskFactoryService } from './task-factory.service';
 
 
 export interface TaskResponse {
@@ -21,9 +22,9 @@ export interface ContactsResponse {
 })
 export class DatabaseService {
 
-  constructor(private apiService: ApiService, private contactFactory:ContactFactoryService) { }
+  constructor(private apiService: ApiService, private contactFactory:ContactFactoryService, private taskFactory:TaskFactoryService) { }
 
-  amountForGenerateNewUsers:number = 25;
+  amountForGenerateNewUsers:number = 40;
 
   currentSelectedTask!:TaskPayload | null;
   currentSelectedTaskID!:string;
@@ -35,70 +36,91 @@ export class DatabaseService {
   contactsKeys?: string[];
 
   tasks: Tasks = {}
-
   contacts: AllUsers = {};
 
-  ContactsArray!:Contact[]
-
   async initDatabase(){
-    await this.handleTaskAPI();
     await this.handleContactAPI();
+    await this.handleTaskAPI();
     await this.handleContactFactoryAPI();
   }
 
- async handleContactFactoryAPI(){
+
+  // Zum reseten der Datenbank
+  async resetContacts(){
+    this.contacts = {}
+    const body = { contacts: this.contacts };
+    return await firstValueFrom(this.apiService.patch(this.apiService.ContactEndPoint,structuredClone(body)));
+  }
+
+  // checkt, ob weniger oder gleich 5 Contacts im System sind und löst einen reset der fake-Contact-Daten aus. 
+  async handleContactFactoryAPI(){
     if(Object.keys(this.contacts).length <= 5){
-       await this.generateNewUsers(this.amountForGenerateNewUsers)
+        await this.generateNewUsers(this.amountForGenerateNewUsers, "new")
     }
   }
 
-  async generateNewUsers(amount:number){
+  // Zum hinzufügen neuer Fake-Contacts ohne zu ersetzten.
+  async addNewUsers(amount:number){
+    await this.generateNewUsers(this.amountForGenerateNewUsers, 'add')
+  }
+
+  // zieht aus der Factory neue Fake-Contacts und setzt oder erweitert die aktuelle Liste. Die Datenbank wird gespeichert. 
+  async generateNewUsers(amount:number, modus:string){
     this.contactFactory.initNewContacts(amount)
     this.contactFactory.currentContacts.pipe(
 
-      tap(contacts => {
-      this.ContactsArray = [...contacts];
-      this.contactsAdapterToJSON();
+    tap(contacts => {
+      const contactsArray:Contact[] = [...contacts];
+      const contactsJSON = this.contactsAdapterToJSON(contactsArray);
+      this.contacts = modus == "new" ? this.contacts = {} : this.contacts = { ...this.contacts, ... contactsJSON}
     }),
 
     switchMap(() => {
       const body = { contacts: this.contacts };
-      return this.apiService.patch(
-        this.apiService.ContactEndPoint,
-        structuredClone(body)
-      );
-    })
-    )
-  
-    .subscribe((response)=>{
-        console.log(response);
-    });
+      return this.apiService.patch(this.apiService.ContactEndPoint,structuredClone(body));
+    }))
+
+    .subscribe((response)=>{});
   }
 
-  contactsAdapterToJSON(){
-    this.contacts = {}
-    this.ContactsArray.forEach(contact => {
+  // Formatiert die Array der Fake-Contacts in für das Sytsem relevante JSON-Format
+  contactsAdapterToJSON(contactsArray:Contact[]):AllUsers{
+    let contactsJSON:AllUsers = {}
+    contactsArray.forEach(contact => {
       if(!contact.id) return
-      this.contacts[contact.id] = {...contact}
+      contactsJSON[contact.id] = {...contact}
     });
+    return contactsJSON as AllUsers
   }
 
+  //checkt den Server nach Tasks - Bei null wird ein leeres JSON zurückgeben.
   async handleTaskAPI(){
     const respone = await firstValueFrom(this.apiService.get(this.apiService.tasksEndPoint)) as TaskResponse;
-   if(respone.tasks === null){
-    this.tasks = {}
-   } else {
-    this.tasks = respone.tasks
-   }
+    if(respone.tasks === null){
+      this.tasks = {}
+    } else {
+      this.tasks = respone.tasks
+    }
+    if(Object.keys(this.tasks).length <= 3){
+      await this.generatesomeTask(5);
+    }
   }
 
-    async handleContactAPI(){
+  //checkt den Server nach Contacts - Bei null wird ein leeres JSON zurückgeben.
+  async handleContactAPI(){
     const respone = await firstValueFrom(this.apiService.get(this.apiService.ContactEndPoint)) as ContactsResponse;
-   if(respone.contacts === null){
-    this.contacts = {}
-   } else {
-    this.contacts = respone.contacts
-   }
+    if(respone.contacts === null){
+      this.contacts = {}
+    } else {
+      this.contacts = respone.contacts
+    }
+  }
+
+  async generatesomeTask(amount:number = 1){
+    this.taskFactory.injectUsersToTaskFactory(this.contacts);
+    const newTasks = this.taskFactory.generateTasks(amount)
+    this.tasks = {...this.tasks , ...newTasks}
+    await this.saveTaskInAPI()
   }
 
 
@@ -183,7 +205,7 @@ export class DatabaseService {
     await this.saveTaskInAPI();
   }
 
-  categories: AllCategory = {
+categories: AllCategory = {
     technicalTask: { name: 'Technical Task', color: '#1DD5BA' },
     userStory: { name: 'User Story', color: '#3F65F0' },
     bug: { name: 'Bug', color: '#CB1942' },

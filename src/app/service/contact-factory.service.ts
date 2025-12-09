@@ -32,7 +32,7 @@ export class ContactFactoryService {
           return response.results.map((dataset: any) => this.generateContact(dataset));
         }),
         catchError(error => {
-          console.error('no Connection to URL', error);
+          console.error(error);
           return of(null);
         })
       ).subscribe(contacts => {
@@ -44,7 +44,7 @@ export class ContactFactoryService {
     let newContact: Contact = {} as Contact;
     newContact['firstname'] = dataset.name.first,
     newContact['secondname'] = dataset.name.last,
-    newContact['color'] = `hsla(${this.getRandomNumber(255)}, 89%, 59%, 1.00)`
+    newContact['color'] = `hsla(${this.getRandomNumber(255)}, 90%, 60%, 1.00)`
     newContact['inital'] = `${newContact.firstname[0]}${newContact.secondname[0]}`
     newContact['email'] = dataset.email
     newContact['phone'] = dataset.phone
